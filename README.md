@@ -34,6 +34,7 @@ convoy = Convoy({ "api_key": 'your_api_key', "uri": 'self-hosted-instance' })
 
 ```python
 content, status = convoy.group.all({ "perPage": 10, "page": 1 })
+```
 
 ## Testing
 
