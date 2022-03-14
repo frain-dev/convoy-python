@@ -1,4 +1,4 @@
-from client import Client
+from convoy.client import Client
 
 class Application():
     """Initializes an Application object to make calls to the /application endpoint.

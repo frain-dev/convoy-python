@@ -1,7 +1,7 @@
-from api import application, delivery_attempts, endpoint, event, event_delivery, group
+from convoy.api import application, delivery_attempts, endpoint, event, event_delivery, group
 
 class Convoy():
-    """Initializes a Convoy Object.
+    """Initializes the main Convoy Object.
        
     Parameters
     ----------

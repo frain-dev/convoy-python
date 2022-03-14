@@ -1,6 +1,6 @@
 import requests
 import json
-from utils.helpers import responseHelper
+from convoy.utils import responseHelper
 from base64 import b64encode
 
 class Client():
@@ -21,28 +21,28 @@ class Client():
 
     def httpGet(self, path, query):
         try:
-            response = requests.get(self.buildPath(path, query), headers=self.headers)
+            response = requests.get(self.buildPath(path), headers=self.headers, params=query)
             return response.json(), response.status_code
         except BaseException as e:
             return responseHelper(e) 
 
     def httpPost(self, path, query, data):
         try:
-            response = requests.post(self.buildPath(path, query), data=json.dumps(data), headers=self.headers)
+            response = requests.post(self.buildPath(path), data=json.dumps(data), headers=self.headers, params=query)
             return response.json(), response.status_code
         except BaseException as e:
             return responseHelper(e) 
 
     def httpPut(self, path, query, data):
         try:
-            response = requests.put(self.buildPath(path, query), data=json.dumps(data), headers=self.headers)
+            response = requests.put(self.buildPath(path), data=json.dumps(data), headers=self.headers, params=query)
             return response.json(), response.status_code
         except BaseException as e:
             return responseHelper(e) 
 
     def httpDelete(self, path, query, data):
         try:
-            response = requests.delete(self.buildPath(path, query), data=json.dumps(data), headers=self.headers)
+            response = requests.delete(self.buildPath(path), data=json.dumps(data), headers=self.headers, params=query)
             return response.json(), response.status_code
         except BaseException as e:
             return responseHelper(e) 
@@ -56,11 +56,5 @@ class Client():
 
         return "Basic %s" % b64encode(("%s:%s" % (self.username, self.password)).encode('utf-8')).decode('utf-8')
 
-    def buildPath(self, path, query):
-        if self.hasQueryParameters(query):
-            path = "%s%s?%s" % (self.baseUri, path, query)
-            return path
+    def buildPath(self, path):
         return "%s%s" % (self.baseUri, path)
-
-    def hasQueryParameters(self, query):
-        return len(query) > 0

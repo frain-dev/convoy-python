@@ -1,4 +1,4 @@
-from client import Client
+from convoy.client import Client
 
 class Endpoint():
     """Initializes an Endpoint object to make calls to the /endpoints endpoint.

@@ -1,4 +1,4 @@
-from client import Client
+from convoy.client import Client
 
 class Group():
     """Initializes a Groups object to make calls to the /groups endpoint.

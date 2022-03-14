@@ -1,4 +1,4 @@
-from client import Client
+from convoy.client import Client
 
 class EventDelivery():
     """Initializes an EventDelivery object to make calls to the /eventdeliveries endpoint.

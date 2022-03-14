@@ -1,4 +1,4 @@
-from client import Client
+from convoy.client import Client
 
 class Event():
     """Initializes an Event object to make calls to the /event endpoint.
