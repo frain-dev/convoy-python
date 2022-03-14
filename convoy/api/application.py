@@ -24,8 +24,7 @@ class Application():
         ----------
         data = {
                 "name": "",
-                "support_email": "",
-                "secret": ""
+                "support_email": ""
                 }
         '''
         response = self.client.httpPost("/applications", query, data)
@@ -45,8 +44,7 @@ class Application():
         ---------- 
         data = {
                 "name": "",
-                "support_email": "",
-                "secret": ""
+                "support_email": ""
                 }
         '''
         response = self.client.httpPut("/applications/%s" % id, query, data)
