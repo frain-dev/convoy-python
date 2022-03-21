@@ -16,10 +16,15 @@ def responseHelper(e):
     else:
         raise Exception(e)
 
-def verifySignature(algorithm, hash, payload, secret):
+def verifySignature(algorithm, hmac, payload, secret):
+    '''
+    algorithm: hash algorithm e.g SHA256
+    hmac: the signed payload 
+    payload: the unsigned payload
+    secret: secret that was used for hashing
+    '''
     dec = hashString(algorithm, payload, secret)
     return dec == hash
-
 
 def hashString(algorithm, msg, secret):
     alg = getHashFunction(str.lower(algorithm)) 
