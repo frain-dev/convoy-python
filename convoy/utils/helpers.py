@@ -1,11 +1,50 @@
+from logging import exception
 import requests
+import hmac
+import hashlib
+import base64
 
 def responseHelper(e):
     if e == requests.exceptions.HTTPError:
-        print ("Http Error:", e)
+        raise Exception("Http Error: %s" % e)
     if e == requests.exceptions.ConnectionError:
-        print ("Error Connecting:", e)
+        raise Exception("Error Connecting: %s" % e)
     if e == requests.exceptions.Timeout:
-        print ("Timeout Error:", e)
+        raise Exception("Timeout Error: %s" % e)
     if e == requests.exceptions.RequestException:
-        print(e)
+        raise Exception(e)
+    else:
+        raise Exception(e)
+
+def verifySignature(algorithm, hash, payload, secret):
+    dec = hashString(algorithm, payload, secret)
+    return dec == hash
+
+
+def hashString(algorithm, msg, secret):
+    alg = getHashFunction(str.lower(algorithm)) 
+    dig = hmac.new(bytes(secret, 'utf-8'), msg=bytes(msg, 'utf-8'), digestmod=alg).digest()
+    dec = base64.b64encode(dig).decode()
+    return dec
+
+def getHashFunction(hash):
+    if str.lower(hash) == 'sha256':
+        return hashlib.sha256
+    if str.lower(hash) == 'md5':
+        return hashlib.md5
+    if str.lower(hash) == 'sha384':
+        return hashlib.sha384
+    if str.lower(hash) == 'sha224':
+        return hashlib.sha224
+    if str.lower(hash) == 'sha512':
+        return hashlib.sha512
+    if str.lower(hash) == 'sha1':
+        return hashlib.sha1
+    if str.lower(hash) == 'sha3_256':
+        return hashlib.sha3_256
+    if str.lower(hash) == 'sha3_224':
+        return hashlib.sha3_224 
+    if str.lower(hash) == 'sha3_512':
+        return hashlib.sha3_512 
+    else:
+        raise Exception("algorithm not available.")
