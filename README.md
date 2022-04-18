@@ -93,7 +93,7 @@ pytest ./test/test.py
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](CONTRIBUTING.MD) for details.
 
 
 ## Credits
