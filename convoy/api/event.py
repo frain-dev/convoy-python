@@ -11,11 +11,11 @@ class Event():
         self.client = Client(config)
 
     def all(self, query):
-        response = self.client.httpGet("/events", query)
+        response = self.client.http_get("/events", query)
         return response
 
     def create(self, query, data):
-        '''
+        """
         Create a new event.
         Parameters
         ----------
@@ -27,11 +27,11 @@ class Event():
                         "data": {},
                     }
                 }
-        '''
-        response = self.client.httpPost("/events", query, data)
+        """
+        response = self.client.http_post("/events", query, data)
         return response
 
     def find(self, id, query):
-        response = self.client.httpGet("/events/%s" % id, query)
+        response = self.client.http_get("/events/%s" % id, query)
         return response
 

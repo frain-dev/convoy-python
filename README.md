@@ -45,7 +45,7 @@ An application represents a user's application trying to receive webhooks. Once 
 ```python
 appData = { "name": "my_app", "support_email": "support@myapp.com" }
 (response, status)  = convoy.applications.create({}, appData)
-appId = response["data"]["uid"]
+app_id = response["data"]["uid"]
 
 ```
 
@@ -61,7 +61,7 @@ endpointData = {
     "events": ["*"],
   }
 
-(response, status) = convoy.endpoint.create(appId, {}, endpointData)
+(response, status) = convoy.endpoint.create(app_id, {}, endpointData)
 ```
 
 ### Sending an Event
@@ -70,7 +70,7 @@ To send an event, you'll need the `uid` we created in the earlier section.
 
 ```python
 eventData = {
-    "app_id": appId,
+    "app_id": app_id,
     "event_type": "payment.success",
     "data": {
       "event": "payment.success",

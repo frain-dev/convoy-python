@@ -1,6 +1,6 @@
-'''
+"""
 You can use these dict objects to create your own data.
-'''
+"""
 
 Config = {
         #Username used for basic authentication
