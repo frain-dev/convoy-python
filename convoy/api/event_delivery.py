@@ -11,35 +11,35 @@ class EventDelivery():
         self.client = Client(config)
 
     def all(self, query):
-        '''
+        """
         Get all eventdeliveries.
-        '''
-        response = self.client.httpGet("/eventdeliveries", query)
+        """
+        response = self.client.http_get("/eventdeliveries", query)
         return response
 
     def find(self, id, query):
-        '''
+        """
         Find a particular eventdelivery.    
-        '''
-        response = self.client.httpGet("/eventdeliveries/%s" % id, query)
+        """
+        response = self.client.http_get("/eventdeliveries/%s" % id, query)
         return response
 
     def resend(self, id, query):
-        '''
+        """
         Resend an eventdelivery.    
-        '''
-        response = self.client.httpPut("/eventdeliveries/%s/resend" % id, query, {})
+        """
+        response = self.client.http_put("/eventdeliveries/%s/resend" % id, query, {})
         return response
 
     def batchresend(self, id, query, data):
-        '''
+        """
         Batch resend eventdeliveries.
         Parameters
         ----------
         data = {
                 ids: []
                 }
-        '''
-        response = self.client.httpPut("/eventdeliveries/batchretry" % id, query, data)
+        """
+        response = self.client.http_put("/eventdeliveries/batchretry" % id, query, data)
         return response
 

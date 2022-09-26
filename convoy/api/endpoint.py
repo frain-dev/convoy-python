@@ -10,15 +10,15 @@ class Endpoint():
     def __init__(self, config):
         self.client = Client(config)
 
-    def all(self, appId, query):
-        '''
+    def all(self, app_id, query):
+        """
         Get all endpoints for an application.
-        '''
-        response = self.client.httpGet("/applications/%s/endpoints" % appId, query)
+        """
+        response = self.client.http_get("/applications/%s/endpoints" % app_id, query)
         return response
 
-    def create(self, appId, query, data):
-        '''
+    def create(self, app_id, query, data):
+        """
         Create a new endpoint.
         Parameters
         ----------
@@ -28,19 +28,19 @@ class Endpoint():
                 "secret": "",
                 "events": [],
                 }
-        '''
-        response = self.client.httpPost("/applications/%s/endpoints" % appId, query, data)
+        """
+        response = self.client.http_post("/applications/%s/endpoints" % app_id, query, data)
         return response
 
-    def find(self, appId, endpointId, query):
-        '''
+    def find(self, app_id, endpoint_id, query):
+        """
         Find a particular application.
-        '''
-        response = self.client.httpGet("/applications/%s/endpoints/%s" % (appId, endpointId), query)
+        """
+        response = self.client.http_get("/applications/%s/endpoints/%s" % (app_id, endpoint_id), query)
         return response
 
-    def update(self, appId, endpointId, query, data):
-        '''
+    def update(self, app_id, endpoint_id, query, data):
+        """
         Update an application.
         Parameters
         ---------- 
@@ -50,14 +50,14 @@ class Endpoint():
                 "secret": "",
                 "events": [],
                 }
-        '''
-        response = self.client.httpPut("/applications/%s/endpoints/%s" % (appId, endpointId), query, data)
+        """
+        response = self.client.http_put("/applications/%s/endpoints/%s" % (app_id, endpoint_id), query, data)
         return response
 
-    def delete(self, appId, endpointId, query, data):
-        '''
+    def delete(self, app_id, endpoint_id, query, data):
+        """
         Delete an application.
-        '''
-        response = self.client.httpDelete("/applications/%s/endpoints/%s" % (appId, endpointId), query, data)
+        """
+        response = self.client.http_delete("/applications/%s/endpoints/%s" % (app_id, endpoint_id), query, data)
         return response
 

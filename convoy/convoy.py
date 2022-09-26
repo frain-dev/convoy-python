@@ -20,8 +20,8 @@ class Convoy():
     """
     def __init__(self, config):
         self.applications = application.Application(config)
-        self.deliveryAttempts = delivery_attempts.DeliveryAttempt(config)
+        self.delivery_attempts = delivery_attempts.DeliveryAttempt(config)
         self.endpoint = endpoint.Endpoint(config)
-        self.eventDelivery = event_delivery.EventDelivery(config)
+        self.event_delivery = event_delivery.EventDelivery(config)
         self.event = event.Event(config)
         self.group = group.Group(config)

@@ -11,14 +11,14 @@ class Group():
         self.client = Client(config)
 
     def all(self, query):
-        '''
+        """
         Get all groups.
-        '''
-        response = self.client.httpGet("/groups", query)
+        """
+        response = self.client.http_get("/groups", query)
         return response
 
     def create(self, query, data):
-        '''
+        """
         Create a new group.
         Parameters
         ----------
@@ -40,19 +40,19 @@ class Group():
                         },
                     },
                 }
-        '''
-        response = self.client.httpPost("/groups", query, data)
+        """
+        response = self.client.http_post("/groups", query, data)
         return response
 
     def find(self, id, query):
-        '''
+        """
         Find a particular group.    
-        '''
-        response = self.client.httpGet("/groups/%s" % id, query)
+        """
+        response = self.client.http_get("/groups/%s" % id, query)
         return response
 
     def update(self, id, query, data):
-        '''
+        """
         Update a group.
         Parameters
         ---------- 
@@ -74,14 +74,14 @@ class Group():
                         },
                     },
                 }
-        '''
-        response = self.client.httpPut("/groups/%s" % id, query, data)
+        """
+        response = self.client.http_put("/groups/%s" % id, query, data)
         return response
 
     def delete(self, id, query, data):
-        '''
+        """
         Delete a group.
-        '''
-        response = self.client.httpDelete("/groups/%s" % id, query, data)
+        """
+        response = self.client.http_delete("/groups/%s" % id, query, data)
         return response
 
