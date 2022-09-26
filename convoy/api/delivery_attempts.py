@@ -11,10 +11,10 @@ class DeliveryAttempt():
         self.client = Client(config)
 
     def all(self, event_delivery_id, query):
-        response = self.client.http_get("/eventdeliveries/%s/delivery_attempts" %  event_delivery_id, query)
+        response = self.client.http_get("/eventdeliveries/%s/deliveryattempts" %  event_delivery_id, query)
         return response
 
     def find(self, event_delivery_id, delivery_attempt_id, query):
-        response = self.client.http_get("/eventdeliveries/%s/delivery_attempts/%s" %  (event_delivery_id, delivery_attempt_id), query)
+        response = self.client.http_get("/eventdeliveries/%s/deliveryattempts/%s" %  (event_delivery_id, delivery_attempt_id), query)
         return response
 
