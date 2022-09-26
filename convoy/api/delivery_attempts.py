@@ -1,7 +1,7 @@
 from convoy.client import Client
 
 class DeliveryAttempt():
-    """Initializes a DeliveryAttempt object to make calls to the /delivery_attempts endpoint.
+    """Initializes a DeliveryAttempt object to make calls to the /deliveryattempts endpoint.
        
     Parameters
     ----------
