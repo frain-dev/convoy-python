@@ -1,4 +1,5 @@
-from convoy.api import application, delivery_attempts, endpoint, event, event_delivery, group
+from re import sub
+from convoy.api import application, delivery_attempts, endpoint, event, event_delivery, group, source, subscription
 
 class Convoy():
     """Initializes the main Convoy Object.
@@ -25,3 +26,5 @@ class Convoy():
         self.event_delivery = event_delivery.EventDelivery(config)
         self.event = event.Event(config)
         self.group = group.Group(config)
+        self.source = source.Source(config)
+        self.subscription = subscription.Subscription(config)
