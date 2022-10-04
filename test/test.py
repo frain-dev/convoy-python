@@ -10,7 +10,7 @@ cnv = Convoy(Config)
 def test_application():
     NewApplication["name"] = "pythonsdktestapp"
     NewApplication["support_email"] = "testsdk@frain.dev"
-    _, status = cnv.applications.create({"groupID":"449f4d86-e70b-40eb-a733-dadd89d8d3b6"}, NewApplication)
+    _, status = cnv.application.create({"groupID":"449f4d86-e70b-40eb-a733-dadd89d8d3b6"}, NewApplication)
     assert(status == 201)
     # response = cnv.applications.all("groupID=449f4d86-e70b-40eb-a733-dadd89d8d3b6")
     # response = cnv.applications.find("fb05c3c7-2d9c-4e07-95b4-e859c1415385", "groupID=449f4d86-e70b-40eb-a733-dadd89d8d3b6")
@@ -95,6 +95,6 @@ def test_group():
 
 #DeliveryAttempts
 def test_deliverattempts():
-    content, status = cnv.deliveryAttempts.all("6bb26fe3-a3d8-4ea8-aa7c-55bd61caa8be", {"groupID":"449f4d86-e70b-40eb-a733-dadd89d8d3b6"})
+    content, status = cnv.delivery_attempt.all("6bb26fe3-a3d8-4ea8-aa7c-55bd61caa8be", {"groupID":"449f4d86-e70b-40eb-a733-dadd89d8d3b6"})
     assert(status == 404)
     # response  = cnv.deliveryAttempts.find("dfa306bd-ef49-4528-8175-a363e01c4623", "1d1e3b81-3a33-472b-9380-a8c8afa06252", {})

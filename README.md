@@ -44,7 +44,7 @@ An application represents a user's application trying to receive webhooks. Once 
 
 ```python
 appData = { "name": "my_app", "support_email": "support@myapp.com" }
-(response, status)  = convoy.applications.create({}, appData)
+(response, status)  = convoy.application.create({}, appData)
 app_id = response["data"]["uid"]
 
 ```

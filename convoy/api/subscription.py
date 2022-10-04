@@ -46,7 +46,7 @@ class Subscription():
             }
         """
 
-        response = self.client.http_get("/subscriptions", query, data)
+        response = self.client.http_post("/subscriptions", query, data)
         return response
 
     def find(self, subscription_id, query):
