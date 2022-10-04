@@ -20,11 +20,11 @@ class Convoy():
     }
     """
     def __init__(self, config):
-        self.applications = application.Application(config)
-        self.delivery_attempts = delivery_attempts.DeliveryAttempt(config)
+        self.application = application.Application(config)
+        self.delivery_attempt = delivery_attempts.DeliveryAttempt(config)
         self.endpoint = endpoint.Endpoint(config)
         self.event_delivery = event_delivery.EventDelivery(config)
         self.event = event.Event(config)
         self.group = group.Group(config)
-        self.sources = source.Source(config)
-        self.subscriptions = subscription.Subscription(config)
+        self.source = source.Source(config)
+        self.subscription = subscription.Subscription(config)
