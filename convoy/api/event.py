@@ -20,7 +20,7 @@ class Event():
         Parameters
         ----------
         data = {
-                app_id: "",
+                endpoint_id: "",
                 event_type: "",
                 data: {
                         "event": "",

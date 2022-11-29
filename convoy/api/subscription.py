@@ -31,7 +31,6 @@ class Subscription():
                 "count": 0,
                 "threshold": ""
             },
-            "app_id": "",
             "endpoint_id": "",
             "filter_config": {
                 "event_types": []
@@ -68,7 +67,6 @@ class Subscription():
                 "count": 0,
                 "threshold": ""
             },
-            "app_id": "",
             "endpoint_id": "",
             "filter_config": {
                 "event_types": []

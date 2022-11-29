@@ -16,18 +16,14 @@ Next, import the `convoy` module and setup with your auth credentials.
 
 ```python
 from convoy import Convoy
-convoy = Convoy({"api_key":"your_api_key"})
+convoy = Convoy({"api_key":"your_api_key", "project_id": "your_project_id"})
 ```
 The SDK also supports authenticating via Basic Auth by defining your username and password.
 
-```python
-convoy = Convoy({"username":"default", "password":"default"})
-```
-
-In the event you're using a self hosted convoy instance, you can define the url as part of what is passed into convoy's constructor.
+In the event you're using a self-hosted convoy instance, you can define the `uri` as part of what is passed into the convoy's constructor.
 
 ```python
-convoy = Convoy({ "api_key": 'your_api_key', "uri": 'self-hosted-instance' })
+convoy = Convoy({ "api_key": 'your_api_key', "uri": 'self-hosted-instance', "project_id": "your_project_id"})
 ```
 
 ## Usage
@@ -38,20 +34,9 @@ convoy = Convoy({ "api_key": 'your_api_key', "uri": 'self-hosted-instance' })
 (response, status) = convoy.group.all({ "perPage": 10, "page": 1 })
 ```
 
-### Creating an Application
+### Create an Endpoint
 
-An application represents a user's application trying to receive webhooks. Once you create an application, you'll receive a `uid` that you should save and supply in subsequent API calls to perform other requests such as creating an event.
-
-```python
-appData = { "name": "my_app", "support_email": "support@myapp.com" }
-(response, status)  = convoy.application.create({}, appData)
-app_id = response["data"]["uid"]
-
-```
-
-### Add Application Endpoint
-
-After creating an application, you'll need to add an endpoint to the application you just created. An endpoint represents a target URL to receive events.
+An endpoint represents a target URL to receive events.
 
 ```python
 endpointData = {
@@ -61,7 +46,8 @@ endpointData = {
     "events": ["*"],
   }
 
-(response, status) = convoy.endpoint.create(app_id, {}, endpointData)
+(response, status) = convoy.endpoint.create({}, endpointData)
+endpoint_id = response["data"]["uid"]
 ```
 
 ### Sending an Event
@@ -70,7 +56,7 @@ To send an event, you'll need the `uid` we created in the earlier section.
 
 ```python
 eventData = {
-    "app_id": app_id,
+    "endpoint_id": endpoint_id,
     "event_type": "payment.success",
     "data": {
       "event": "payment.success",

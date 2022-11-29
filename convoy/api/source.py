@@ -13,7 +13,7 @@ class Source():
 
     def all(self, query):
         """
-        Get all sources for an application.
+        Get all sources for a project.
         """
 
         response = self.client.http_get("/sources", query)

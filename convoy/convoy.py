@@ -1,5 +1,6 @@
 from re import sub
-from convoy.api import application, delivery_attempts, endpoint, event, event_delivery, group, source, subscription
+from convoy.api import delivery_attempts, endpoint, event, event_delivery, group, source, subscription
+from convoy.utils import webhook
 
 class Convoy():
     """Initializes the main Convoy Object.
@@ -20,7 +21,6 @@ class Convoy():
     }
     """
     def __init__(self, config):
-        self.application = application.Application(config)
         self.delivery_attempt = delivery_attempts.DeliveryAttempt(config)
         self.endpoint = endpoint.Endpoint(config)
         self.event_delivery = event_delivery.EventDelivery(config)
@@ -28,3 +28,4 @@ class Convoy():
         self.group = group.Group(config)
         self.source = source.Source(config)
         self.subscription = subscription.Subscription(config)
+        self.webhook = webhook.Webhook()
