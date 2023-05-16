@@ -6,18 +6,6 @@ Config["api_key"] = "your-api-key"
 
 cnv = Convoy(Config)
 
-#Application
-def test_application():
-    NewApplication["name"] = "pythonsdktestapp"
-    NewApplication["support_email"] = "testsdk@frain.dev"
-    _, status = cnv.application.create({"groupID":"449f4d86-e70b-40eb-a733-dadd89d8d3b6"}, NewApplication)
-    assert(status == 201)
-    # response = cnv.applications.all("groupID=449f4d86-e70b-40eb-a733-dadd89d8d3b6")
-    # response = cnv.applications.find("fb05c3c7-2d9c-4e07-95b4-e859c1415385", "groupID=449f4d86-e70b-40eb-a733-dadd89d8d3b6")
-    # UpdateApplication = NewApplication
-    # UpdateApplication["name"] = "sdktest_app"
-    # response = cnv.applications.update("9a3cc2b9-ce09-4dbd-9ea9-594def3dd347", "groupID=449f4d86-e70b-40eb-a733-dadd89d8d3b6", UpdateApplication)
-
 #Endpoint
 def test_endpoint():
     NewEndpoint["url"] = "http://ed0b-102-219-153-85.ngrok.io"

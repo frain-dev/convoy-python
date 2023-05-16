@@ -15,7 +15,7 @@ README = (HERE / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="convoy-python",
-    version="0.1.0",
+    version="0.2.0",
     description="Python SDK for Convoy",
     url="https://github.com/frain-dev/convoy-python",
     long_description=README,

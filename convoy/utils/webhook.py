@@ -22,7 +22,7 @@ class InvalidSignature(Exception):
     
 
 class Webhook:
-    def __init__(self, secret: str, encoding: str = "hex", tolerance: int = 300, hash: str = "sha256") -> None:
+    def __init__(self, secret: str = "", encoding: str = "hex", tolerance: int = 300, hash: str = "sha256") -> None:
         self.secret = secret
         self.encoding = encoding
         self.tolerance = tolerance

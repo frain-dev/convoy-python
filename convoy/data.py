@@ -13,15 +13,8 @@ Config = {
         "uri": ""
     }
 
-NewApplication = {
-                "name": "",
-                "support_email": "",
-                "secret": ""
-                }
-
-
 NewEvent = {
-            "app_id": "",
+            "endpoint_id": "",
             "event_type": "",
             "data": {
                     "event": "",
