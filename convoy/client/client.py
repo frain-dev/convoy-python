@@ -24,37 +24,29 @@ class Client():
         if config.uri == "":
             self.base_uri = f"https://dashboard.getconvoy.io/api/v1/projects/{config.project_id}"
         else:
-            self.base_uri = config.uri
+            self.base_uri = f"{config.uri}/api/v1/projects/{config.project_id}"
 
         self.headers = {"Authorization": self.get_authorization(), "Content-Type": "application/json; charset=utf-8"}
 
-    def http_get(self, path, query):
+    def _http_request(self, verb, path, query, data=None):
         try:
-            response = requests.get(self.build_path(path), headers=self.headers, params=query)
+            method = getattr(requests, verb)
+            response = method(self.build_path(path), headers=self.headers, params=query, data=data)
             return response.json(), response.status_code
         except BaseException as e:
-            return response_helper(e) 
+            response_helper(e)
+
+    def http_get(self, path, query):
+        return self._http_request('get', path, query)
 
     def http_post(self, path, query, data):
-        try:
-            response = requests.post(self.build_path(path), data=json.dumps(data), headers=self.headers, params=query)
-            return response.json(), response.status_code
-        except BaseException as e:
-            return response_helper(e) 
+        return self._http_request('post', path, query, json.dumps(data))
 
     def http_put(self, path, query, data):
-        try:
-            response = requests.put(self.build_path(path), data=json.dumps(data), headers=self.headers, params=query)
-            return response.json(), response.status_code
-        except BaseException as e:
-            return response_helper(e) 
+        return self._http_request('put', path, query, json.dumps(data))
 
     def http_delete(self, path, query, data):
-        try:
-            response = requests.delete(self.build_path(path), data=json.dumps(data), headers=self.headers, params=query)
-            return response.json(), response.status_code
-        except BaseException as e:
-            return response_helper(e) 
+        return self._http_request('delete', path, query, json.dumps(data))
 
     def get_base_url(self):
         return self.base_uri

@@ -20,10 +20,10 @@ convoy = Convoy({"api_key":"your_api_key", "project_id": "your_project_id"})
 ```
 The SDK also supports authenticating via Basic Auth by defining your username and password.
 
-In the event you're using a self-hosted convoy instance, you can define the `uri` as part of what is passed into the convoy's constructor.
+In the event you're using a self-hosted convoy instance, `uri` should contain the `hostname:port` combination (see example below).
 
 ```python
-convoy = Convoy({ "api_key": 'your_api_key', "uri": 'self-hosted-instance', "project_id": "your_project_id"})
+convoy = Convoy({ "api_key": 'your_api_key', "uri": 'http://localhost:5005', "project_id": "your_project_id"})
 ```
 
 ## Usage
