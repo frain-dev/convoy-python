@@ -1,7 +1,7 @@
 # convoy-python
 Convoy SDK for Python
 
-This is the Convoy Python SDK. This SDK contains methods for easily interacting with Convoy's API. Below are examples to get you started. For additional examples, please see our official documentation at (https://convoy.readme.io/reference)
+This is the Convoy Python SDK. This SDK contains methods for easily interacting with Convoy's API. Below are examples to get you started. See our [API Reference](https://docs.getconvoy.io/api-reference/welcome) for more.
 
 
 ## Installation
