@@ -2,6 +2,7 @@ import base64
 from datetime import datetime
 import hashlib
 import hmac
+import json
 
 class InvalidTimestampError(Exception):
     def __init__(self, *args: list) -> None:
@@ -77,15 +78,56 @@ class Webhook:
             if valid is False:
                 raise InvalidSignature("Invalid signature.")
         
+    def _encode_payload(self, payload):
+        """
+        Encode payload to match Convoy's JSON format for consistent signature generation.
+        
+        Convoy's Go backend uses json.NewEncoder() which produces compact JSON without 
+        whitespace (no spaces after colons/commas). This method ensures our JSON encoding
+        matches that format using separators=(',', ':') for compatibility with both
+        simple and advanced signature verification.
+        """
+        if isinstance(payload, dict):
+            # Convert dict to JSON string and trim newline like Convoy
+            json_str = json.dumps(payload, separators=(',', ':'), sort_keys=False)
+            return json_str
+        elif isinstance(payload, str):
+            # If it's already a string, return as-is
+            return payload
+        else:
+            # Convert to string for other types
+            return str(payload)
         
     def create_signature(self, payload: str) -> str:
+        """Create signature for simple webhooks (payload only)"""
+        encoded_payload = self._encode_payload(payload)
+        
         # If the encoding is hex, create a new hex hmac digest
         if self.encoding == "hex":
-            return hmac.new(bytes(self.secret, "utf-8"), msg=bytes(payload, "utf-8"), digestmod=self.hash).hexdigest()
+            return hmac.new(bytes(self.secret, "utf-8"), msg=bytes(encoded_payload, "utf-8"), digestmod=self.hash).hexdigest()
         
         # If the encoding is base64, create a new base64 hmac digest
         if self.encoding == "base64":
-            sig = hmac.new(bytes(self.secret, "utf-8"), msg=bytes(payload, "utf-8"), digestmod=self.hash).digest()
+            sig = hmac.new(bytes(self.secret, "utf-8"), msg=bytes(encoded_payload, "utf-8"), digestmod=self.hash).digest()
+            return base64.b64encode(sig).decode()
+    
+    def create_advanced_signature(self, payload, timestamp=None) -> str:
+        """Create signature for advanced webhooks (timestamp + payload) like Convoy does"""
+        if timestamp is None:
+            timestamp = int(datetime.now().timestamp())
+        
+        encoded_payload = self._encode_payload(payload)
+        
+        # Create signed payload: timestamp + "," + payload (matching Convoy's format)
+        signed_payload = f"{timestamp},{encoded_payload}"
+        
+        # If the encoding is hex, create a new hex hmac digest
+        if self.encoding == "hex":
+            return hmac.new(bytes(self.secret, "utf-8"), msg=bytes(signed_payload, "utf-8"), digestmod=self.hash).hexdigest()
+        
+        # If the encoding is base64, create a new base64 hmac digest
+        if self.encoding == "base64":
+            sig = hmac.new(bytes(self.secret, "utf-8"), msg=bytes(signed_payload, "utf-8"), digestmod=self.hash).digest()
             return base64.b64encode(sig).decode()
         
     def get_timestamp_and_signatures(self, signature):
@@ -96,8 +138,10 @@ class Webhook:
         
         if timestamp_int is not None:
             timestamp = datetime.fromtimestamp(timestamp_int)
+        else:
+            raise InvalidTimestampError("Invalid timestamp format")
             
-        return (timestamp, signature[1])
+        return timestamp, signature[1]
     
                 
     def verify_signature(self, payload: str, signature: str) -> bool:
@@ -121,7 +165,8 @@ class Webhook:
             if self.verify_timestamp(timestamp) is False:
                 raise InvalidTimestampError("Invalid timestamp.")
             else: 
-                return self.compare_hashes(self.create_signature(payload), signature[1])
+                # For advanced signatures, we need to create signature with timestamp + payload
+                return self.compare_hashes(self.create_advanced_signature(payload, int(timestamp.timestamp())), signature[1])
 
         except (InvalidTimestampError, InvalidSignature) as e:
             return e.response
