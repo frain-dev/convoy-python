@@ -1,10 +1,9 @@
 # convoy-python
-Convoy SDK for Python
 
-This is the Convoy Python SDK. This SDK contains methods for easily interacting with Convoy's API. Below are examples to get you started. See our [API Reference](https://docs.getconvoy.io/api-reference/welcome) for more.
-
+This is the official Convoy Python SDK. It contains methods for easily interacting with Convoy's API. Below are examples to get you started. See our [API Reference](https://getconvoy.io/docs/api-reference/welcome) for more.
 
 ## Installation
+
 Install convoy-python with
 
 ```bash
@@ -12,75 +11,108 @@ pip install convoy-python
 ```
 
 ## Setup Client
-Next, import the `convoy` module and setup with your auth credentials.
+
+Import the `convoy` module and set it up with your instance URL, API key, and project ID. Both the API key and project ID are available from your **Project Settings** page.
 
 ```python
 from convoy import Convoy
-convoy = Convoy({"api_key":"your_api_key", "project_id": "your_project_id"})
-```
-The SDK also supports authenticating via Basic Auth by defining your username and password.
 
-In the event you're using a self-hosted convoy instance, you can define the `uri` as part of what is passed into the convoy's constructor.
-
-```python
-convoy = Convoy({ "api_key": 'your_api_key', "uri": 'self-hosted-instance', "project_id": "your_project_id"})
+convoy = Convoy({
+    "api_key": "your_api_key",
+    "uri": "https://us.getconvoy.cloud/api/v1",
+    "project_id": "your_project_id",
+})
 ```
+
+Your instance URL depends on where your project lives:
+
+- Convoy Cloud (US): `https://us.getconvoy.cloud/api/v1`
+- Convoy Cloud (EU): `https://eu.getconvoy.cloud/api/v1`
+- Self-hosted: `https://your-instance/api/v1`
 
 ## Usage
 
-### Get all groups
-
-```python
-(response, status) = convoy.group.all({ "perPage": 10, "page": 1 })
-```
+Each method takes a query dict and returns a `(response, status)` tuple.
 
 ### Create an Endpoint
 
 An endpoint represents a target URL to receive events.
 
 ```python
-endpointData = {
-    "url": "https://0d87-102-89-2-172.ngrok.io",
+endpoint_data = {
+    "name": "default-endpoint",
+    "url": "https://example.com/webhooks/convoy",
     "description": "Default Endpoint",
     "secret": "endpoint-secret",
-    "events": ["*"],
-  }
+}
 
-(response, status) = convoy.endpoint.create({}, endpointData)
+(response, status) = convoy.endpoint.create({}, endpoint_data)
 endpoint_id = response["data"]["uid"]
 ```
 
-### Sending an Event
+### Create a Subscription
 
-To send an event, you'll need the `uid` we created in the earlier section.
+Subscriptions route events from a source to an endpoint.
 
 ```python
-eventData = {
+subscription_data = {
+    "name": "event-sub",
+    "endpoint_id": endpoint_id,
+}
+
+(response, status) = convoy.subscription.create({}, subscription_data)
+```
+
+### Send an Event
+
+To send an event, you'll need the `uid` of the endpoint we created earlier.
+
+```python
+event_data = {
     "endpoint_id": endpoint_id,
     "event_type": "payment.success",
     "data": {
-      "event": "payment.success",
-      "data": {
         "status": "Completed",
         "description": "Transaction Successful",
-        "userID": "test_user_id808",
-      },
     },
-  }
+}
 
-(response, status) = convoy.event.create({}, eventData)
+(response, status) = convoy.event.create({}, event_data)
+```
+
+To fan an event out to all endpoints with the same `owner_id`, or broadcast to every endpoint in the project:
+
+```python
+(response, status) = convoy.event.fanout({}, {"owner_id": "owner-1", "event_type": "payment.success", "data": {}})
+(response, status) = convoy.event.broadcast({}, {"event_type": "payment.success", "data": {}})
+```
+
+### Verify Webhook Signatures
+
+Verify with the raw request body, before parsing it. On failure the helper returns an error message (a truthy string), so compare against `True` explicitly.
+
+```python
+from convoy.utils.webhook import Webhook
+
+webhook = Webhook(secret="endpoint-secret")
+
+payload = request.body.decode("utf-8")
+signature = request.headers.get("X-Convoy-Signature", "")
+
+if webhook.verify_signature(payload, signature) is not True:
+    # reject the request
+    ...
 ```
 
 ## Testing
 
-```python
-pytest ./test/test.py
+```bash
+pytest test/test.py
 ```
 
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.MD) for details.
-
 
 ## Credits
 
@@ -88,4 +120,4 @@ Please see [CONTRIBUTING](CONTRIBUTING.MD) for details.
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](LICENSE) for more information.

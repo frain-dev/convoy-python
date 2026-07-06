@@ -31,15 +31,24 @@ class EventDelivery():
         response = self.client.http_put("/eventdeliveries/%s/resend" % id, query, {})
         return response
 
-    def batchresend(self, id, query, data):
+    def batchresend(self, query):
         """
-        Batch resend eventdeliveries.
+        Batch retry eventdeliveries matching the query filters. The server
+        reads filters from query params only, e.g.
+        query = {"endpointId": [], "eventId": "", "status": []}
+        """
+        response = self.client.http_post("/eventdeliveries/batchretry", query, {})
+        return response
+
+    def forceresend(self, query, data):
+        """
+        Force resend successful eventdeliveries.
         Parameters
         ----------
         data = {
-                ids: []
+                "ids": []
                 }
         """
-        response = self.client.http_put("/eventdeliveries/batchretry" % id, query, data)
+        response = self.client.http_post("/eventdeliveries/forceresend", query, data)
         return response
 

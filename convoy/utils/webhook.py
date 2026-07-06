@@ -52,19 +52,12 @@ class Webhook:
             raise Exception("algorithm not available.")
         
     def verify_timestamp(self, timestamp):
-        try:
-            now = round(datetime.now().timestamp())
-            timestamp_int = int(timestamp.timestamp())
-            
-            diff = now - self.tolerance
-            
-            if timestamp_int < diff:
-                raise InvalidTimestampError("Timestamp is too old.")
-            else:
-                return True
-            
-        except InvalidTimestampError as e:
-            return e.response
+        now = round(datetime.now().timestamp())
+        timestamp_int = int(timestamp.timestamp())
+
+        if timestamp_int < now - self.tolerance:
+            raise InvalidTimestampError("Timestamp is too old.")
+        return True
 
         
     def compare_hashes(self, hash1: str, hash2: str) -> bool:
@@ -77,6 +70,7 @@ class Webhook:
             valid = hmac.compare_digest(base64.b64decode(hash1), base64.b64decode(hash2))
             if valid is False:
                 raise InvalidSignature("Invalid signature.")
+            return valid
         
     def _encode_payload(self, payload):
         """
@@ -131,17 +125,18 @@ class Webhook:
             return base64.b64encode(sig).decode()
         
     def get_timestamp_and_signatures(self, signature):
-        signature = signature.split(",")
-        signature = [sig.split("=", 1) for sig in signature]
-                    
-        timestamp_int = int(signature[0][1]) if signature[0][0] == "t" else None
-        
-        if timestamp_int is not None:
-            timestamp = datetime.fromtimestamp(timestamp_int)
-        else:
+        pairs = [sig.split("=", 1) for sig in signature.split(",")]
+
+        timestamp_pair = next((p for p in pairs if p[0].strip() == "t"), None)
+        try:
+            timestamp_int = int(timestamp_pair[1])
+        except (TypeError, ValueError):
             raise InvalidTimestampError("Invalid timestamp format")
-            
-        return timestamp, signature[1]
+
+        timestamp = datetime.fromtimestamp(timestamp_int)
+        signatures = [p[1] for p in pairs if p[0].strip() != "t" and len(p) == 2]
+
+        return timestamp, signatures
     
                 
     def verify_signature(self, payload: str, signature: str) -> bool:
@@ -159,14 +154,18 @@ class Webhook:
             return e.response
 
     def verify_advanced_signature(self, payload: str, signature: str) -> bool:
-        timestamp, signature = self.get_timestamp_and_signatures(signature)
+        try:
+            timestamp, signatures = self.get_timestamp_and_signatures(signature)
+            self.verify_timestamp(timestamp)
 
-        try:            
-            if self.verify_timestamp(timestamp) is False:
-                raise InvalidTimestampError("Invalid timestamp.")
-            else: 
-                # For advanced signatures, we need to create signature with timestamp + payload
-                return self.compare_hashes(self.create_advanced_signature(payload, int(timestamp.timestamp())), signature[1])
+            expected = self.create_advanced_signature(payload, int(timestamp.timestamp()))
+            for sig in signatures:
+                try:
+                    if self.compare_hashes(expected, sig) is True:
+                        return True
+                except InvalidSignature:
+                    continue
+            raise InvalidSignature("Invalid signature.")
 
         except (InvalidTimestampError, InvalidSignature) as e:
             return e.response
