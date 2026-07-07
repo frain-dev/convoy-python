@@ -35,3 +35,37 @@ class Event():
         response = self.client.http_get("/events/%s" % id, query)
         return response
 
+    def fanout(self, query, data):
+        """
+        Send an event to all endpoints with the given owner_id.
+        Parameters
+        ----------
+        data = {
+                "owner_id": "",
+                "event_type": "",
+                "data": {},
+                }
+        """
+        response = self.client.http_post("/events/fanout", query, data)
+        return response
+
+    def broadcast(self, query, data):
+        """
+        Send an event to all endpoints in the project.
+        Parameters
+        ----------
+        data = {
+                "event_type": "",
+                "data": {},
+                }
+        """
+        response = self.client.http_post("/events/broadcast", query, data)
+        return response
+
+    def replay(self, id):
+        """
+        Replay a previously ingested event.
+        """
+        response = self.client.http_put("/events/%s/replay" % id, {}, {})
+        return response
+

@@ -3,55 +3,51 @@ You can use these dict objects to create your own data.
 """
 
 Config = {
-        #Username used for basic authentication
-        "username": "",
-        #Password used for basic authentication
-        "password": "",
         #API Key used for bearer token authentication
         "api_key": "",
-        #Convoy self hosted uri
-        "uri": ""
+        #Convoy instance API base, e.g. https://us.getconvoy.cloud/api/v1
+        "uri": "",
+        #Project ID from your project settings page
+        "project_id": ""
     }
 
 NewEvent = {
             "endpoint_id": "",
             "event_type": "",
-            "data": {
-                    "event": "",
-                    "data": {},
-                }
+            "data": {},
+            }
+
+NewFanoutEvent = {
+            "owner_id": "",
+            "event_type": "",
+            "data": {},
+            }
+
+NewBroadcastEvent = {
+            "event_type": "",
+            "data": {},
             }
 
 NewEndpoint = {
+                "name": "",
                 "url": "",
                 "description": "",
                 "secret": "",
-                "events": [],
+                "content_type": "",
                 }
 
-BatchResend = {
+NewSubscription = {
+                "name": "",
+                "endpoint_id": "",
+                }
+
+# Body for event_delivery.forceresend; batchresend takes query filters only.
+ForceResend = {
                 "ids": []
             }
 
-
-NewGroup = {
+UpdateProject = {
             "name": "",
             "logo_url": "",
-            "config": {
-                    "disable_endpoint": bool,
-                    "signature": {
-                                "hash": "",
-                                "header": ""
-                                },
-                    "strategy": {
-                                "type":   "",
-                                "default": {
-                                    "intervalSeconds": int,
-                                    "retryLimit": int
-                            }
-                        },
-                    },
-                }
-
-
-
+            "config": {},
+            }

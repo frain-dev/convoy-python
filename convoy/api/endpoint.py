@@ -27,6 +27,7 @@ class Endpoint():
                 "description": "",
                 "secret": "",
                 "events": [],
+                "content_type": "",
                 }
         """
         response = self.client.http_post("/endpoints", query, data)
@@ -36,7 +37,7 @@ class Endpoint():
         """
         Find a particular endpoint.
         """
-        response = self.client.http_get("endpoints/%s" % endpoint_id, query)
+        response = self.client.http_get("/endpoints/%s" % endpoint_id, query)
         return response
 
     def update(self, endpoint_id, query, data):
@@ -49,6 +50,7 @@ class Endpoint():
                 "description": "",
                 "secret": "",
                 "events": [],
+                "content_type": "",
                 }
         """
         response = self.client.http_put("/endpoints/%s" % endpoint_id, query, data)
@@ -59,5 +61,25 @@ class Endpoint():
         Delete an endpoint.
         """
         response = self.client.http_delete("/endpoints/%s" % endpoint_id, query, data)
+        return response
+
+    def pause(self, endpoint_id):
+        """
+        Toggle an endpoint between paused and active.
+        """
+        response = self.client.http_put("/endpoints/%s/pause" % endpoint_id, {}, {})
+        return response
+
+    def expire_secret(self, endpoint_id, data):
+        """
+        Roll the endpoint secret.
+        Parameters
+        ----------
+        data = {
+                "expiration": int, # hours before the old secret expires
+                "secret": "",      # optional, generated when omitted
+                }
+        """
+        response = self.client.http_put("/endpoints/%s/expire_secret" % endpoint_id, {}, data)
         return response
 

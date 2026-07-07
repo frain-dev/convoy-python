@@ -1,5 +1,4 @@
-from re import sub
-from convoy.api import delivery_attempts, endpoint, event, event_delivery, group, source, subscription
+from convoy.api import delivery_attempts, endpoint, event, event_delivery, project, source, subscription
 from convoy.utils import webhook
 
 class Convoy():
@@ -10,14 +9,12 @@ class Convoy():
     config : dict of config values, see example config below;
 
     config = {
-        #Username used for basic authentication
-        "username": "",
-        #Password used for basic authentication
-        "password": "",
         #API Key used for bearer token authentication
         "api_key": "",
-        #Convoy self hosted uri
-        "uri": ""
+        #Convoy instance API base, e.g. https://us.getconvoy.cloud/api/v1
+        "uri": "",
+        #Project ID from your project settings page
+        "project_id": ""
     }
     """
     def __init__(self, config):
@@ -25,7 +22,7 @@ class Convoy():
         self.endpoint = endpoint.Endpoint(config)
         self.event_delivery = event_delivery.EventDelivery(config)
         self.event = event.Event(config)
-        self.group = group.Group(config)
+        self.project = project.Project(config)
         self.source = source.Source(config)
         self.subscription = subscription.Subscription(config)
         self.webhook = webhook.Webhook()
