@@ -29,27 +29,16 @@ class Webhook:
         self.tolerance = tolerance
         self.hash = self.get_hash_function(hash)
         
-    def get_hash_function(self, hash: str) -> str:
-        if str.lower(hash) == "sha256":
+    def get_hash_function(self, hash: str):
+        # Convoy only ever signs with SHA256 or SHA512 (see pkg/signature).
+        # Accepting weaker/other algorithms here would let a caller verify
+        # against a hash the server never uses, so restrict to the contract.
+        normalized = str.lower(hash)
+        if normalized == "sha256":
             return hashlib.sha256
-        if str.lower(hash) == "md5":
-            return hashlib.md5
-        if str.lower(hash) == "sha384":
-            return hashlib.sha384
-        if str.lower(hash) == "sha224":
-            return hashlib.sha224
-        if str.lower(hash) == "sha512":
+        if normalized == "sha512":
             return hashlib.sha512
-        if str.lower(hash) == "sha1":
-            return hashlib.sha1
-        if str.lower(hash) == "sha3_256":
-            return hashlib.sha3_256
-        if str.lower(hash) == "sha3_224":
-            return hashlib.sha3_224 
-        if str.lower(hash) == "sha3_512":
-            return hashlib.sha3_512 
-        else:
-            raise Exception("algorithm not available.")
+        raise ValueError(f"unsupported hash algorithm: {hash!r}; expected 'sha256' or 'sha512'")
         
     def verify_timestamp(self, timestamp):
         now = round(datetime.now().timestamp())
@@ -65,12 +54,19 @@ class Webhook:
             valid = hmac.compare_digest(hash1, hash2)
             if valid is False:
                 raise InvalidSignature("Invalid signature.")
-            return valid                
+            return valid
         if self.encoding == "base64":
-            valid = hmac.compare_digest(base64.b64decode(hash1), base64.b64decode(hash2))
+            try:
+                decoded1 = base64.b64decode(hash1)
+                decoded2 = base64.b64decode(hash2)
+            except (ValueError, TypeError):
+                # A malformed signature is a mismatch, not a crash.
+                raise InvalidSignature("Invalid signature.")
+            valid = hmac.compare_digest(decoded1, decoded2)
             if valid is False:
                 raise InvalidSignature("Invalid signature.")
             return valid
+        raise InvalidSignature("Invalid encoding.")
         
     def _encode_payload(self, payload):
         """
@@ -148,10 +144,12 @@ class Webhook:
         return self.verify_simple_signature(payload, signature)
     
     def verify_simple_signature(self, payload: str, signature: str) -> bool:
+        # Fail closed: any mismatch or malformed signature returns False, never a
+        # truthy error string (which would make `if verify(...)` pass a forgery).
         try:
             return self.compare_hashes(self.create_signature(payload), signature)
-        except InvalidSignature as e:
-            return e.response
+        except InvalidSignature:
+            return False
 
     def verify_advanced_signature(self, payload: str, signature: str) -> bool:
         try:
@@ -165,7 +163,7 @@ class Webhook:
                         return True
                 except InvalidSignature:
                     continue
-            raise InvalidSignature("Invalid signature.")
+            return False
 
-        except (InvalidTimestampError, InvalidSignature) as e:
-            return e.response
+        except (InvalidTimestampError, InvalidSignature):
+            return False
