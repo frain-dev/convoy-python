@@ -89,7 +89,7 @@ To fan an event out to all endpoints with the same `owner_id`, or broadcast to e
 
 ### Verify Webhook Signatures
 
-Verify with the raw request body, before parsing it. On failure the helper returns an error message (a truthy string), so compare against `True` explicitly.
+Verify with the raw request body, before parsing it. `verify_signature` returns `True` for a valid signature and `False` otherwise (it fails closed), so a plain boolean check is safe.
 
 ```python
 from convoy.utils.webhook import Webhook
@@ -99,7 +99,7 @@ webhook = Webhook(secret="endpoint-secret")
 payload = request.body.decode("utf-8")
 signature = request.headers.get("X-Convoy-Signature", "")
 
-if webhook.verify_signature(payload, signature) is not True:
+if not webhook.verify_signature(payload, signature):
     # reject the request
     ...
 ```
