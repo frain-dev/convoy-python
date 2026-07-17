@@ -121,3 +121,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.MD) for details.
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE) for more information.
+
+## Speakeasy-generated API client
+
+The HTTP API client is generated from Convoy OpenAPI via Speakeasy. **Webhook signature verification remains hand-written** (`convoy/utils/webhook.py`) and is covered by shared `test/signature-vectors.json`. See [MIGRATION.md](./MIGRATION.md).
