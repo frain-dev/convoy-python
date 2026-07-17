@@ -1,3 +1,4 @@
+"""Speakeasy migration: hand-written HTTP API is deprecated; next major replaces this with OpenAPI-generated clients. Webhook verify stays hand-written."""
 from convoy.api import delivery_attempts, endpoint, event, event_delivery, project, source, subscription
 from convoy.utils import webhook
 
