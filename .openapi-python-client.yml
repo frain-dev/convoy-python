@@ -1,0 +1,5 @@
+# openapi-python-client config (active generator).
+# PyPI name stays convoy-python; imports stay `from convoy ...` so the
+# hand-written verify path (convoy/utils/webhook.py) keeps working.
+package_name_override: convoy
+project_name_override: convoy-python
