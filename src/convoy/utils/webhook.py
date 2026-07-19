@@ -5,7 +5,7 @@ import hmac
 import json
 
 class InvalidTimestampError(Exception):
-    def __init__(self, *args: list) -> None:
+    def __init__(self, *args: str) -> None:
         self.message = args[0]
         
     @property
@@ -14,7 +14,7 @@ class InvalidTimestampError(Exception):
 
 
 class InvalidSignature(Exception):
-    def __init__(self, *args: list) -> None:
+    def __init__(self, *args: str) -> None:
         self.message = args[0]
         
     @property
@@ -59,9 +59,9 @@ class Webhook:
             try:
                 decoded1 = base64.b64decode(hash1)
                 decoded2 = base64.b64decode(hash2)
-            except (ValueError, TypeError):
+            except (ValueError, TypeError) as exc:
                 # A malformed signature is a mismatch, not a crash.
-                raise InvalidSignature("Invalid signature.")
+                raise InvalidSignature("Invalid signature.") from exc
             valid = hmac.compare_digest(decoded1, decoded2)
             if valid is False:
                 raise InvalidSignature("Invalid signature.")
@@ -100,6 +100,9 @@ class Webhook:
         if self.encoding == "base64":
             sig = hmac.new(bytes(self.secret, "utf-8"), msg=bytes(encoded_payload, "utf-8"), digestmod=self.hash).digest()
             return base64.b64encode(sig).decode()
+
+        # Fail closed instead of implicitly returning None.
+        raise InvalidSignature("Invalid encoding.")
     
     def create_advanced_signature(self, payload, timestamp=None) -> str:
         """Create signature for advanced webhooks (timestamp + payload) like Convoy does"""
@@ -119,6 +122,9 @@ class Webhook:
         if self.encoding == "base64":
             sig = hmac.new(bytes(self.secret, "utf-8"), msg=bytes(signed_payload, "utf-8"), digestmod=self.hash).digest()
             return base64.b64encode(sig).decode()
+
+        # Fail closed instead of implicitly returning None.
+        raise InvalidSignature("Invalid encoding.")
         
     def get_timestamp_and_signatures(self, signature):
         pairs = [sig.split("=", 1) for sig in signature.split(",")]
@@ -126,8 +132,8 @@ class Webhook:
         timestamp_pair = next((p for p in pairs if p[0].strip() == "t"), None)
         try:
             timestamp_int = int(timestamp_pair[1])
-        except (TypeError, ValueError):
-            raise InvalidTimestampError("Invalid timestamp format")
+        except (TypeError, ValueError) as exc:
+            raise InvalidTimestampError("Invalid timestamp format") from exc
 
         timestamp = datetime.fromtimestamp(timestamp_int)
         signatures = [p[1] for p in pairs if p[0].strip() != "t" and len(p) == 2]
