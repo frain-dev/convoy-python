@@ -1,1 +1,0 @@
-from convoy.convoy import Convoy
