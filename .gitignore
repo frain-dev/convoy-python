@@ -4,3 +4,5 @@ convoy_python.egg-info
 dist/
 __pycache__/
 *.pyc
+.venv-proof/
+.ruff_cache/

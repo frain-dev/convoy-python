@@ -1,0 +1,28 @@
+[project]
+name = "convoy-python"
+version = "1.0.0a1"
+description = "Convoy Python SDK: OpenAPI-generated API client and hand-written webhook signature verification"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Frain Inc." }]
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.23.1,<0.29.0",
+    "attrs>=22.2.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/frain-dev/convoy-python"
+Documentation = "https://getconvoy.io/docs"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+# namespaces=true (the default) so `convoy` resolves both before the first
+# generation run (only convoy/utils exists) and after (generated __init__.py).
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+convoy = ["py.typed"]

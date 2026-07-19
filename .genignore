@@ -1,7 +1,18 @@
+# NOTE: .genignore is Speakeasy's protection mechanism and is DORMANT while
+# generation runs on openapi-python-client (scripts/generate.sh enforces the
+# same hand-owned paths via rsync excludes). Kept current so a switch back to
+# Speakeasy needs no rebuild.
+
 # Hand-written webhook signature verification — never overwrite with generated
 # code. It lives inside the generated src/convoy tree so the import path stays
-# `from convoy.utils.webhook import Webhook`; only this file is hand-owned.
-src/convoy/utils/webhook.py
+# `from convoy.utils.webhook import Webhook`; only this dir is hand-owned.
+src/convoy/utils/**
+src/convoy/py.typed
+
+# Hand-owned packaging + generator config.
+pyproject.toml
+.openapi-python-client.yml
+scripts/**
 
 # Shared signature contract + verify unit tests (hand-authored).
 test/signature-vectors.json

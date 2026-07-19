@@ -1,19 +1,25 @@
 name: SDK Generation
 
+# Active generator: openapi-python-client (OSS). The Speakeasy pipeline is
+# dormant in speakeasy_generation.yaml (free tier allows one generated SDK
+# per workspace; convoy.js holds that slot).
+#
+# Keeps the same workflow filename and dispatch inputs as the Speakeasy
+# version so the frain-dev/convoy dispatcher (speakeasy-sdk.yml) works
+# unchanged.
+
 on:
   workflow_dispatch:
     inputs:
       force:
-        description: Force SDK generation even if no changes are detected
+        # Accepted for dispatcher compatibility. Generation is deterministic
+        # from the spec, so there is nothing to force: no diff means no PR.
+        description: Accepted for compatibility; regeneration is always run
         required: false
         default: "false"
         type: string
       feature_branch:
         description: Branch for SDK changes
-        required: false
-        type: string
-      environment:
-        description: Environment variables (e.g., TAG=branch-name)
         required: false
         type: string
   schedule:
@@ -28,20 +34,85 @@ concurrency:
 permissions:
   contents: write
   pull-requests: write
-  checks: write
-  statuses: write
 
 jobs:
   generate:
-    # Pin to commit SHA for v15 (mutable tags can be retargeted).
-    uses: speakeasy-api/sdk-generation-action/.github/workflows/workflow-executor.yaml@7276a3ae83eafb7fe37630fb1fefea3f2649debd # v15
-    with:
-      mode: pr
-      force: ${{ inputs.force || 'false' }}
-      feature_branch: ${{ inputs.feature_branch }}
-      environment: ${{ inputs.environment }}
-    secrets:
-      # Prefer a PAT: PRs opened with GITHUB_TOKEN do not trigger
-      # pull_request workflows, so verify CI would never run on them.
-      github_access_token: ${{ secrets.SDK_BOT_PAT || secrets.GITHUB_TOKEN }}
-      speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        with:
+          # Prefer a PAT: PRs opened with GITHUB_TOKEN do not trigger
+          # pull_request workflows, so verify CI would never run on them.
+          token: ${{ secrets.SDK_BOT_PAT || secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
+        with:
+          python-version: "3.11"
+
+      - name: Install generator
+        # Pin both so regeneration output is reproducible; ruff is the
+        # generator's post-processing formatter.
+        run: pip install openapi-python-client==0.29.0 ruff==0.15.22
+
+      - name: Regenerate client
+        run: ./scripts/generate.sh
+
+      - name: Detect changes
+        id: diff
+        run: |
+          if git diff --quiet && [ -z "$(git status --porcelain)" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No client changes; skipping PR." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Prepare feature branch
+        if: steps.diff.outputs.changed == 'true'
+        id: branch
+        env:
+          # Never interpolate free-form dispatch inputs into run: directly.
+          FEATURE_BRANCH_INPUT: ${{ inputs.feature_branch }}
+        run: |
+          if [ -n "$FEATURE_BRANCH_INPUT" ]; then
+            # SDK PRs must come from a reviewable feature branch, never a
+            # protected ref or an option-looking / metacharacter name.
+            case "$FEATURE_BRANCH_INPUT" in
+              main|master|release/*|-*|*[!a-zA-Z0-9._/-]*)
+                echo "::error::Invalid feature_branch '$FEATURE_BRANCH_INPUT'"
+                exit 1
+                ;;
+            esac
+            echo "name=$FEATURE_BRANCH_INPUT" >> "$GITHUB_OUTPUT"
+          else
+            echo "name=sdk-regen-$(date -u +%Y%m%d)" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Push branch and open PR
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.SDK_BOT_PAT || secrets.GITHUB_TOKEN }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git checkout -B "$BRANCH"
+          git add -A
+          git commit -m "feat: regenerate API client from OpenAPI spec"
+          # Force push is safe: the regen branch is fully derived from main
+          # plus this deterministic generation; any previous content is stale.
+          git push --force origin "$BRANCH"
+
+          existing=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number // empty')
+          if [ -z "$existing" ]; then
+            gh pr create \
+              --head "$BRANCH" \
+              --title "feat: regenerate API client from OpenAPI spec" \
+              --body "Automated regeneration via openapi-python-client from \`docs/v3/openapi3.yaml\` on frain-dev/convoy main. Hand-written webhook verify (\`src/convoy/utils/\`) is untouched by the sync script."
+            echo "Opened PR for $BRANCH" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Updated existing PR #$existing" >> "$GITHUB_STEP_SUMMARY"
+          fi
