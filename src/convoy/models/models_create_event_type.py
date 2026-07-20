@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -9,8 +9,8 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.models_create_event_type_json_schema import (
-        ModelsCreateEventTypeJsonSchema,
+    from ..models.models_create_event_type_json_schema_type_0 import (
+        ModelsCreateEventTypeJsonSchemaType0,
     )
 
 
@@ -23,24 +23,33 @@ class ModelsCreateEventType:
     Attributes:
         category (str | Unset): Category is a product-specific grouping for the event type
         description (str | Unset): Description is used to describe what the event type does
-        json_schema (ModelsCreateEventTypeJsonSchema | Unset): JSONSchema is the JSON structure of the event type
+        json_schema (ModelsCreateEventTypeJsonSchemaType0 | None | Unset): JSONSchema is the JSON structure of the event
+            type
         name (str | Unset): Name is the event type name. E.g., invoice.created
     """
 
     category: str | Unset = UNSET
     description: str | Unset = UNSET
-    json_schema: ModelsCreateEventTypeJsonSchema | Unset = UNSET
+    json_schema: ModelsCreateEventTypeJsonSchemaType0 | None | Unset = UNSET
     name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.models_create_event_type_json_schema_type_0 import (
+            ModelsCreateEventTypeJsonSchemaType0,
+        )
+
         category = self.category
 
         description = self.description
 
-        json_schema: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.json_schema, Unset):
+        json_schema: dict[str, Any] | None | Unset
+        if isinstance(self.json_schema, Unset):
+            json_schema = UNSET
+        elif isinstance(self.json_schema, ModelsCreateEventTypeJsonSchemaType0):
             json_schema = self.json_schema.to_dict()
+        else:
+            json_schema = self.json_schema
 
         name = self.name
 
@@ -60,8 +69,8 @@ class ModelsCreateEventType:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.models_create_event_type_json_schema import (
-            ModelsCreateEventTypeJsonSchema,
+        from ..models.models_create_event_type_json_schema_type_0 import (
+            ModelsCreateEventTypeJsonSchemaType0,
         )
 
         d = dict(src_dict)
@@ -69,12 +78,26 @@ class ModelsCreateEventType:
 
         description = d.pop("description", UNSET)
 
-        _json_schema = d.pop("json_schema", UNSET)
-        json_schema: ModelsCreateEventTypeJsonSchema | Unset
-        if isinstance(_json_schema, Unset):
-            json_schema = UNSET
-        else:
-            json_schema = ModelsCreateEventTypeJsonSchema.from_dict(_json_schema)
+        def _parse_json_schema(
+            data: object,
+        ) -> ModelsCreateEventTypeJsonSchemaType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                json_schema_type_0 = ModelsCreateEventTypeJsonSchemaType0.from_dict(
+                    data
+                )
+
+                return json_schema_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(ModelsCreateEventTypeJsonSchemaType0 | None | Unset, data)
+
+        json_schema = _parse_json_schema(d.pop("json_schema", UNSET))
 
         name = d.pop("name", UNSET)
 

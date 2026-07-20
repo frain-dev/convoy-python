@@ -24,10 +24,10 @@ class DatastorePortalLinkResponse:
         auth_type (DatastorePortalAuthType | Unset):
         can_manage_endpoint (bool | Unset):
         created_at (str | Unset):
-        deleted_at (str | Unset):
+        deleted_at (None | str | Unset):
         endpoint_count (int | Unset):
         endpoints (list[str] | Unset):
-        endpoints_metadata (list[DatastoreEndpoint] | Unset):
+        endpoints_metadata (list[DatastoreEndpoint | None] | Unset):
         name (str | Unset):
         owner_id (str | Unset):
         project_id (str | Unset):
@@ -41,10 +41,10 @@ class DatastorePortalLinkResponse:
     auth_type: DatastorePortalAuthType | Unset = UNSET
     can_manage_endpoint: bool | Unset = UNSET
     created_at: str | Unset = UNSET
-    deleted_at: str | Unset = UNSET
+    deleted_at: None | str | Unset = UNSET
     endpoint_count: int | Unset = UNSET
     endpoints: list[str] | Unset = UNSET
-    endpoints_metadata: list[DatastoreEndpoint] | Unset = UNSET
+    endpoints_metadata: list[DatastoreEndpoint | None] | Unset = UNSET
     name: str | Unset = UNSET
     owner_id: str | Unset = UNSET
     project_id: str | Unset = UNSET
@@ -55,6 +55,8 @@ class DatastorePortalLinkResponse:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.datastore_endpoint import DatastoreEndpoint
+
         auth_key = self.auth_key
 
         auth_type: str | Unset = UNSET
@@ -65,7 +67,11 @@ class DatastorePortalLinkResponse:
 
         created_at = self.created_at
 
-        deleted_at = self.deleted_at
+        deleted_at: None | str | Unset
+        if isinstance(self.deleted_at, Unset):
+            deleted_at = UNSET
+        else:
+            deleted_at = self.deleted_at
 
         endpoint_count = self.endpoint_count
 
@@ -73,11 +79,15 @@ class DatastorePortalLinkResponse:
         if not isinstance(self.endpoints, Unset):
             endpoints = self.endpoints
 
-        endpoints_metadata: list[dict[str, Any]] | Unset = UNSET
+        endpoints_metadata: list[dict[str, Any] | None] | Unset = UNSET
         if not isinstance(self.endpoints_metadata, Unset):
             endpoints_metadata = []
             for endpoints_metadata_item_data in self.endpoints_metadata:
-                endpoints_metadata_item = endpoints_metadata_item_data.to_dict()
+                endpoints_metadata_item: dict[str, Any] | None
+                if isinstance(endpoints_metadata_item_data, DatastoreEndpoint):
+                    endpoints_metadata_item = endpoints_metadata_item_data.to_dict()
+                else:
+                    endpoints_metadata_item = endpoints_metadata_item_data
                 endpoints_metadata.append(endpoints_metadata_item)
 
         name = self.name
@@ -148,18 +158,43 @@ class DatastorePortalLinkResponse:
 
         created_at = d.pop("created_at", UNSET)
 
-        deleted_at = d.pop("deleted_at", UNSET)
+        def _parse_deleted_at(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        deleted_at = _parse_deleted_at(d.pop("deleted_at", UNSET))
 
         endpoint_count = d.pop("endpoint_count", UNSET)
 
         endpoints = cast(list[str], d.pop("endpoints", UNSET))
 
         _endpoints_metadata = d.pop("endpoints_metadata", UNSET)
-        endpoints_metadata: list[DatastoreEndpoint] | Unset = UNSET
+        endpoints_metadata: list[DatastoreEndpoint | None] | Unset = UNSET
         if _endpoints_metadata is not UNSET:
             endpoints_metadata = []
             for endpoints_metadata_item_data in _endpoints_metadata:
-                endpoints_metadata_item = DatastoreEndpoint.from_dict(
+
+                def _parse_endpoints_metadata_item(
+                    data: object,
+                ) -> DatastoreEndpoint | None:
+                    if data is None:
+                        return data
+                    try:
+                        if not isinstance(data, dict):
+                            raise TypeError()
+                        endpoints_metadata_item_type_1 = DatastoreEndpoint.from_dict(
+                            data
+                        )
+
+                        return endpoints_metadata_item_type_1
+                    except (TypeError, ValueError, AttributeError, KeyError):
+                        pass
+                    return cast(DatastoreEndpoint | None, data)
+
+                endpoints_metadata_item = _parse_endpoints_metadata_item(
                     endpoints_metadata_item_data
                 )
 

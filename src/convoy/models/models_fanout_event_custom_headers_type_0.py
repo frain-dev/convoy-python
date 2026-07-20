@@ -6,14 +6,14 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-T = TypeVar("T", bound="ModelsBulkUpdateFilterRequestBody")
+T = TypeVar("T", bound="ModelsFanoutEventCustomHeadersType0")
 
 
 @_attrs_define
-class ModelsBulkUpdateFilterRequestBody:
-    """ """
+class ModelsFanoutEventCustomHeadersType0:
+    """Specifies custom headers you want convoy to add when the event is dispatched to your endpoint"""
 
-    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, str] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
 
@@ -25,19 +25,19 @@ class ModelsBulkUpdateFilterRequestBody:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        models_bulk_update_filter_request_body = cls()
+        models_fanout_event_custom_headers_type_0 = cls()
 
-        models_bulk_update_filter_request_body.additional_properties = d
-        return models_bulk_update_filter_request_body
+        models_fanout_event_custom_headers_type_0.additional_properties = d
+        return models_fanout_event_custom_headers_type_0
 
     @property
     def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
-    def __getitem__(self, key: str) -> Any:
+    def __getitem__(self, key: str) -> str:
         return self.additional_properties[key]
 
-    def __setitem__(self, key: str, value: Any) -> None:
+    def __setitem__(self, key: str, value: str) -> None:
         self.additional_properties[key] = value
 
     def __delitem__(self, key: str) -> None:

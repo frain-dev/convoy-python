@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,7 +17,7 @@ class DatastoreDevice:
     """
     Attributes:
         created_at (str | Unset):
-        deleted_at (str | Unset):
+        deleted_at (None | str | Unset):
         endpoint_id (str | Unset):
         host_name (str | Unset):
         last_seen_at (str | Unset):
@@ -28,7 +28,7 @@ class DatastoreDevice:
     """
 
     created_at: str | Unset = UNSET
-    deleted_at: str | Unset = UNSET
+    deleted_at: None | str | Unset = UNSET
     endpoint_id: str | Unset = UNSET
     host_name: str | Unset = UNSET
     last_seen_at: str | Unset = UNSET
@@ -41,7 +41,11 @@ class DatastoreDevice:
     def to_dict(self) -> dict[str, Any]:
         created_at = self.created_at
 
-        deleted_at = self.deleted_at
+        deleted_at: None | str | Unset
+        if isinstance(self.deleted_at, Unset):
+            deleted_at = UNSET
+        else:
+            deleted_at = self.deleted_at
 
         endpoint_id = self.endpoint_id
 
@@ -88,7 +92,14 @@ class DatastoreDevice:
         d = dict(src_dict)
         created_at = d.pop("created_at", UNSET)
 
-        deleted_at = d.pop("deleted_at", UNSET)
+        def _parse_deleted_at(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        deleted_at = _parse_deleted_at(d.pop("deleted_at", UNSET))
 
         endpoint_id = d.pop("endpoint_id", UNSET)
 

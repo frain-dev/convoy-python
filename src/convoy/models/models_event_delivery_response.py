@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,7 +17,7 @@ if TYPE_CHECKING:
     from ..models.datastore_event import DatastoreEvent
     from ..models.datastore_metadata import DatastoreMetadata
     from ..models.datastore_source import DatastoreSource
-    from ..models.httpheader_http_header import HttpheaderHTTPHeader
+    from ..models.httpheader_http_header_type_0 import HttpheaderHTTPHeaderType0
 
 
 T = TypeVar("T", bound="ModelsEventDeliveryResponse")
@@ -27,26 +27,26 @@ T = TypeVar("T", bound="ModelsEventDeliveryResponse")
 class ModelsEventDeliveryResponse:
     """
     Attributes:
-        acknowledged_at (str | Unset):
-        cli_metadata (DatastoreCLIMetadata | Unset):
+        acknowledged_at (None | str | Unset):
+        cli_metadata (DatastoreCLIMetadata | None | Unset):
         created_at (str | Unset):
-        deleted_at (str | Unset):
+        deleted_at (None | str | Unset):
         delivery_mode (DatastoreDeliveryMode | Unset):
         description (str | Unset):
         device_id (str | Unset):
-        device_metadata (DatastoreDevice | Unset):
+        device_metadata (DatastoreDevice | None | Unset):
         endpoint_id (str | Unset):
-        endpoint_metadata (DatastoreEndpoint | Unset):
+        endpoint_metadata (DatastoreEndpoint | None | Unset):
         event_id (str | Unset):
-        event_metadata (DatastoreEvent | Unset):
+        event_metadata (DatastoreEvent | None | Unset):
         event_type (str | Unset):
-        headers (HttpheaderHTTPHeader | Unset):
+        headers (HttpheaderHTTPHeaderType0 | None | Unset):
         idempotency_key (str | Unset):
         latency (str | Unset): Deprecated: Latency is deprecated.
         latency_seconds (float | Unset):
-        metadata (DatastoreMetadata | Unset):
+        metadata (DatastoreMetadata | None | Unset):
         project_id (str | Unset):
-        source_metadata (DatastoreSource | Unset):
+        source_metadata (DatastoreSource | None | Unset):
         status (DatastoreEventDeliveryStatus | Unset):
         subscription_id (str | Unset):
         target_url (str | Unset):
@@ -55,26 +55,26 @@ class ModelsEventDeliveryResponse:
         url_query_params (str | Unset):
     """
 
-    acknowledged_at: str | Unset = UNSET
-    cli_metadata: DatastoreCLIMetadata | Unset = UNSET
+    acknowledged_at: None | str | Unset = UNSET
+    cli_metadata: DatastoreCLIMetadata | None | Unset = UNSET
     created_at: str | Unset = UNSET
-    deleted_at: str | Unset = UNSET
+    deleted_at: None | str | Unset = UNSET
     delivery_mode: DatastoreDeliveryMode | Unset = UNSET
     description: str | Unset = UNSET
     device_id: str | Unset = UNSET
-    device_metadata: DatastoreDevice | Unset = UNSET
+    device_metadata: DatastoreDevice | None | Unset = UNSET
     endpoint_id: str | Unset = UNSET
-    endpoint_metadata: DatastoreEndpoint | Unset = UNSET
+    endpoint_metadata: DatastoreEndpoint | None | Unset = UNSET
     event_id: str | Unset = UNSET
-    event_metadata: DatastoreEvent | Unset = UNSET
+    event_metadata: DatastoreEvent | None | Unset = UNSET
     event_type: str | Unset = UNSET
-    headers: HttpheaderHTTPHeader | Unset = UNSET
+    headers: HttpheaderHTTPHeaderType0 | None | Unset = UNSET
     idempotency_key: str | Unset = UNSET
     latency: str | Unset = UNSET
     latency_seconds: float | Unset = UNSET
-    metadata: DatastoreMetadata | Unset = UNSET
+    metadata: DatastoreMetadata | None | Unset = UNSET
     project_id: str | Unset = UNSET
-    source_metadata: DatastoreSource | Unset = UNSET
+    source_metadata: DatastoreSource | None | Unset = UNSET
     status: DatastoreEventDeliveryStatus | Unset = UNSET
     subscription_id: str | Unset = UNSET
     target_url: str | Unset = UNSET
@@ -84,15 +84,35 @@ class ModelsEventDeliveryResponse:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        acknowledged_at = self.acknowledged_at
+        from ..models.datastore_cli_metadata import DatastoreCLIMetadata
+        from ..models.datastore_device import DatastoreDevice
+        from ..models.datastore_endpoint import DatastoreEndpoint
+        from ..models.datastore_event import DatastoreEvent
+        from ..models.datastore_metadata import DatastoreMetadata
+        from ..models.datastore_source import DatastoreSource
+        from ..models.httpheader_http_header_type_0 import HttpheaderHTTPHeaderType0
 
-        cli_metadata: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.cli_metadata, Unset):
+        acknowledged_at: None | str | Unset
+        if isinstance(self.acknowledged_at, Unset):
+            acknowledged_at = UNSET
+        else:
+            acknowledged_at = self.acknowledged_at
+
+        cli_metadata: dict[str, Any] | None | Unset
+        if isinstance(self.cli_metadata, Unset):
+            cli_metadata = UNSET
+        elif isinstance(self.cli_metadata, DatastoreCLIMetadata):
             cli_metadata = self.cli_metadata.to_dict()
+        else:
+            cli_metadata = self.cli_metadata
 
         created_at = self.created_at
 
-        deleted_at = self.deleted_at
+        deleted_at: None | str | Unset
+        if isinstance(self.deleted_at, Unset):
+            deleted_at = UNSET
+        else:
+            deleted_at = self.deleted_at
 
         delivery_mode: str | Unset = UNSET
         if not isinstance(self.delivery_mode, Unset):
@@ -102,27 +122,43 @@ class ModelsEventDeliveryResponse:
 
         device_id = self.device_id
 
-        device_metadata: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.device_metadata, Unset):
+        device_metadata: dict[str, Any] | None | Unset
+        if isinstance(self.device_metadata, Unset):
+            device_metadata = UNSET
+        elif isinstance(self.device_metadata, DatastoreDevice):
             device_metadata = self.device_metadata.to_dict()
+        else:
+            device_metadata = self.device_metadata
 
         endpoint_id = self.endpoint_id
 
-        endpoint_metadata: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.endpoint_metadata, Unset):
+        endpoint_metadata: dict[str, Any] | None | Unset
+        if isinstance(self.endpoint_metadata, Unset):
+            endpoint_metadata = UNSET
+        elif isinstance(self.endpoint_metadata, DatastoreEndpoint):
             endpoint_metadata = self.endpoint_metadata.to_dict()
+        else:
+            endpoint_metadata = self.endpoint_metadata
 
         event_id = self.event_id
 
-        event_metadata: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.event_metadata, Unset):
+        event_metadata: dict[str, Any] | None | Unset
+        if isinstance(self.event_metadata, Unset):
+            event_metadata = UNSET
+        elif isinstance(self.event_metadata, DatastoreEvent):
             event_metadata = self.event_metadata.to_dict()
+        else:
+            event_metadata = self.event_metadata
 
         event_type = self.event_type
 
-        headers: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.headers, Unset):
+        headers: dict[str, Any] | None | Unset
+        if isinstance(self.headers, Unset):
+            headers = UNSET
+        elif isinstance(self.headers, HttpheaderHTTPHeaderType0):
             headers = self.headers.to_dict()
+        else:
+            headers = self.headers
 
         idempotency_key = self.idempotency_key
 
@@ -130,15 +166,23 @@ class ModelsEventDeliveryResponse:
 
         latency_seconds = self.latency_seconds
 
-        metadata: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.metadata, Unset):
+        metadata: dict[str, Any] | None | Unset
+        if isinstance(self.metadata, Unset):
+            metadata = UNSET
+        elif isinstance(self.metadata, DatastoreMetadata):
             metadata = self.metadata.to_dict()
+        else:
+            metadata = self.metadata
 
         project_id = self.project_id
 
-        source_metadata: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.source_metadata, Unset):
+        source_metadata: dict[str, Any] | None | Unset
+        if isinstance(self.source_metadata, Unset):
+            source_metadata = UNSET
+        elif isinstance(self.source_metadata, DatastoreSource):
             source_metadata = self.source_metadata.to_dict()
+        else:
+            source_metadata = self.source_metadata
 
         status: str | Unset = UNSET
         if not isinstance(self.status, Unset):
@@ -220,21 +264,46 @@ class ModelsEventDeliveryResponse:
         from ..models.datastore_event import DatastoreEvent
         from ..models.datastore_metadata import DatastoreMetadata
         from ..models.datastore_source import DatastoreSource
-        from ..models.httpheader_http_header import HttpheaderHTTPHeader
+        from ..models.httpheader_http_header_type_0 import HttpheaderHTTPHeaderType0
 
         d = dict(src_dict)
-        acknowledged_at = d.pop("acknowledged_at", UNSET)
 
-        _cli_metadata = d.pop("cli_metadata", UNSET)
-        cli_metadata: DatastoreCLIMetadata | Unset
-        if isinstance(_cli_metadata, Unset):
-            cli_metadata = UNSET
-        else:
-            cli_metadata = DatastoreCLIMetadata.from_dict(_cli_metadata)
+        def _parse_acknowledged_at(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        acknowledged_at = _parse_acknowledged_at(d.pop("acknowledged_at", UNSET))
+
+        def _parse_cli_metadata(data: object) -> DatastoreCLIMetadata | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                cli_metadata_type_1 = DatastoreCLIMetadata.from_dict(data)
+
+                return cli_metadata_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreCLIMetadata | None | Unset, data)
+
+        cli_metadata = _parse_cli_metadata(d.pop("cli_metadata", UNSET))
 
         created_at = d.pop("created_at", UNSET)
 
-        deleted_at = d.pop("deleted_at", UNSET)
+        def _parse_deleted_at(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        deleted_at = _parse_deleted_at(d.pop("deleted_at", UNSET))
 
         _delivery_mode = d.pop("delivery_mode", UNSET)
         delivery_mode: DatastoreDeliveryMode | Unset
@@ -247,39 +316,81 @@ class ModelsEventDeliveryResponse:
 
         device_id = d.pop("device_id", UNSET)
 
-        _device_metadata = d.pop("device_metadata", UNSET)
-        device_metadata: DatastoreDevice | Unset
-        if isinstance(_device_metadata, Unset):
-            device_metadata = UNSET
-        else:
-            device_metadata = DatastoreDevice.from_dict(_device_metadata)
+        def _parse_device_metadata(data: object) -> DatastoreDevice | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                device_metadata_type_1 = DatastoreDevice.from_dict(data)
+
+                return device_metadata_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreDevice | None | Unset, data)
+
+        device_metadata = _parse_device_metadata(d.pop("device_metadata", UNSET))
 
         endpoint_id = d.pop("endpoint_id", UNSET)
 
-        _endpoint_metadata = d.pop("endpoint_metadata", UNSET)
-        endpoint_metadata: DatastoreEndpoint | Unset
-        if isinstance(_endpoint_metadata, Unset):
-            endpoint_metadata = UNSET
-        else:
-            endpoint_metadata = DatastoreEndpoint.from_dict(_endpoint_metadata)
+        def _parse_endpoint_metadata(data: object) -> DatastoreEndpoint | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                endpoint_metadata_type_1 = DatastoreEndpoint.from_dict(data)
+
+                return endpoint_metadata_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreEndpoint | None | Unset, data)
+
+        endpoint_metadata = _parse_endpoint_metadata(d.pop("endpoint_metadata", UNSET))
 
         event_id = d.pop("event_id", UNSET)
 
-        _event_metadata = d.pop("event_metadata", UNSET)
-        event_metadata: DatastoreEvent | Unset
-        if isinstance(_event_metadata, Unset):
-            event_metadata = UNSET
-        else:
-            event_metadata = DatastoreEvent.from_dict(_event_metadata)
+        def _parse_event_metadata(data: object) -> DatastoreEvent | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                event_metadata_type_1 = DatastoreEvent.from_dict(data)
+
+                return event_metadata_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreEvent | None | Unset, data)
+
+        event_metadata = _parse_event_metadata(d.pop("event_metadata", UNSET))
 
         event_type = d.pop("event_type", UNSET)
 
-        _headers = d.pop("headers", UNSET)
-        headers: HttpheaderHTTPHeader | Unset
-        if isinstance(_headers, Unset):
-            headers = UNSET
-        else:
-            headers = HttpheaderHTTPHeader.from_dict(_headers)
+        def _parse_headers(data: object) -> HttpheaderHTTPHeaderType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                componentsschemashttpheader_http_header_type_0 = (
+                    HttpheaderHTTPHeaderType0.from_dict(data)
+                )
+
+                return componentsschemashttpheader_http_header_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(HttpheaderHTTPHeaderType0 | None | Unset, data)
+
+        headers = _parse_headers(d.pop("headers", UNSET))
 
         idempotency_key = d.pop("idempotency_key", UNSET)
 
@@ -287,21 +398,41 @@ class ModelsEventDeliveryResponse:
 
         latency_seconds = d.pop("latency_seconds", UNSET)
 
-        _metadata = d.pop("metadata", UNSET)
-        metadata: DatastoreMetadata | Unset
-        if isinstance(_metadata, Unset):
-            metadata = UNSET
-        else:
-            metadata = DatastoreMetadata.from_dict(_metadata)
+        def _parse_metadata(data: object) -> DatastoreMetadata | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                metadata_type_1 = DatastoreMetadata.from_dict(data)
+
+                return metadata_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreMetadata | None | Unset, data)
+
+        metadata = _parse_metadata(d.pop("metadata", UNSET))
 
         project_id = d.pop("project_id", UNSET)
 
-        _source_metadata = d.pop("source_metadata", UNSET)
-        source_metadata: DatastoreSource | Unset
-        if isinstance(_source_metadata, Unset):
-            source_metadata = UNSET
-        else:
-            source_metadata = DatastoreSource.from_dict(_source_metadata)
+        def _parse_source_metadata(data: object) -> DatastoreSource | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                source_metadata_type_1 = DatastoreSource.from_dict(data)
+
+                return source_metadata_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreSource | None | Unset, data)
+
+        source_metadata = _parse_source_metadata(d.pop("source_metadata", UNSET))
 
         _status = d.pop("status", UNSET)
         status: DatastoreEventDeliveryStatus | Unset

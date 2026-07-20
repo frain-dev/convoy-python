@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -23,38 +23,59 @@ T = TypeVar("T", bound="DatastorePubSubConfig")
 class DatastorePubSubConfig:
     """
     Attributes:
-        amqp (DatastoreAmqpPubSubConfig | Unset):
-        google (DatastoreGooglePubSubConfig | Unset):
-        kafka (DatastoreKafkaPubSubConfig | Unset):
-        sqs (DatastoreSQSPubSubConfig | Unset):
+        amqp (DatastoreAmqpPubSubConfig | None | Unset):
+        google (DatastoreGooglePubSubConfig | None | Unset):
+        kafka (DatastoreKafkaPubSubConfig | None | Unset):
+        sqs (DatastoreSQSPubSubConfig | None | Unset):
         type_ (DatastorePubSubType | Unset):
         workers (int | Unset):
     """
 
-    amqp: DatastoreAmqpPubSubConfig | Unset = UNSET
-    google: DatastoreGooglePubSubConfig | Unset = UNSET
-    kafka: DatastoreKafkaPubSubConfig | Unset = UNSET
-    sqs: DatastoreSQSPubSubConfig | Unset = UNSET
+    amqp: DatastoreAmqpPubSubConfig | None | Unset = UNSET
+    google: DatastoreGooglePubSubConfig | None | Unset = UNSET
+    kafka: DatastoreKafkaPubSubConfig | None | Unset = UNSET
+    sqs: DatastoreSQSPubSubConfig | None | Unset = UNSET
     type_: DatastorePubSubType | Unset = UNSET
     workers: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        amqp: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.amqp, Unset):
+        from ..models.datastore_amqp_pub_sub_config import DatastoreAmqpPubSubConfig
+        from ..models.datastore_google_pub_sub_config import DatastoreGooglePubSubConfig
+        from ..models.datastore_kafka_pub_sub_config import DatastoreKafkaPubSubConfig
+        from ..models.datastore_sqs_pub_sub_config import DatastoreSQSPubSubConfig
+
+        amqp: dict[str, Any] | None | Unset
+        if isinstance(self.amqp, Unset):
+            amqp = UNSET
+        elif isinstance(self.amqp, DatastoreAmqpPubSubConfig):
             amqp = self.amqp.to_dict()
+        else:
+            amqp = self.amqp
 
-        google: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.google, Unset):
+        google: dict[str, Any] | None | Unset
+        if isinstance(self.google, Unset):
+            google = UNSET
+        elif isinstance(self.google, DatastoreGooglePubSubConfig):
             google = self.google.to_dict()
+        else:
+            google = self.google
 
-        kafka: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.kafka, Unset):
+        kafka: dict[str, Any] | None | Unset
+        if isinstance(self.kafka, Unset):
+            kafka = UNSET
+        elif isinstance(self.kafka, DatastoreKafkaPubSubConfig):
             kafka = self.kafka.to_dict()
+        else:
+            kafka = self.kafka
 
-        sqs: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.sqs, Unset):
+        sqs: dict[str, Any] | None | Unset
+        if isinstance(self.sqs, Unset):
+            sqs = UNSET
+        elif isinstance(self.sqs, DatastoreSQSPubSubConfig):
             sqs = self.sqs.to_dict()
+        else:
+            sqs = self.sqs
 
         type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
@@ -88,33 +109,74 @@ class DatastorePubSubConfig:
         from ..models.datastore_sqs_pub_sub_config import DatastoreSQSPubSubConfig
 
         d = dict(src_dict)
-        _amqp = d.pop("amqp", UNSET)
-        amqp: DatastoreAmqpPubSubConfig | Unset
-        if isinstance(_amqp, Unset):
-            amqp = UNSET
-        else:
-            amqp = DatastoreAmqpPubSubConfig.from_dict(_amqp)
 
-        _google = d.pop("google", UNSET)
-        google: DatastoreGooglePubSubConfig | Unset
-        if isinstance(_google, Unset):
-            google = UNSET
-        else:
-            google = DatastoreGooglePubSubConfig.from_dict(_google)
+        def _parse_amqp(data: object) -> DatastoreAmqpPubSubConfig | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                amqp_type_1 = DatastoreAmqpPubSubConfig.from_dict(data)
 
-        _kafka = d.pop("kafka", UNSET)
-        kafka: DatastoreKafkaPubSubConfig | Unset
-        if isinstance(_kafka, Unset):
-            kafka = UNSET
-        else:
-            kafka = DatastoreKafkaPubSubConfig.from_dict(_kafka)
+                return amqp_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreAmqpPubSubConfig | None | Unset, data)
 
-        _sqs = d.pop("sqs", UNSET)
-        sqs: DatastoreSQSPubSubConfig | Unset
-        if isinstance(_sqs, Unset):
-            sqs = UNSET
-        else:
-            sqs = DatastoreSQSPubSubConfig.from_dict(_sqs)
+        amqp = _parse_amqp(d.pop("amqp", UNSET))
+
+        def _parse_google(data: object) -> DatastoreGooglePubSubConfig | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                google_type_1 = DatastoreGooglePubSubConfig.from_dict(data)
+
+                return google_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreGooglePubSubConfig | None | Unset, data)
+
+        google = _parse_google(d.pop("google", UNSET))
+
+        def _parse_kafka(data: object) -> DatastoreKafkaPubSubConfig | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                kafka_type_1 = DatastoreKafkaPubSubConfig.from_dict(data)
+
+                return kafka_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreKafkaPubSubConfig | None | Unset, data)
+
+        kafka = _parse_kafka(d.pop("kafka", UNSET))
+
+        def _parse_sqs(data: object) -> DatastoreSQSPubSubConfig | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                sqs_type_1 = DatastoreSQSPubSubConfig.from_dict(data)
+
+                return sqs_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreSQSPubSubConfig | None | Unset, data)
+
+        sqs = _parse_sqs(d.pop("sqs", UNSET))
 
         _type_ = d.pop("type", UNSET)
         type_: DatastorePubSubType | Unset

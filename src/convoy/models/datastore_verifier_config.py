@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -22,30 +22,46 @@ T = TypeVar("T", bound="DatastoreVerifierConfig")
 class DatastoreVerifierConfig:
     """
     Attributes:
-        api_key (DatastoreApiKey | Unset):
-        basic_auth (DatastoreBasicAuth | Unset):
-        hmac (DatastoreHMac | Unset):
+        api_key (DatastoreApiKey | None | Unset):
+        basic_auth (DatastoreBasicAuth | None | Unset):
+        hmac (DatastoreHMac | None | Unset):
         type_ (DatastoreVerifierType | Unset):
     """
 
-    api_key: DatastoreApiKey | Unset = UNSET
-    basic_auth: DatastoreBasicAuth | Unset = UNSET
-    hmac: DatastoreHMac | Unset = UNSET
+    api_key: DatastoreApiKey | None | Unset = UNSET
+    basic_auth: DatastoreBasicAuth | None | Unset = UNSET
+    hmac: DatastoreHMac | None | Unset = UNSET
     type_: DatastoreVerifierType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        api_key: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.api_key, Unset):
+        from ..models.datastore_api_key import DatastoreApiKey
+        from ..models.datastore_basic_auth import DatastoreBasicAuth
+        from ..models.datastore_h_mac import DatastoreHMac
+
+        api_key: dict[str, Any] | None | Unset
+        if isinstance(self.api_key, Unset):
+            api_key = UNSET
+        elif isinstance(self.api_key, DatastoreApiKey):
             api_key = self.api_key.to_dict()
+        else:
+            api_key = self.api_key
 
-        basic_auth: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.basic_auth, Unset):
+        basic_auth: dict[str, Any] | None | Unset
+        if isinstance(self.basic_auth, Unset):
+            basic_auth = UNSET
+        elif isinstance(self.basic_auth, DatastoreBasicAuth):
             basic_auth = self.basic_auth.to_dict()
+        else:
+            basic_auth = self.basic_auth
 
-        hmac: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.hmac, Unset):
+        hmac: dict[str, Any] | None | Unset
+        if isinstance(self.hmac, Unset):
+            hmac = UNSET
+        elif isinstance(self.hmac, DatastoreHMac):
             hmac = self.hmac.to_dict()
+        else:
+            hmac = self.hmac
 
         type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
@@ -72,26 +88,57 @@ class DatastoreVerifierConfig:
         from ..models.datastore_h_mac import DatastoreHMac
 
         d = dict(src_dict)
-        _api_key = d.pop("api_key", UNSET)
-        api_key: DatastoreApiKey | Unset
-        if isinstance(_api_key, Unset):
-            api_key = UNSET
-        else:
-            api_key = DatastoreApiKey.from_dict(_api_key)
 
-        _basic_auth = d.pop("basic_auth", UNSET)
-        basic_auth: DatastoreBasicAuth | Unset
-        if isinstance(_basic_auth, Unset):
-            basic_auth = UNSET
-        else:
-            basic_auth = DatastoreBasicAuth.from_dict(_basic_auth)
+        def _parse_api_key(data: object) -> DatastoreApiKey | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                api_key_type_1 = DatastoreApiKey.from_dict(data)
 
-        _hmac = d.pop("hmac", UNSET)
-        hmac: DatastoreHMac | Unset
-        if isinstance(_hmac, Unset):
-            hmac = UNSET
-        else:
-            hmac = DatastoreHMac.from_dict(_hmac)
+                return api_key_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreApiKey | None | Unset, data)
+
+        api_key = _parse_api_key(d.pop("api_key", UNSET))
+
+        def _parse_basic_auth(data: object) -> DatastoreBasicAuth | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                basic_auth_type_1 = DatastoreBasicAuth.from_dict(data)
+
+                return basic_auth_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreBasicAuth | None | Unset, data)
+
+        basic_auth = _parse_basic_auth(d.pop("basic_auth", UNSET))
+
+        def _parse_hmac(data: object) -> DatastoreHMac | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                hmac_type_1 = DatastoreHMac.from_dict(data)
+
+                return hmac_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreHMac | None | Unset, data)
+
+        hmac = _parse_hmac(d.pop("hmac", UNSET))
 
         _type_ = d.pop("type", UNSET)
         type_: DatastoreVerifierType | Unset

@@ -6,11 +6,11 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-T = TypeVar("T", bound="ModelsBulkUpdateFilterRequestPath")
+T = TypeVar("T", bound="ModelsEventTypeResponseJsonSchemaType0")
 
 
 @_attrs_define
-class ModelsBulkUpdateFilterRequestPath:
+class ModelsEventTypeResponseJsonSchemaType0:
     """ """
 
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -25,10 +25,10 @@ class ModelsBulkUpdateFilterRequestPath:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        models_bulk_update_filter_request_path = cls()
+        models_event_type_response_json_schema_type_0 = cls()
 
-        models_bulk_update_filter_request_path.additional_properties = d
-        return models_bulk_update_filter_request_path
+        models_event_type_response_json_schema_type_0.additional_properties = d
+        return models_event_type_response_json_schema_type_0
 
     @property
     def additional_keys(self) -> list[str]:

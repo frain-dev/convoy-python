@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,37 +20,51 @@ class DatastoreAmqpPubSubConfig:
     """
     Attributes:
         host (str | Unset):
-        auth (DatastoreAmqpCredentials | Unset):
-        binded_exchange (str | Unset):
-        dead_letter_exchange (str | Unset):
+        auth (DatastoreAmqpCredentials | None | Unset):
+        binded_exchange (None | str | Unset):
+        dead_letter_exchange (None | str | Unset):
         port (str | Unset):
         queue (str | Unset):
         routing_key (str | Unset):
         schema (str | Unset):
-        vhost (str | Unset):
+        vhost (None | str | Unset):
     """
 
     host: str | Unset = UNSET
-    auth: DatastoreAmqpCredentials | Unset = UNSET
-    binded_exchange: str | Unset = UNSET
-    dead_letter_exchange: str | Unset = UNSET
+    auth: DatastoreAmqpCredentials | None | Unset = UNSET
+    binded_exchange: None | str | Unset = UNSET
+    dead_letter_exchange: None | str | Unset = UNSET
     port: str | Unset = UNSET
     queue: str | Unset = UNSET
     routing_key: str | Unset = UNSET
     schema: str | Unset = UNSET
-    vhost: str | Unset = UNSET
+    vhost: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.datastore_amqp_credentials import DatastoreAmqpCredentials
+
         host = self.host
 
-        auth: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.auth, Unset):
+        auth: dict[str, Any] | None | Unset
+        if isinstance(self.auth, Unset):
+            auth = UNSET
+        elif isinstance(self.auth, DatastoreAmqpCredentials):
             auth = self.auth.to_dict()
+        else:
+            auth = self.auth
 
-        binded_exchange = self.binded_exchange
+        binded_exchange: None | str | Unset
+        if isinstance(self.binded_exchange, Unset):
+            binded_exchange = UNSET
+        else:
+            binded_exchange = self.binded_exchange
 
-        dead_letter_exchange = self.dead_letter_exchange
+        dead_letter_exchange: None | str | Unset
+        if isinstance(self.dead_letter_exchange, Unset):
+            dead_letter_exchange = UNSET
+        else:
+            dead_letter_exchange = self.dead_letter_exchange
 
         port = self.port
 
@@ -60,7 +74,11 @@ class DatastoreAmqpPubSubConfig:
 
         schema = self.schema
 
-        vhost = self.vhost
+        vhost: None | str | Unset
+        if isinstance(self.vhost, Unset):
+            vhost = UNSET
+        else:
+            vhost = self.vhost
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -93,16 +111,42 @@ class DatastoreAmqpPubSubConfig:
         d = dict(src_dict)
         host = d.pop("host", UNSET)
 
-        _auth = d.pop("auth", UNSET)
-        auth: DatastoreAmqpCredentials | Unset
-        if isinstance(_auth, Unset):
-            auth = UNSET
-        else:
-            auth = DatastoreAmqpCredentials.from_dict(_auth)
+        def _parse_auth(data: object) -> DatastoreAmqpCredentials | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                auth_type_1 = DatastoreAmqpCredentials.from_dict(data)
 
-        binded_exchange = d.pop("bindedExchange", UNSET)
+                return auth_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreAmqpCredentials | None | Unset, data)
 
-        dead_letter_exchange = d.pop("deadLetterExchange", UNSET)
+        auth = _parse_auth(d.pop("auth", UNSET))
+
+        def _parse_binded_exchange(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        binded_exchange = _parse_binded_exchange(d.pop("bindedExchange", UNSET))
+
+        def _parse_dead_letter_exchange(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        dead_letter_exchange = _parse_dead_letter_exchange(
+            d.pop("deadLetterExchange", UNSET)
+        )
 
         port = d.pop("port", UNSET)
 
@@ -112,7 +156,14 @@ class DatastoreAmqpPubSubConfig:
 
         schema = d.pop("schema", UNSET)
 
-        vhost = d.pop("vhost", UNSET)
+        def _parse_vhost(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        vhost = _parse_vhost(d.pop("vhost", UNSET))
 
         datastore_amqp_pub_sub_config = cls(
             host=host,

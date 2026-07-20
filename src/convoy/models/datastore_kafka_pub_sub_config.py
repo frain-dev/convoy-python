@@ -19,22 +19,28 @@ T = TypeVar("T", bound="DatastoreKafkaPubSubConfig")
 class DatastoreKafkaPubSubConfig:
     """
     Attributes:
-        auth (DatastoreKafkaAuth | Unset):
+        auth (DatastoreKafkaAuth | None | Unset):
         brokers (list[str] | Unset):
         consumer_group_id (str | Unset):
         topic_name (str | Unset):
     """
 
-    auth: DatastoreKafkaAuth | Unset = UNSET
+    auth: DatastoreKafkaAuth | None | Unset = UNSET
     brokers: list[str] | Unset = UNSET
     consumer_group_id: str | Unset = UNSET
     topic_name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        auth: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.auth, Unset):
+        from ..models.datastore_kafka_auth import DatastoreKafkaAuth
+
+        auth: dict[str, Any] | None | Unset
+        if isinstance(self.auth, Unset):
+            auth = UNSET
+        elif isinstance(self.auth, DatastoreKafkaAuth):
             auth = self.auth.to_dict()
+        else:
+            auth = self.auth
 
         brokers: list[str] | Unset = UNSET
         if not isinstance(self.brokers, Unset):
@@ -63,12 +69,23 @@ class DatastoreKafkaPubSubConfig:
         from ..models.datastore_kafka_auth import DatastoreKafkaAuth
 
         d = dict(src_dict)
-        _auth = d.pop("auth", UNSET)
-        auth: DatastoreKafkaAuth | Unset
-        if isinstance(_auth, Unset):
-            auth = UNSET
-        else:
-            auth = DatastoreKafkaAuth.from_dict(_auth)
+
+        def _parse_auth(data: object) -> DatastoreKafkaAuth | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                auth_type_1 = DatastoreKafkaAuth.from_dict(data)
+
+                return auth_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreKafkaAuth | None | Unset, data)
+
+        auth = _parse_auth(d.pop("auth", UNSET))
 
         brokers = cast(list[str], d.pop("brokers", UNSET))
 

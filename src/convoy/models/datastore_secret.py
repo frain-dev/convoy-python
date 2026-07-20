@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,16 +16,16 @@ class DatastoreSecret:
     """
     Attributes:
         created_at (str | Unset):
-        deleted_at (str | Unset):
-        expires_at (str | Unset):
+        deleted_at (None | str | Unset):
+        expires_at (None | str | Unset):
         uid (str | Unset):
         updated_at (str | Unset):
         value (str | Unset):
     """
 
     created_at: str | Unset = UNSET
-    deleted_at: str | Unset = UNSET
-    expires_at: str | Unset = UNSET
+    deleted_at: None | str | Unset = UNSET
+    expires_at: None | str | Unset = UNSET
     uid: str | Unset = UNSET
     updated_at: str | Unset = UNSET
     value: str | Unset = UNSET
@@ -34,9 +34,17 @@ class DatastoreSecret:
     def to_dict(self) -> dict[str, Any]:
         created_at = self.created_at
 
-        deleted_at = self.deleted_at
+        deleted_at: None | str | Unset
+        if isinstance(self.deleted_at, Unset):
+            deleted_at = UNSET
+        else:
+            deleted_at = self.deleted_at
 
-        expires_at = self.expires_at
+        expires_at: None | str | Unset
+        if isinstance(self.expires_at, Unset):
+            expires_at = UNSET
+        else:
+            expires_at = self.expires_at
 
         uid = self.uid
 
@@ -67,9 +75,23 @@ class DatastoreSecret:
         d = dict(src_dict)
         created_at = d.pop("created_at", UNSET)
 
-        deleted_at = d.pop("deleted_at", UNSET)
+        def _parse_deleted_at(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
 
-        expires_at = d.pop("expires_at", UNSET)
+        deleted_at = _parse_deleted_at(d.pop("deleted_at", UNSET))
+
+        def _parse_expires_at(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        expires_at = _parse_expires_at(d.pop("expires_at", UNSET))
 
         uid = d.pop("uid", UNSET)
 

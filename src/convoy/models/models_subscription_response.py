@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -29,84 +29,130 @@ T = TypeVar("T", bound="ModelsSubscriptionResponse")
 class ModelsSubscriptionResponse:
     """
     Attributes:
-        alert_config (DatastoreAlertConfiguration | Unset):
+        alert_config (DatastoreAlertConfiguration | None | Unset): subscription config
         created_at (str | Unset):
-        deleted_at (str | Unset):
+        deleted_at (None | str | Unset):
         delivery_mode (DatastoreDeliveryMode | Unset):
-        device_metadata (DatastoreDevice | Unset):
-        endpoint_metadata (DatastoreEndpoint | Unset):
-        filter_config (DatastoreFilterConfiguration | Unset):
-        function (str | Unset):
+        device_metadata (DatastoreDevice | None | Unset):
+        endpoint_metadata (DatastoreEndpoint | None | Unset):
+        filter_config (DatastoreFilterConfiguration | None | Unset):
+        function (None | str | Unset):
         name (str | Unset):
         project_id (str | Unset):
-        rate_limit_config (DatastoreRateLimitConfiguration | Unset):
-        retry_config (DatastoreRetryConfiguration | Unset):
-        source_metadata (DatastoreSource | Unset):
+        rate_limit_config (DatastoreRateLimitConfiguration | None | Unset):
+        retry_config (DatastoreRetryConfiguration | None | Unset):
+        source_metadata (DatastoreSource | None | Unset):
         type_ (DatastoreSubscriptionType | Unset):
         uid (str | Unset):
         updated_at (str | Unset):
     """
 
-    alert_config: DatastoreAlertConfiguration | Unset = UNSET
+    alert_config: DatastoreAlertConfiguration | None | Unset = UNSET
     created_at: str | Unset = UNSET
-    deleted_at: str | Unset = UNSET
+    deleted_at: None | str | Unset = UNSET
     delivery_mode: DatastoreDeliveryMode | Unset = UNSET
-    device_metadata: DatastoreDevice | Unset = UNSET
-    endpoint_metadata: DatastoreEndpoint | Unset = UNSET
-    filter_config: DatastoreFilterConfiguration | Unset = UNSET
-    function: str | Unset = UNSET
+    device_metadata: DatastoreDevice | None | Unset = UNSET
+    endpoint_metadata: DatastoreEndpoint | None | Unset = UNSET
+    filter_config: DatastoreFilterConfiguration | None | Unset = UNSET
+    function: None | str | Unset = UNSET
     name: str | Unset = UNSET
     project_id: str | Unset = UNSET
-    rate_limit_config: DatastoreRateLimitConfiguration | Unset = UNSET
-    retry_config: DatastoreRetryConfiguration | Unset = UNSET
-    source_metadata: DatastoreSource | Unset = UNSET
+    rate_limit_config: DatastoreRateLimitConfiguration | None | Unset = UNSET
+    retry_config: DatastoreRetryConfiguration | None | Unset = UNSET
+    source_metadata: DatastoreSource | None | Unset = UNSET
     type_: DatastoreSubscriptionType | Unset = UNSET
     uid: str | Unset = UNSET
     updated_at: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        alert_config: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.alert_config, Unset):
+        from ..models.datastore_alert_configuration import DatastoreAlertConfiguration
+        from ..models.datastore_device import DatastoreDevice
+        from ..models.datastore_endpoint import DatastoreEndpoint
+        from ..models.datastore_filter_configuration import DatastoreFilterConfiguration
+        from ..models.datastore_rate_limit_configuration import (
+            DatastoreRateLimitConfiguration,
+        )
+        from ..models.datastore_retry_configuration import DatastoreRetryConfiguration
+        from ..models.datastore_source import DatastoreSource
+
+        alert_config: dict[str, Any] | None | Unset
+        if isinstance(self.alert_config, Unset):
+            alert_config = UNSET
+        elif isinstance(self.alert_config, DatastoreAlertConfiguration):
             alert_config = self.alert_config.to_dict()
+        else:
+            alert_config = self.alert_config
 
         created_at = self.created_at
 
-        deleted_at = self.deleted_at
+        deleted_at: None | str | Unset
+        if isinstance(self.deleted_at, Unset):
+            deleted_at = UNSET
+        else:
+            deleted_at = self.deleted_at
 
         delivery_mode: str | Unset = UNSET
         if not isinstance(self.delivery_mode, Unset):
             delivery_mode = self.delivery_mode.value
 
-        device_metadata: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.device_metadata, Unset):
+        device_metadata: dict[str, Any] | None | Unset
+        if isinstance(self.device_metadata, Unset):
+            device_metadata = UNSET
+        elif isinstance(self.device_metadata, DatastoreDevice):
             device_metadata = self.device_metadata.to_dict()
+        else:
+            device_metadata = self.device_metadata
 
-        endpoint_metadata: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.endpoint_metadata, Unset):
+        endpoint_metadata: dict[str, Any] | None | Unset
+        if isinstance(self.endpoint_metadata, Unset):
+            endpoint_metadata = UNSET
+        elif isinstance(self.endpoint_metadata, DatastoreEndpoint):
             endpoint_metadata = self.endpoint_metadata.to_dict()
+        else:
+            endpoint_metadata = self.endpoint_metadata
 
-        filter_config: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.filter_config, Unset):
+        filter_config: dict[str, Any] | None | Unset
+        if isinstance(self.filter_config, Unset):
+            filter_config = UNSET
+        elif isinstance(self.filter_config, DatastoreFilterConfiguration):
             filter_config = self.filter_config.to_dict()
+        else:
+            filter_config = self.filter_config
 
-        function = self.function
+        function: None | str | Unset
+        if isinstance(self.function, Unset):
+            function = UNSET
+        else:
+            function = self.function
 
         name = self.name
 
         project_id = self.project_id
 
-        rate_limit_config: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.rate_limit_config, Unset):
+        rate_limit_config: dict[str, Any] | None | Unset
+        if isinstance(self.rate_limit_config, Unset):
+            rate_limit_config = UNSET
+        elif isinstance(self.rate_limit_config, DatastoreRateLimitConfiguration):
             rate_limit_config = self.rate_limit_config.to_dict()
+        else:
+            rate_limit_config = self.rate_limit_config
 
-        retry_config: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.retry_config, Unset):
+        retry_config: dict[str, Any] | None | Unset
+        if isinstance(self.retry_config, Unset):
+            retry_config = UNSET
+        elif isinstance(self.retry_config, DatastoreRetryConfiguration):
             retry_config = self.retry_config.to_dict()
+        else:
+            retry_config = self.retry_config
 
-        source_metadata: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.source_metadata, Unset):
+        source_metadata: dict[str, Any] | None | Unset
+        if isinstance(self.source_metadata, Unset):
+            source_metadata = UNSET
+        elif isinstance(self.source_metadata, DatastoreSource):
             source_metadata = self.source_metadata.to_dict()
+        else:
+            source_metadata = self.source_metadata
 
         type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
@@ -167,16 +213,36 @@ class ModelsSubscriptionResponse:
         from ..models.datastore_source import DatastoreSource
 
         d = dict(src_dict)
-        _alert_config = d.pop("alert_config", UNSET)
-        alert_config: DatastoreAlertConfiguration | Unset
-        if isinstance(_alert_config, Unset):
-            alert_config = UNSET
-        else:
-            alert_config = DatastoreAlertConfiguration.from_dict(_alert_config)
+
+        def _parse_alert_config(
+            data: object,
+        ) -> DatastoreAlertConfiguration | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                alert_config_type_1 = DatastoreAlertConfiguration.from_dict(data)
+
+                return alert_config_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreAlertConfiguration | None | Unset, data)
+
+        alert_config = _parse_alert_config(d.pop("alert_config", UNSET))
 
         created_at = d.pop("created_at", UNSET)
 
-        deleted_at = d.pop("deleted_at", UNSET)
+        def _parse_deleted_at(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        deleted_at = _parse_deleted_at(d.pop("deleted_at", UNSET))
 
         _delivery_mode = d.pop("delivery_mode", UNSET)
         delivery_mode: DatastoreDeliveryMode | Unset
@@ -185,55 +251,128 @@ class ModelsSubscriptionResponse:
         else:
             delivery_mode = DatastoreDeliveryMode(_delivery_mode)
 
-        _device_metadata = d.pop("device_metadata", UNSET)
-        device_metadata: DatastoreDevice | Unset
-        if isinstance(_device_metadata, Unset):
-            device_metadata = UNSET
-        else:
-            device_metadata = DatastoreDevice.from_dict(_device_metadata)
+        def _parse_device_metadata(data: object) -> DatastoreDevice | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                device_metadata_type_1 = DatastoreDevice.from_dict(data)
 
-        _endpoint_metadata = d.pop("endpoint_metadata", UNSET)
-        endpoint_metadata: DatastoreEndpoint | Unset
-        if isinstance(_endpoint_metadata, Unset):
-            endpoint_metadata = UNSET
-        else:
-            endpoint_metadata = DatastoreEndpoint.from_dict(_endpoint_metadata)
+                return device_metadata_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreDevice | None | Unset, data)
 
-        _filter_config = d.pop("filter_config", UNSET)
-        filter_config: DatastoreFilterConfiguration | Unset
-        if isinstance(_filter_config, Unset):
-            filter_config = UNSET
-        else:
-            filter_config = DatastoreFilterConfiguration.from_dict(_filter_config)
+        device_metadata = _parse_device_metadata(d.pop("device_metadata", UNSET))
 
-        function = d.pop("function", UNSET)
+        def _parse_endpoint_metadata(data: object) -> DatastoreEndpoint | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                endpoint_metadata_type_1 = DatastoreEndpoint.from_dict(data)
+
+                return endpoint_metadata_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreEndpoint | None | Unset, data)
+
+        endpoint_metadata = _parse_endpoint_metadata(d.pop("endpoint_metadata", UNSET))
+
+        def _parse_filter_config(
+            data: object,
+        ) -> DatastoreFilterConfiguration | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                filter_config_type_1 = DatastoreFilterConfiguration.from_dict(data)
+
+                return filter_config_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreFilterConfiguration | None | Unset, data)
+
+        filter_config = _parse_filter_config(d.pop("filter_config", UNSET))
+
+        def _parse_function(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        function = _parse_function(d.pop("function", UNSET))
 
         name = d.pop("name", UNSET)
 
         project_id = d.pop("project_id", UNSET)
 
-        _rate_limit_config = d.pop("rate_limit_config", UNSET)
-        rate_limit_config: DatastoreRateLimitConfiguration | Unset
-        if isinstance(_rate_limit_config, Unset):
-            rate_limit_config = UNSET
-        else:
-            rate_limit_config = DatastoreRateLimitConfiguration.from_dict(
-                _rate_limit_config
-            )
+        def _parse_rate_limit_config(
+            data: object,
+        ) -> DatastoreRateLimitConfiguration | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                rate_limit_config_type_1 = DatastoreRateLimitConfiguration.from_dict(
+                    data
+                )
 
-        _retry_config = d.pop("retry_config", UNSET)
-        retry_config: DatastoreRetryConfiguration | Unset
-        if isinstance(_retry_config, Unset):
-            retry_config = UNSET
-        else:
-            retry_config = DatastoreRetryConfiguration.from_dict(_retry_config)
+                return rate_limit_config_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreRateLimitConfiguration | None | Unset, data)
 
-        _source_metadata = d.pop("source_metadata", UNSET)
-        source_metadata: DatastoreSource | Unset
-        if isinstance(_source_metadata, Unset):
-            source_metadata = UNSET
-        else:
-            source_metadata = DatastoreSource.from_dict(_source_metadata)
+        rate_limit_config = _parse_rate_limit_config(d.pop("rate_limit_config", UNSET))
+
+        def _parse_retry_config(
+            data: object,
+        ) -> DatastoreRetryConfiguration | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                retry_config_type_1 = DatastoreRetryConfiguration.from_dict(data)
+
+                return retry_config_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreRetryConfiguration | None | Unset, data)
+
+        retry_config = _parse_retry_config(d.pop("retry_config", UNSET))
+
+        def _parse_source_metadata(data: object) -> DatastoreSource | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                source_metadata_type_1 = DatastoreSource.from_dict(data)
+
+                return source_metadata_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreSource | None | Unset, data)
+
+        source_metadata = _parse_source_metadata(d.pop("source_metadata", UNSET))
 
         _type_ = d.pop("type", UNSET)
         type_: DatastoreSubscriptionType | Unset

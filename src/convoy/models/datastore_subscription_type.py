@@ -2,8 +2,9 @@ from enum import Enum
 
 
 class DatastoreSubscriptionType(str, Enum):
-    SUBSCRIPTION_TYPE_API = "api"
-    SUBSCRIPTION_TYPE_CLI = "cli"
+    API = "api"
+    CLI = "cli"
+    VALUE_2 = ""
 
     def __str__(self) -> str:
         return str(self.value)

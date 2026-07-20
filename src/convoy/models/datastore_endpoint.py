@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -25,34 +25,35 @@ class DatastoreEndpoint:
     """
     Attributes:
         advanced_signatures (bool | Unset):
-        authentication (DatastoreEndpointAuthentication | Unset):
-        cb_state (str | Unset): CBState is the circuit breaker state ("open", "half-open", "closed") so the UI
+        authentication (DatastoreEndpointAuthentication | None | Unset):
+        cb_state (None | str | Unset): CBState is the circuit breaker state ("open", "half-open", "closed") so the UI
             can reflect a tripped breaker on the endpoint status. Nil when CB is
             off/unlicensed or has no sample for this endpoint.
         content_type (str | Unset):
         created_at (str | Unset):
-        deleted_at (str | Unset):
+        deleted_at (None | str | Unset):
         description (str | Unset):
         events (int | Unset):
-        failure_count (int | Unset):
-        failure_rate (float | Unset): FailureRate is the circuit breaker's rolling failure rate for this endpoint.
+        failure_count (int | None | Unset):
+        failure_rate (float | None | Unset): FailureRate is the circuit breaker's rolling failure rate for this
+            endpoint.
             It is a pointer so the API can return null when no rate was computed (circuit
             breaker feature off, or sampler not running), distinct from a genuine 0%.
         http_timeout (int | Unset):
-        mtls_client_cert (DatastoreMtlsClientCert | Unset):
+        mtls_client_cert (DatastoreMtlsClientCert | None | Unset): mTLS client certificate configuration
         name (str | Unset):
         owner_id (str | Unset):
-        period_failure_rate (float | Unset): PeriodFailureRate is the period failure rate from event_deliveries,
+        period_failure_rate (float | None | Unset): PeriodFailureRate is the period failure rate from event_deliveries,
             (Failure+Retry)/(Success+Failure+Retry). Retry counts as failed-so-far.
             Nil when the range has no counted deliveries; sibling counts are transient.
         project_id (str | Unset):
         rate_limit (int | Unset):
         rate_limit_duration (int | Unset):
-        retry_count (int | Unset):
+        retry_count (int | None | Unset):
         secrets (list[DatastoreSecret] | Unset):
         slack_webhook_url (str | Unset):
         status (DatastoreEndpointStatus | Unset):
-        success_count (int | Unset):
+        success_count (int | None | Unset):
         support_email (str | Unset):
         uid (str | Unset):
         updated_at (str | Unset):
@@ -60,28 +61,28 @@ class DatastoreEndpoint:
     """
 
     advanced_signatures: bool | Unset = UNSET
-    authentication: DatastoreEndpointAuthentication | Unset = UNSET
-    cb_state: str | Unset = UNSET
+    authentication: DatastoreEndpointAuthentication | None | Unset = UNSET
+    cb_state: None | str | Unset = UNSET
     content_type: str | Unset = UNSET
     created_at: str | Unset = UNSET
-    deleted_at: str | Unset = UNSET
+    deleted_at: None | str | Unset = UNSET
     description: str | Unset = UNSET
     events: int | Unset = UNSET
-    failure_count: int | Unset = UNSET
-    failure_rate: float | Unset = UNSET
+    failure_count: int | None | Unset = UNSET
+    failure_rate: float | None | Unset = UNSET
     http_timeout: int | Unset = UNSET
-    mtls_client_cert: DatastoreMtlsClientCert | Unset = UNSET
+    mtls_client_cert: DatastoreMtlsClientCert | None | Unset = UNSET
     name: str | Unset = UNSET
     owner_id: str | Unset = UNSET
-    period_failure_rate: float | Unset = UNSET
+    period_failure_rate: float | None | Unset = UNSET
     project_id: str | Unset = UNSET
     rate_limit: int | Unset = UNSET
     rate_limit_duration: int | Unset = UNSET
-    retry_count: int | Unset = UNSET
+    retry_count: int | None | Unset = UNSET
     secrets: list[DatastoreSecret] | Unset = UNSET
     slack_webhook_url: str | Unset = UNSET
     status: DatastoreEndpointStatus | Unset = UNSET
-    success_count: int | Unset = UNSET
+    success_count: int | None | Unset = UNSET
     support_email: str | Unset = UNSET
     uid: str | Unset = UNSET
     updated_at: str | Unset = UNSET
@@ -89,39 +90,72 @@ class DatastoreEndpoint:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.datastore_endpoint_authentication import (
+            DatastoreEndpointAuthentication,
+        )
+        from ..models.datastore_mtls_client_cert import DatastoreMtlsClientCert
+
         advanced_signatures = self.advanced_signatures
 
-        authentication: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.authentication, Unset):
+        authentication: dict[str, Any] | None | Unset
+        if isinstance(self.authentication, Unset):
+            authentication = UNSET
+        elif isinstance(self.authentication, DatastoreEndpointAuthentication):
             authentication = self.authentication.to_dict()
+        else:
+            authentication = self.authentication
 
-        cb_state = self.cb_state
+        cb_state: None | str | Unset
+        if isinstance(self.cb_state, Unset):
+            cb_state = UNSET
+        else:
+            cb_state = self.cb_state
 
         content_type = self.content_type
 
         created_at = self.created_at
 
-        deleted_at = self.deleted_at
+        deleted_at: None | str | Unset
+        if isinstance(self.deleted_at, Unset):
+            deleted_at = UNSET
+        else:
+            deleted_at = self.deleted_at
 
         description = self.description
 
         events = self.events
 
-        failure_count = self.failure_count
+        failure_count: int | None | Unset
+        if isinstance(self.failure_count, Unset):
+            failure_count = UNSET
+        else:
+            failure_count = self.failure_count
 
-        failure_rate = self.failure_rate
+        failure_rate: float | None | Unset
+        if isinstance(self.failure_rate, Unset):
+            failure_rate = UNSET
+        else:
+            failure_rate = self.failure_rate
 
         http_timeout = self.http_timeout
 
-        mtls_client_cert: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.mtls_client_cert, Unset):
+        mtls_client_cert: dict[str, Any] | None | Unset
+        if isinstance(self.mtls_client_cert, Unset):
+            mtls_client_cert = UNSET
+        elif isinstance(self.mtls_client_cert, DatastoreMtlsClientCert):
             mtls_client_cert = self.mtls_client_cert.to_dict()
+        else:
+            mtls_client_cert = self.mtls_client_cert
 
         name = self.name
 
         owner_id = self.owner_id
 
-        period_failure_rate = self.period_failure_rate
+        period_failure_rate: float | None | Unset
+        if isinstance(self.period_failure_rate, Unset):
+            period_failure_rate = UNSET
+        else:
+            period_failure_rate = self.period_failure_rate
 
         project_id = self.project_id
 
@@ -129,7 +163,11 @@ class DatastoreEndpoint:
 
         rate_limit_duration = self.rate_limit_duration
 
-        retry_count = self.retry_count
+        retry_count: int | None | Unset
+        if isinstance(self.retry_count, Unset):
+            retry_count = UNSET
+        else:
+            retry_count = self.retry_count
 
         secrets: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.secrets, Unset):
@@ -144,7 +182,11 @@ class DatastoreEndpoint:
         if not isinstance(self.status, Unset):
             status = self.status.value
 
-        success_count = self.success_count
+        success_count: int | None | Unset
+        if isinstance(self.success_count, Unset):
+            success_count = UNSET
+        else:
+            success_count = self.success_count
 
         support_email = self.support_email
 
@@ -225,43 +267,104 @@ class DatastoreEndpoint:
         d = dict(src_dict)
         advanced_signatures = d.pop("advanced_signatures", UNSET)
 
-        _authentication = d.pop("authentication", UNSET)
-        authentication: DatastoreEndpointAuthentication | Unset
-        if isinstance(_authentication, Unset):
-            authentication = UNSET
-        else:
-            authentication = DatastoreEndpointAuthentication.from_dict(_authentication)
+        def _parse_authentication(
+            data: object,
+        ) -> DatastoreEndpointAuthentication | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                authentication_type_1 = DatastoreEndpointAuthentication.from_dict(data)
 
-        cb_state = d.pop("cb_state", UNSET)
+                return authentication_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreEndpointAuthentication | None | Unset, data)
+
+        authentication = _parse_authentication(d.pop("authentication", UNSET))
+
+        def _parse_cb_state(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        cb_state = _parse_cb_state(d.pop("cb_state", UNSET))
 
         content_type = d.pop("content_type", UNSET)
 
         created_at = d.pop("created_at", UNSET)
 
-        deleted_at = d.pop("deleted_at", UNSET)
+        def _parse_deleted_at(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        deleted_at = _parse_deleted_at(d.pop("deleted_at", UNSET))
 
         description = d.pop("description", UNSET)
 
         events = d.pop("events", UNSET)
 
-        failure_count = d.pop("failure_count", UNSET)
+        def _parse_failure_count(data: object) -> int | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(int | None | Unset, data)
 
-        failure_rate = d.pop("failure_rate", UNSET)
+        failure_count = _parse_failure_count(d.pop("failure_count", UNSET))
+
+        def _parse_failure_rate(data: object) -> float | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | Unset, data)
+
+        failure_rate = _parse_failure_rate(d.pop("failure_rate", UNSET))
 
         http_timeout = d.pop("http_timeout", UNSET)
 
-        _mtls_client_cert = d.pop("mtls_client_cert", UNSET)
-        mtls_client_cert: DatastoreMtlsClientCert | Unset
-        if isinstance(_mtls_client_cert, Unset):
-            mtls_client_cert = UNSET
-        else:
-            mtls_client_cert = DatastoreMtlsClientCert.from_dict(_mtls_client_cert)
+        def _parse_mtls_client_cert(
+            data: object,
+        ) -> DatastoreMtlsClientCert | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                mtls_client_cert_type_1 = DatastoreMtlsClientCert.from_dict(data)
+
+                return mtls_client_cert_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreMtlsClientCert | None | Unset, data)
+
+        mtls_client_cert = _parse_mtls_client_cert(d.pop("mtls_client_cert", UNSET))
 
         name = d.pop("name", UNSET)
 
         owner_id = d.pop("owner_id", UNSET)
 
-        period_failure_rate = d.pop("period_failure_rate", UNSET)
+        def _parse_period_failure_rate(data: object) -> float | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(float | None | Unset, data)
+
+        period_failure_rate = _parse_period_failure_rate(
+            d.pop("period_failure_rate", UNSET)
+        )
 
         project_id = d.pop("project_id", UNSET)
 
@@ -269,7 +372,14 @@ class DatastoreEndpoint:
 
         rate_limit_duration = d.pop("rate_limit_duration", UNSET)
 
-        retry_count = d.pop("retry_count", UNSET)
+        def _parse_retry_count(data: object) -> int | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(int | None | Unset, data)
+
+        retry_count = _parse_retry_count(d.pop("retry_count", UNSET))
 
         _secrets = d.pop("secrets", UNSET)
         secrets: list[DatastoreSecret] | Unset = UNSET
@@ -289,7 +399,14 @@ class DatastoreEndpoint:
         else:
             status = DatastoreEndpointStatus(_status)
 
-        success_count = d.pop("success_count", UNSET)
+        def _parse_success_count(data: object) -> int | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(int | None | Unset, data)
+
+        success_count = _parse_success_count(d.pop("success_count", UNSET))
 
         support_email = d.pop("support_email", UNSET)
 

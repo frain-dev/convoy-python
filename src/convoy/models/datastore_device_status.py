@@ -2,9 +2,10 @@ from enum import Enum
 
 
 class DatastoreDeviceStatus(str, Enum):
-    DEVICE_STATUS_DISABLED = "disabled"
-    DEVICE_STATUS_OFFLINE = "offline"
-    DEVICE_STATUS_ONLINE = "online"
+    DISABLED = "disabled"
+    OFFLINE = "offline"
+    ONLINE = "online"
+    VALUE_3 = ""
 
     def __str__(self) -> str:
         return str(self.value)

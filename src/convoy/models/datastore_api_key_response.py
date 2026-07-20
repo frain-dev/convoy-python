@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,7 +20,7 @@ class DatastoreAPIKeyResponse:
     """
     Attributes:
         created_at (str | Unset):
-        expires_at (str | Unset):
+        expires_at (None | str | Unset):
         key (str | Unset):
         key_type (str | Unset):
         name (str | Unset):
@@ -30,7 +30,7 @@ class DatastoreAPIKeyResponse:
     """
 
     created_at: str | Unset = UNSET
-    expires_at: str | Unset = UNSET
+    expires_at: None | str | Unset = UNSET
     key: str | Unset = UNSET
     key_type: str | Unset = UNSET
     name: str | Unset = UNSET
@@ -42,7 +42,11 @@ class DatastoreAPIKeyResponse:
     def to_dict(self) -> dict[str, Any]:
         created_at = self.created_at
 
-        expires_at = self.expires_at
+        expires_at: None | str | Unset
+        if isinstance(self.expires_at, Unset):
+            expires_at = UNSET
+        else:
+            expires_at = self.expires_at
 
         key = self.key
 
@@ -87,7 +91,14 @@ class DatastoreAPIKeyResponse:
         d = dict(src_dict)
         created_at = d.pop("created_at", UNSET)
 
-        expires_at = d.pop("expires_at", UNSET)
+        def _parse_expires_at(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        expires_at = _parse_expires_at(d.pop("expires_at", UNSET))
 
         key = d.pop("key", UNSET)
 

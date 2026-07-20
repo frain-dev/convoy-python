@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -10,7 +10,7 @@ from ..models.datastore_strategy_provider import DatastoreStrategyProvider
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.datastore_metadata_data import DatastoreMetadataData
+    from ..models.datastore_metadata_data_type_0 import DatastoreMetadataDataType0
 
 
 T = TypeVar("T", bound="DatastoreMetadata")
@@ -20,7 +20,7 @@ T = TypeVar("T", bound="DatastoreMetadata")
 class DatastoreMetadata:
     """
     Attributes:
-        data (DatastoreMetadataData | Unset): Data to be sent to endpoint.
+        data (DatastoreMetadataDataType0 | None | Unset): Data to be sent to endpoint.
         interval_seconds (int | Unset):
         max_retry_seconds (int | Unset):
         next_send_time (str | Unset):
@@ -31,7 +31,7 @@ class DatastoreMetadata:
         strategy (DatastoreStrategyProvider | Unset):
     """
 
-    data: DatastoreMetadataData | Unset = UNSET
+    data: DatastoreMetadataDataType0 | None | Unset = UNSET
     interval_seconds: int | Unset = UNSET
     max_retry_seconds: int | Unset = UNSET
     next_send_time: str | Unset = UNSET
@@ -42,9 +42,15 @@ class DatastoreMetadata:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        data: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.data, Unset):
+        from ..models.datastore_metadata_data_type_0 import DatastoreMetadataDataType0
+
+        data: dict[str, Any] | None | Unset
+        if isinstance(self.data, Unset):
+            data = UNSET
+        elif isinstance(self.data, DatastoreMetadataDataType0):
             data = self.data.to_dict()
+        else:
+            data = self.data
 
         interval_seconds = self.interval_seconds
 
@@ -86,15 +92,26 @@ class DatastoreMetadata:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.datastore_metadata_data import DatastoreMetadataData
+        from ..models.datastore_metadata_data_type_0 import DatastoreMetadataDataType0
 
         d = dict(src_dict)
-        _data = d.pop("data", UNSET)
-        data: DatastoreMetadataData | Unset
-        if isinstance(_data, Unset):
-            data = UNSET
-        else:
-            data = DatastoreMetadataData.from_dict(_data)
+
+        def _parse_data(data: object) -> DatastoreMetadataDataType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                data_type_0 = DatastoreMetadataDataType0.from_dict(data)
+
+                return data_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreMetadataDataType0 | None | Unset, data)
+
+        data = _parse_data(d.pop("data", UNSET))
 
         interval_seconds = d.pop("interval_seconds", UNSET)
 

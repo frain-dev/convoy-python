@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -9,7 +9,7 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.handlers_stub import HandlersStub
+    from ..models.handlers_stub_type_0 import HandlersStubType0
 
 
 T = TypeVar("T", bound="DeprecateEventTypeResponse401")
@@ -21,22 +21,28 @@ class DeprecateEventTypeResponse401:
     Attributes:
         message (str | Unset):
         status (bool | Unset):
-        data (HandlersStub | Unset):
+        data (HandlersStubType0 | None | Unset):
     """
 
     message: str | Unset = UNSET
     status: bool | Unset = UNSET
-    data: HandlersStub | Unset = UNSET
+    data: HandlersStubType0 | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.handlers_stub_type_0 import HandlersStubType0
+
         message = self.message
 
         status = self.status
 
-        data: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.data, Unset):
+        data: dict[str, Any] | None | Unset
+        if isinstance(self.data, Unset):
+            data = UNSET
+        elif isinstance(self.data, HandlersStubType0):
             data = self.data.to_dict()
+        else:
+            data = self.data
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -52,19 +58,31 @@ class DeprecateEventTypeResponse401:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.handlers_stub import HandlersStub
+        from ..models.handlers_stub_type_0 import HandlersStubType0
 
         d = dict(src_dict)
         message = d.pop("message", UNSET)
 
         status = d.pop("status", UNSET)
 
-        _data = d.pop("data", UNSET)
-        data: HandlersStub | Unset
-        if isinstance(_data, Unset):
-            data = UNSET
-        else:
-            data = HandlersStub.from_dict(_data)
+        def _parse_data(data: object) -> HandlersStubType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                componentsschemashandlers_stub_type_0 = HandlersStubType0.from_dict(
+                    data
+                )
+
+                return componentsschemashandlers_stub_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(HandlersStubType0 | None | Unset, data)
+
+        data = _parse_data(d.pop("data", UNSET))
 
         deprecate_event_type_response_401 = cls(
             message=message,

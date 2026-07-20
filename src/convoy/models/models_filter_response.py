@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -9,7 +9,7 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.datastore_m import DatastoreM
+    from ..models.datastore_m_type_0 import DatastoreMType0
 
 
 T = TypeVar("T", bound="ModelsFilterResponse")
@@ -19,70 +19,108 @@ T = TypeVar("T", bound="ModelsFilterResponse")
 class ModelsFilterResponse:
     """
     Attributes:
-        body (DatastoreM | Unset):
-        enabled_at (str | Unset):
+        body (DatastoreMType0 | None | Unset):
+        enabled_at (None | str | Unset):
         event_type (str | Unset):
-        headers (DatastoreM | Unset):
-        path (DatastoreM | Unset):
-        query (DatastoreM | Unset):
-        raw_body (DatastoreM | Unset):
-        raw_headers (DatastoreM | Unset):
-        raw_path (DatastoreM | Unset):
-        raw_query (DatastoreM | Unset):
+        headers (DatastoreMType0 | None | Unset):
+        path (DatastoreMType0 | None | Unset):
+        query (DatastoreMType0 | None | Unset):
+        raw_body (DatastoreMType0 | None | Unset):
+        raw_headers (DatastoreMType0 | None | Unset):
+        raw_path (DatastoreMType0 | None | Unset):
+        raw_query (DatastoreMType0 | None | Unset):
         subscription_id (str | Unset):
         uid (str | Unset):
     """
 
-    body: DatastoreM | Unset = UNSET
-    enabled_at: str | Unset = UNSET
+    body: DatastoreMType0 | None | Unset = UNSET
+    enabled_at: None | str | Unset = UNSET
     event_type: str | Unset = UNSET
-    headers: DatastoreM | Unset = UNSET
-    path: DatastoreM | Unset = UNSET
-    query: DatastoreM | Unset = UNSET
-    raw_body: DatastoreM | Unset = UNSET
-    raw_headers: DatastoreM | Unset = UNSET
-    raw_path: DatastoreM | Unset = UNSET
-    raw_query: DatastoreM | Unset = UNSET
+    headers: DatastoreMType0 | None | Unset = UNSET
+    path: DatastoreMType0 | None | Unset = UNSET
+    query: DatastoreMType0 | None | Unset = UNSET
+    raw_body: DatastoreMType0 | None | Unset = UNSET
+    raw_headers: DatastoreMType0 | None | Unset = UNSET
+    raw_path: DatastoreMType0 | None | Unset = UNSET
+    raw_query: DatastoreMType0 | None | Unset = UNSET
     subscription_id: str | Unset = UNSET
     uid: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        body: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.body, Unset):
-            body = self.body.to_dict()
+        from ..models.datastore_m_type_0 import DatastoreMType0
 
-        enabled_at = self.enabled_at
+        body: dict[str, Any] | None | Unset
+        if isinstance(self.body, Unset):
+            body = UNSET
+        elif isinstance(self.body, DatastoreMType0):
+            body = self.body.to_dict()
+        else:
+            body = self.body
+
+        enabled_at: None | str | Unset
+        if isinstance(self.enabled_at, Unset):
+            enabled_at = UNSET
+        else:
+            enabled_at = self.enabled_at
 
         event_type = self.event_type
 
-        headers: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.headers, Unset):
+        headers: dict[str, Any] | None | Unset
+        if isinstance(self.headers, Unset):
+            headers = UNSET
+        elif isinstance(self.headers, DatastoreMType0):
             headers = self.headers.to_dict()
+        else:
+            headers = self.headers
 
-        path: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.path, Unset):
+        path: dict[str, Any] | None | Unset
+        if isinstance(self.path, Unset):
+            path = UNSET
+        elif isinstance(self.path, DatastoreMType0):
             path = self.path.to_dict()
+        else:
+            path = self.path
 
-        query: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.query, Unset):
+        query: dict[str, Any] | None | Unset
+        if isinstance(self.query, Unset):
+            query = UNSET
+        elif isinstance(self.query, DatastoreMType0):
             query = self.query.to_dict()
+        else:
+            query = self.query
 
-        raw_body: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.raw_body, Unset):
+        raw_body: dict[str, Any] | None | Unset
+        if isinstance(self.raw_body, Unset):
+            raw_body = UNSET
+        elif isinstance(self.raw_body, DatastoreMType0):
             raw_body = self.raw_body.to_dict()
+        else:
+            raw_body = self.raw_body
 
-        raw_headers: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.raw_headers, Unset):
+        raw_headers: dict[str, Any] | None | Unset
+        if isinstance(self.raw_headers, Unset):
+            raw_headers = UNSET
+        elif isinstance(self.raw_headers, DatastoreMType0):
             raw_headers = self.raw_headers.to_dict()
+        else:
+            raw_headers = self.raw_headers
 
-        raw_path: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.raw_path, Unset):
+        raw_path: dict[str, Any] | None | Unset
+        if isinstance(self.raw_path, Unset):
+            raw_path = UNSET
+        elif isinstance(self.raw_path, DatastoreMType0):
             raw_path = self.raw_path.to_dict()
+        else:
+            raw_path = self.raw_path
 
-        raw_query: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.raw_query, Unset):
+        raw_query: dict[str, Any] | None | Unset
+        if isinstance(self.raw_query, Unset):
+            raw_query = UNSET
+        elif isinstance(self.raw_query, DatastoreMType0):
             raw_query = self.raw_query.to_dict()
+        else:
+            raw_query = self.raw_query
 
         subscription_id = self.subscription_id
 
@@ -120,68 +158,156 @@ class ModelsFilterResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.datastore_m import DatastoreM
+        from ..models.datastore_m_type_0 import DatastoreMType0
 
         d = dict(src_dict)
-        _body = d.pop("body", UNSET)
-        body: DatastoreM | Unset
-        if isinstance(_body, Unset):
-            body = UNSET
-        else:
-            body = DatastoreM.from_dict(_body)
 
-        enabled_at = d.pop("enabled_at", UNSET)
+        def _parse_body(data: object) -> DatastoreMType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                componentsschemasdatastore_m_type_0 = DatastoreMType0.from_dict(data)
+
+                return componentsschemasdatastore_m_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreMType0 | None | Unset, data)
+
+        body = _parse_body(d.pop("body", UNSET))
+
+        def _parse_enabled_at(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        enabled_at = _parse_enabled_at(d.pop("enabled_at", UNSET))
 
         event_type = d.pop("event_type", UNSET)
 
-        _headers = d.pop("headers", UNSET)
-        headers: DatastoreM | Unset
-        if isinstance(_headers, Unset):
-            headers = UNSET
-        else:
-            headers = DatastoreM.from_dict(_headers)
+        def _parse_headers(data: object) -> DatastoreMType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                componentsschemasdatastore_m_type_0 = DatastoreMType0.from_dict(data)
 
-        _path = d.pop("path", UNSET)
-        path: DatastoreM | Unset
-        if isinstance(_path, Unset):
-            path = UNSET
-        else:
-            path = DatastoreM.from_dict(_path)
+                return componentsschemasdatastore_m_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreMType0 | None | Unset, data)
 
-        _query = d.pop("query", UNSET)
-        query: DatastoreM | Unset
-        if isinstance(_query, Unset):
-            query = UNSET
-        else:
-            query = DatastoreM.from_dict(_query)
+        headers = _parse_headers(d.pop("headers", UNSET))
 
-        _raw_body = d.pop("raw_body", UNSET)
-        raw_body: DatastoreM | Unset
-        if isinstance(_raw_body, Unset):
-            raw_body = UNSET
-        else:
-            raw_body = DatastoreM.from_dict(_raw_body)
+        def _parse_path(data: object) -> DatastoreMType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                componentsschemasdatastore_m_type_0 = DatastoreMType0.from_dict(data)
 
-        _raw_headers = d.pop("raw_headers", UNSET)
-        raw_headers: DatastoreM | Unset
-        if isinstance(_raw_headers, Unset):
-            raw_headers = UNSET
-        else:
-            raw_headers = DatastoreM.from_dict(_raw_headers)
+                return componentsschemasdatastore_m_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreMType0 | None | Unset, data)
 
-        _raw_path = d.pop("raw_path", UNSET)
-        raw_path: DatastoreM | Unset
-        if isinstance(_raw_path, Unset):
-            raw_path = UNSET
-        else:
-            raw_path = DatastoreM.from_dict(_raw_path)
+        path = _parse_path(d.pop("path", UNSET))
 
-        _raw_query = d.pop("raw_query", UNSET)
-        raw_query: DatastoreM | Unset
-        if isinstance(_raw_query, Unset):
-            raw_query = UNSET
-        else:
-            raw_query = DatastoreM.from_dict(_raw_query)
+        def _parse_query(data: object) -> DatastoreMType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                componentsschemasdatastore_m_type_0 = DatastoreMType0.from_dict(data)
+
+                return componentsschemasdatastore_m_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreMType0 | None | Unset, data)
+
+        query = _parse_query(d.pop("query", UNSET))
+
+        def _parse_raw_body(data: object) -> DatastoreMType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                componentsschemasdatastore_m_type_0 = DatastoreMType0.from_dict(data)
+
+                return componentsschemasdatastore_m_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreMType0 | None | Unset, data)
+
+        raw_body = _parse_raw_body(d.pop("raw_body", UNSET))
+
+        def _parse_raw_headers(data: object) -> DatastoreMType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                componentsschemasdatastore_m_type_0 = DatastoreMType0.from_dict(data)
+
+                return componentsschemasdatastore_m_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreMType0 | None | Unset, data)
+
+        raw_headers = _parse_raw_headers(d.pop("raw_headers", UNSET))
+
+        def _parse_raw_path(data: object) -> DatastoreMType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                componentsschemasdatastore_m_type_0 = DatastoreMType0.from_dict(data)
+
+                return componentsschemasdatastore_m_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreMType0 | None | Unset, data)
+
+        raw_path = _parse_raw_path(d.pop("raw_path", UNSET))
+
+        def _parse_raw_query(data: object) -> DatastoreMType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                componentsschemasdatastore_m_type_0 = DatastoreMType0.from_dict(data)
+
+                return componentsschemasdatastore_m_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreMType0 | None | Unset, data)
+
+        raw_query = _parse_raw_query(d.pop("raw_query", UNSET))
 
         subscription_id = d.pop("subscription_id", UNSET)
 

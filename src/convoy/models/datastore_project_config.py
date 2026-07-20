@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -34,55 +34,84 @@ class DatastoreProjectConfig:
     """
     Attributes:
         add_event_id_trace_headers (bool | Unset):
-        circuit_breaker (DatastoreCircuitBreakerConfiguration | Unset):
+        circuit_breaker (DatastoreCircuitBreakerConfiguration | None | Unset):
         disable_endpoint (bool | Unset):
         max_payload_read_size (int | Unset):
-        meta_event (DatastoreMetaEventConfiguration | Unset):
+        meta_event (DatastoreMetaEventConfiguration | None | Unset):
         multiple_endpoint_subscriptions (bool | Unset):
-        ratelimit (DatastoreRateLimitConfiguration | Unset):
+        ratelimit (DatastoreRateLimitConfiguration | None | Unset):
         replay_attacks_prevention_enabled (bool | Unset):
         request_id_header (ConfigRequestIDHeaderProvider | Unset):
         search_policy (str | Unset):
-        signature (DatastoreSignatureConfiguration | Unset):
-        ssl (DatastoreSSLConfiguration | Unset):
-        strategy (DatastoreStrategyConfiguration | Unset):
+        signature (DatastoreSignatureConfiguration | None | Unset):
+        ssl (DatastoreSSLConfiguration | None | Unset):
+        strategy (DatastoreStrategyConfiguration | None | Unset):
     """
 
     add_event_id_trace_headers: bool | Unset = UNSET
-    circuit_breaker: DatastoreCircuitBreakerConfiguration | Unset = UNSET
+    circuit_breaker: DatastoreCircuitBreakerConfiguration | None | Unset = UNSET
     disable_endpoint: bool | Unset = UNSET
     max_payload_read_size: int | Unset = UNSET
-    meta_event: DatastoreMetaEventConfiguration | Unset = UNSET
+    meta_event: DatastoreMetaEventConfiguration | None | Unset = UNSET
     multiple_endpoint_subscriptions: bool | Unset = UNSET
-    ratelimit: DatastoreRateLimitConfiguration | Unset = UNSET
+    ratelimit: DatastoreRateLimitConfiguration | None | Unset = UNSET
     replay_attacks_prevention_enabled: bool | Unset = UNSET
     request_id_header: ConfigRequestIDHeaderProvider | Unset = UNSET
     search_policy: str | Unset = UNSET
-    signature: DatastoreSignatureConfiguration | Unset = UNSET
-    ssl: DatastoreSSLConfiguration | Unset = UNSET
-    strategy: DatastoreStrategyConfiguration | Unset = UNSET
+    signature: DatastoreSignatureConfiguration | None | Unset = UNSET
+    ssl: DatastoreSSLConfiguration | None | Unset = UNSET
+    strategy: DatastoreStrategyConfiguration | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.datastore_circuit_breaker_configuration import (
+            DatastoreCircuitBreakerConfiguration,
+        )
+        from ..models.datastore_meta_event_configuration import (
+            DatastoreMetaEventConfiguration,
+        )
+        from ..models.datastore_rate_limit_configuration import (
+            DatastoreRateLimitConfiguration,
+        )
+        from ..models.datastore_signature_configuration import (
+            DatastoreSignatureConfiguration,
+        )
+        from ..models.datastore_ssl_configuration import DatastoreSSLConfiguration
+        from ..models.datastore_strategy_configuration import (
+            DatastoreStrategyConfiguration,
+        )
+
         add_event_id_trace_headers = self.add_event_id_trace_headers
 
-        circuit_breaker: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.circuit_breaker, Unset):
+        circuit_breaker: dict[str, Any] | None | Unset
+        if isinstance(self.circuit_breaker, Unset):
+            circuit_breaker = UNSET
+        elif isinstance(self.circuit_breaker, DatastoreCircuitBreakerConfiguration):
             circuit_breaker = self.circuit_breaker.to_dict()
+        else:
+            circuit_breaker = self.circuit_breaker
 
         disable_endpoint = self.disable_endpoint
 
         max_payload_read_size = self.max_payload_read_size
 
-        meta_event: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.meta_event, Unset):
+        meta_event: dict[str, Any] | None | Unset
+        if isinstance(self.meta_event, Unset):
+            meta_event = UNSET
+        elif isinstance(self.meta_event, DatastoreMetaEventConfiguration):
             meta_event = self.meta_event.to_dict()
+        else:
+            meta_event = self.meta_event
 
         multiple_endpoint_subscriptions = self.multiple_endpoint_subscriptions
 
-        ratelimit: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.ratelimit, Unset):
+        ratelimit: dict[str, Any] | None | Unset
+        if isinstance(self.ratelimit, Unset):
+            ratelimit = UNSET
+        elif isinstance(self.ratelimit, DatastoreRateLimitConfiguration):
             ratelimit = self.ratelimit.to_dict()
+        else:
+            ratelimit = self.ratelimit
 
         replay_attacks_prevention_enabled = self.replay_attacks_prevention_enabled
 
@@ -92,17 +121,29 @@ class DatastoreProjectConfig:
 
         search_policy = self.search_policy
 
-        signature: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.signature, Unset):
+        signature: dict[str, Any] | None | Unset
+        if isinstance(self.signature, Unset):
+            signature = UNSET
+        elif isinstance(self.signature, DatastoreSignatureConfiguration):
             signature = self.signature.to_dict()
+        else:
+            signature = self.signature
 
-        ssl: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.ssl, Unset):
+        ssl: dict[str, Any] | None | Unset
+        if isinstance(self.ssl, Unset):
+            ssl = UNSET
+        elif isinstance(self.ssl, DatastoreSSLConfiguration):
             ssl = self.ssl.to_dict()
+        else:
+            ssl = self.ssl
 
-        strategy: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.strategy, Unset):
+        strategy: dict[str, Any] | None | Unset
+        if isinstance(self.strategy, Unset):
+            strategy = UNSET
+        elif isinstance(self.strategy, DatastoreStrategyConfiguration):
             strategy = self.strategy.to_dict()
+        else:
+            strategy = self.strategy
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -162,36 +203,72 @@ class DatastoreProjectConfig:
         d = dict(src_dict)
         add_event_id_trace_headers = d.pop("add_event_id_trace_headers", UNSET)
 
-        _circuit_breaker = d.pop("circuit_breaker", UNSET)
-        circuit_breaker: DatastoreCircuitBreakerConfiguration | Unset
-        if isinstance(_circuit_breaker, Unset):
-            circuit_breaker = UNSET
-        else:
-            circuit_breaker = DatastoreCircuitBreakerConfiguration.from_dict(
-                _circuit_breaker
-            )
+        def _parse_circuit_breaker(
+            data: object,
+        ) -> DatastoreCircuitBreakerConfiguration | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                circuit_breaker_type_1 = DatastoreCircuitBreakerConfiguration.from_dict(
+                    data
+                )
+
+                return circuit_breaker_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreCircuitBreakerConfiguration | None | Unset, data)
+
+        circuit_breaker = _parse_circuit_breaker(d.pop("circuit_breaker", UNSET))
 
         disable_endpoint = d.pop("disable_endpoint", UNSET)
 
         max_payload_read_size = d.pop("max_payload_read_size", UNSET)
 
-        _meta_event = d.pop("meta_event", UNSET)
-        meta_event: DatastoreMetaEventConfiguration | Unset
-        if isinstance(_meta_event, Unset):
-            meta_event = UNSET
-        else:
-            meta_event = DatastoreMetaEventConfiguration.from_dict(_meta_event)
+        def _parse_meta_event(
+            data: object,
+        ) -> DatastoreMetaEventConfiguration | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                meta_event_type_1 = DatastoreMetaEventConfiguration.from_dict(data)
+
+                return meta_event_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreMetaEventConfiguration | None | Unset, data)
+
+        meta_event = _parse_meta_event(d.pop("meta_event", UNSET))
 
         multiple_endpoint_subscriptions = d.pop(
             "multiple_endpoint_subscriptions", UNSET
         )
 
-        _ratelimit = d.pop("ratelimit", UNSET)
-        ratelimit: DatastoreRateLimitConfiguration | Unset
-        if isinstance(_ratelimit, Unset):
-            ratelimit = UNSET
-        else:
-            ratelimit = DatastoreRateLimitConfiguration.from_dict(_ratelimit)
+        def _parse_ratelimit(
+            data: object,
+        ) -> DatastoreRateLimitConfiguration | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                ratelimit_type_1 = DatastoreRateLimitConfiguration.from_dict(data)
+
+                return ratelimit_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreRateLimitConfiguration | None | Unset, data)
+
+        ratelimit = _parse_ratelimit(d.pop("ratelimit", UNSET))
 
         replay_attacks_prevention_enabled = d.pop(
             "replay_attacks_prevention_enabled", UNSET
@@ -206,26 +283,60 @@ class DatastoreProjectConfig:
 
         search_policy = d.pop("search_policy", UNSET)
 
-        _signature = d.pop("signature", UNSET)
-        signature: DatastoreSignatureConfiguration | Unset
-        if isinstance(_signature, Unset):
-            signature = UNSET
-        else:
-            signature = DatastoreSignatureConfiguration.from_dict(_signature)
+        def _parse_signature(
+            data: object,
+        ) -> DatastoreSignatureConfiguration | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                signature_type_1 = DatastoreSignatureConfiguration.from_dict(data)
 
-        _ssl = d.pop("ssl", UNSET)
-        ssl: DatastoreSSLConfiguration | Unset
-        if isinstance(_ssl, Unset):
-            ssl = UNSET
-        else:
-            ssl = DatastoreSSLConfiguration.from_dict(_ssl)
+                return signature_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreSignatureConfiguration | None | Unset, data)
 
-        _strategy = d.pop("strategy", UNSET)
-        strategy: DatastoreStrategyConfiguration | Unset
-        if isinstance(_strategy, Unset):
-            strategy = UNSET
-        else:
-            strategy = DatastoreStrategyConfiguration.from_dict(_strategy)
+        signature = _parse_signature(d.pop("signature", UNSET))
+
+        def _parse_ssl(data: object) -> DatastoreSSLConfiguration | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                ssl_type_1 = DatastoreSSLConfiguration.from_dict(data)
+
+                return ssl_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreSSLConfiguration | None | Unset, data)
+
+        ssl = _parse_ssl(d.pop("ssl", UNSET))
+
+        def _parse_strategy(
+            data: object,
+        ) -> DatastoreStrategyConfiguration | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                strategy_type_1 = DatastoreStrategyConfiguration.from_dict(data)
+
+                return strategy_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreStrategyConfiguration | None | Unset, data)
+
+        strategy = _parse_strategy(d.pop("strategy", UNSET))
 
         datastore_project_config = cls(
             add_event_id_trace_headers=add_event_id_trace_headers,
