@@ -117,9 +117,11 @@ def sync_detailed(
     | BulkOnboardResponse401
     | BulkOnboardResponse404
 ]:
-    """Bulk onboard endpoints with subscriptions
+    r"""Bulk onboard endpoints with subscriptions
 
-     This endpoint accepts a CSV file or JSON body to bulk-create endpoints with subscriptions
+     This endpoint bulk-creates endpoints with subscriptions from a JSON body. A CSV file upload is also
+    accepted over raw HTTP as multipart/form-data with a \"file\" field; generated SDK clients only
+    expose the JSON body.
 
     Args:
         project_id (str):
@@ -161,9 +163,11 @@ def sync(
     | BulkOnboardResponse404
     | None
 ):
-    """Bulk onboard endpoints with subscriptions
+    r"""Bulk onboard endpoints with subscriptions
 
-     This endpoint accepts a CSV file or JSON body to bulk-create endpoints with subscriptions
+     This endpoint bulk-creates endpoints with subscriptions from a JSON body. A CSV file upload is also
+    accepted over raw HTTP as multipart/form-data with a \"file\" field; generated SDK clients only
+    expose the JSON body.
 
     Args:
         project_id (str):
@@ -199,9 +203,11 @@ async def asyncio_detailed(
     | BulkOnboardResponse401
     | BulkOnboardResponse404
 ]:
-    """Bulk onboard endpoints with subscriptions
+    r"""Bulk onboard endpoints with subscriptions
 
-     This endpoint accepts a CSV file or JSON body to bulk-create endpoints with subscriptions
+     This endpoint bulk-creates endpoints with subscriptions from a JSON body. A CSV file upload is also
+    accepted over raw HTTP as multipart/form-data with a \"file\" field; generated SDK clients only
+    expose the JSON body.
 
     Args:
         project_id (str):
@@ -241,9 +247,11 @@ async def asyncio(
     | BulkOnboardResponse404
     | None
 ):
-    """Bulk onboard endpoints with subscriptions
+    r"""Bulk onboard endpoints with subscriptions
 
-     This endpoint accepts a CSV file or JSON body to bulk-create endpoints with subscriptions
+     This endpoint bulk-creates endpoints with subscriptions from a JSON body. A CSV file upload is also
+    accepted over raw HTTP as multipart/form-data with a \"file\" field; generated SDK clients only
+    expose the JSON body.
 
     Args:
         project_id (str):
