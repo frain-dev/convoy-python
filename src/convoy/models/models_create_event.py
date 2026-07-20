@@ -28,7 +28,8 @@ class ModelsCreateEvent:
         data (ModelsCreateEventDataType0 | None | Unset): Data is an arbitrary JSON value that gets sent as the body of
             the
             webhook to the endpoints
-        endpoint_id (str | Unset): Specifies the endpoint to send this event to.
+        endpoint_id (str | Unset): Specifies the endpoint to send this event to. Required unless the
+            deprecated app_id is provided.
         event_type (str | Unset): Event Type is used for filtering and debugging e.g invoice.paid
         idempotency_key (str | Unset): Specify a key for event deduplication
     """
