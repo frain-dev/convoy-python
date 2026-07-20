@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -9,17 +9,17 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.models_bulk_update_filter_request_body import (
-        ModelsBulkUpdateFilterRequestBody,
+    from ..models.models_bulk_update_filter_request_body_type_0 import (
+        ModelsBulkUpdateFilterRequestBodyType0,
     )
-    from ..models.models_bulk_update_filter_request_headers import (
-        ModelsBulkUpdateFilterRequestHeaders,
+    from ..models.models_bulk_update_filter_request_headers_type_0 import (
+        ModelsBulkUpdateFilterRequestHeadersType0,
     )
-    from ..models.models_bulk_update_filter_request_path import (
-        ModelsBulkUpdateFilterRequestPath,
+    from ..models.models_bulk_update_filter_request_path_type_0 import (
+        ModelsBulkUpdateFilterRequestPathType0,
     )
-    from ..models.models_bulk_update_filter_request_query import (
-        ModelsBulkUpdateFilterRequestQuery,
+    from ..models.models_bulk_update_filter_request_query_type_0 import (
+        ModelsBulkUpdateFilterRequestQueryType0,
     )
     from ..models.models_optional_time import ModelsOptionalTime
 
@@ -32,29 +32,46 @@ class ModelsBulkUpdateFilterRequest:
     """
     Attributes:
         uid (str):
-        body (ModelsBulkUpdateFilterRequestBody | Unset):
+        body (ModelsBulkUpdateFilterRequestBodyType0 | None | Unset):
         enabled_at (ModelsOptionalTime | Unset):
         event_type (str | Unset):
-        headers (ModelsBulkUpdateFilterRequestHeaders | Unset):
-        path (ModelsBulkUpdateFilterRequestPath | Unset):
-        query (ModelsBulkUpdateFilterRequestQuery | Unset):
+        headers (ModelsBulkUpdateFilterRequestHeadersType0 | None | Unset):
+        path (ModelsBulkUpdateFilterRequestPathType0 | None | Unset):
+        query (ModelsBulkUpdateFilterRequestQueryType0 | None | Unset):
     """
 
     uid: str
-    body: ModelsBulkUpdateFilterRequestBody | Unset = UNSET
+    body: ModelsBulkUpdateFilterRequestBodyType0 | None | Unset = UNSET
     enabled_at: ModelsOptionalTime | Unset = UNSET
     event_type: str | Unset = UNSET
-    headers: ModelsBulkUpdateFilterRequestHeaders | Unset = UNSET
-    path: ModelsBulkUpdateFilterRequestPath | Unset = UNSET
-    query: ModelsBulkUpdateFilterRequestQuery | Unset = UNSET
+    headers: ModelsBulkUpdateFilterRequestHeadersType0 | None | Unset = UNSET
+    path: ModelsBulkUpdateFilterRequestPathType0 | None | Unset = UNSET
+    query: ModelsBulkUpdateFilterRequestQueryType0 | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.models_bulk_update_filter_request_body_type_0 import (
+            ModelsBulkUpdateFilterRequestBodyType0,
+        )
+        from ..models.models_bulk_update_filter_request_headers_type_0 import (
+            ModelsBulkUpdateFilterRequestHeadersType0,
+        )
+        from ..models.models_bulk_update_filter_request_path_type_0 import (
+            ModelsBulkUpdateFilterRequestPathType0,
+        )
+        from ..models.models_bulk_update_filter_request_query_type_0 import (
+            ModelsBulkUpdateFilterRequestQueryType0,
+        )
+
         uid = self.uid
 
-        body: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.body, Unset):
+        body: dict[str, Any] | None | Unset
+        if isinstance(self.body, Unset):
+            body = UNSET
+        elif isinstance(self.body, ModelsBulkUpdateFilterRequestBodyType0):
             body = self.body.to_dict()
+        else:
+            body = self.body
 
         enabled_at: dict[str, Any] | Unset = UNSET
         if not isinstance(self.enabled_at, Unset):
@@ -62,17 +79,29 @@ class ModelsBulkUpdateFilterRequest:
 
         event_type = self.event_type
 
-        headers: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.headers, Unset):
+        headers: dict[str, Any] | None | Unset
+        if isinstance(self.headers, Unset):
+            headers = UNSET
+        elif isinstance(self.headers, ModelsBulkUpdateFilterRequestHeadersType0):
             headers = self.headers.to_dict()
+        else:
+            headers = self.headers
 
-        path: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.path, Unset):
+        path: dict[str, Any] | None | Unset
+        if isinstance(self.path, Unset):
+            path = UNSET
+        elif isinstance(self.path, ModelsBulkUpdateFilterRequestPathType0):
             path = self.path.to_dict()
+        else:
+            path = self.path
 
-        query: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.query, Unset):
+        query: dict[str, Any] | None | Unset
+        if isinstance(self.query, Unset):
+            query = UNSET
+        elif isinstance(self.query, ModelsBulkUpdateFilterRequestQueryType0):
             query = self.query.to_dict()
+        else:
+            query = self.query
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -98,29 +127,41 @@ class ModelsBulkUpdateFilterRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.models_bulk_update_filter_request_body import (
-            ModelsBulkUpdateFilterRequestBody,
+        from ..models.models_bulk_update_filter_request_body_type_0 import (
+            ModelsBulkUpdateFilterRequestBodyType0,
         )
-        from ..models.models_bulk_update_filter_request_headers import (
-            ModelsBulkUpdateFilterRequestHeaders,
+        from ..models.models_bulk_update_filter_request_headers_type_0 import (
+            ModelsBulkUpdateFilterRequestHeadersType0,
         )
-        from ..models.models_bulk_update_filter_request_path import (
-            ModelsBulkUpdateFilterRequestPath,
+        from ..models.models_bulk_update_filter_request_path_type_0 import (
+            ModelsBulkUpdateFilterRequestPathType0,
         )
-        from ..models.models_bulk_update_filter_request_query import (
-            ModelsBulkUpdateFilterRequestQuery,
+        from ..models.models_bulk_update_filter_request_query_type_0 import (
+            ModelsBulkUpdateFilterRequestQueryType0,
         )
         from ..models.models_optional_time import ModelsOptionalTime
 
         d = dict(src_dict)
         uid = d.pop("uid")
 
-        _body = d.pop("body", UNSET)
-        body: ModelsBulkUpdateFilterRequestBody | Unset
-        if isinstance(_body, Unset):
-            body = UNSET
-        else:
-            body = ModelsBulkUpdateFilterRequestBody.from_dict(_body)
+        def _parse_body(
+            data: object,
+        ) -> ModelsBulkUpdateFilterRequestBodyType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                body_type_0 = ModelsBulkUpdateFilterRequestBodyType0.from_dict(data)
+
+                return body_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(ModelsBulkUpdateFilterRequestBodyType0 | None | Unset, data)
+
+        body = _parse_body(d.pop("body", UNSET))
 
         _enabled_at = d.pop("enabled_at", UNSET)
         enabled_at: ModelsOptionalTime | Unset
@@ -131,26 +172,64 @@ class ModelsBulkUpdateFilterRequest:
 
         event_type = d.pop("event_type", UNSET)
 
-        _headers = d.pop("headers", UNSET)
-        headers: ModelsBulkUpdateFilterRequestHeaders | Unset
-        if isinstance(_headers, Unset):
-            headers = UNSET
-        else:
-            headers = ModelsBulkUpdateFilterRequestHeaders.from_dict(_headers)
+        def _parse_headers(
+            data: object,
+        ) -> ModelsBulkUpdateFilterRequestHeadersType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                headers_type_0 = ModelsBulkUpdateFilterRequestHeadersType0.from_dict(
+                    data
+                )
 
-        _path = d.pop("path", UNSET)
-        path: ModelsBulkUpdateFilterRequestPath | Unset
-        if isinstance(_path, Unset):
-            path = UNSET
-        else:
-            path = ModelsBulkUpdateFilterRequestPath.from_dict(_path)
+                return headers_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(ModelsBulkUpdateFilterRequestHeadersType0 | None | Unset, data)
 
-        _query = d.pop("query", UNSET)
-        query: ModelsBulkUpdateFilterRequestQuery | Unset
-        if isinstance(_query, Unset):
-            query = UNSET
-        else:
-            query = ModelsBulkUpdateFilterRequestQuery.from_dict(_query)
+        headers = _parse_headers(d.pop("headers", UNSET))
+
+        def _parse_path(
+            data: object,
+        ) -> ModelsBulkUpdateFilterRequestPathType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                path_type_0 = ModelsBulkUpdateFilterRequestPathType0.from_dict(data)
+
+                return path_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(ModelsBulkUpdateFilterRequestPathType0 | None | Unset, data)
+
+        path = _parse_path(d.pop("path", UNSET))
+
+        def _parse_query(
+            data: object,
+        ) -> ModelsBulkUpdateFilterRequestQueryType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                query_type_0 = ModelsBulkUpdateFilterRequestQueryType0.from_dict(data)
+
+                return query_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(ModelsBulkUpdateFilterRequestQueryType0 | None | Unset, data)
+
+        query = _parse_query(d.pop("query", UNSET))
 
         models_bulk_update_filter_request = cls(
             uid=uid,

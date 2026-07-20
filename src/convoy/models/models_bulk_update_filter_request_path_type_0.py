@@ -6,15 +6,12 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-T = TypeVar("T", bound="DatastoreEventData")
+T = TypeVar("T", bound="ModelsBulkUpdateFilterRequestPathType0")
 
 
 @_attrs_define
-class DatastoreEventData:
-    """Data is an arbitrary JSON value that gets sent as the body of the
-    webhook to the endpoints
-
-    """
+class ModelsBulkUpdateFilterRequestPathType0:
+    """ """
 
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -28,10 +25,10 @@ class DatastoreEventData:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        datastore_event_data = cls()
+        models_bulk_update_filter_request_path_type_0 = cls()
 
-        datastore_event_data.additional_properties = d
-        return datastore_event_data
+        models_bulk_update_filter_request_path_type_0.additional_properties = d
+        return models_bulk_update_filter_request_path_type_0
 
     @property
     def additional_keys(self) -> list[str]:

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -9,8 +9,8 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.models_event_type_response_json_schema import (
-        ModelsEventTypeResponseJsonSchema,
+    from ..models.models_event_type_response_json_schema_type_0 import (
+        ModelsEventTypeResponseJsonSchemaType0,
     )
 
 
@@ -22,31 +22,43 @@ class ModelsEventTypeResponse:
     """
     Attributes:
         category (str | Unset):
-        deprecated_at (str | Unset):
+        deprecated_at (None | str | Unset):
         description (str | Unset):
-        json_schema (ModelsEventTypeResponseJsonSchema | Unset):
+        json_schema (ModelsEventTypeResponseJsonSchemaType0 | None | Unset):
         name (str | Unset):
         uid (str | Unset):
     """
 
     category: str | Unset = UNSET
-    deprecated_at: str | Unset = UNSET
+    deprecated_at: None | str | Unset = UNSET
     description: str | Unset = UNSET
-    json_schema: ModelsEventTypeResponseJsonSchema | Unset = UNSET
+    json_schema: ModelsEventTypeResponseJsonSchemaType0 | None | Unset = UNSET
     name: str | Unset = UNSET
     uid: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.models_event_type_response_json_schema_type_0 import (
+            ModelsEventTypeResponseJsonSchemaType0,
+        )
+
         category = self.category
 
-        deprecated_at = self.deprecated_at
+        deprecated_at: None | str | Unset
+        if isinstance(self.deprecated_at, Unset):
+            deprecated_at = UNSET
+        else:
+            deprecated_at = self.deprecated_at
 
         description = self.description
 
-        json_schema: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.json_schema, Unset):
+        json_schema: dict[str, Any] | None | Unset
+        if isinstance(self.json_schema, Unset):
+            json_schema = UNSET
+        elif isinstance(self.json_schema, ModelsEventTypeResponseJsonSchemaType0):
             json_schema = self.json_schema.to_dict()
+        else:
+            json_schema = self.json_schema
 
         name = self.name
 
@@ -72,23 +84,44 @@ class ModelsEventTypeResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.models_event_type_response_json_schema import (
-            ModelsEventTypeResponseJsonSchema,
+        from ..models.models_event_type_response_json_schema_type_0 import (
+            ModelsEventTypeResponseJsonSchemaType0,
         )
 
         d = dict(src_dict)
         category = d.pop("category", UNSET)
 
-        deprecated_at = d.pop("deprecated_at", UNSET)
+        def _parse_deprecated_at(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        deprecated_at = _parse_deprecated_at(d.pop("deprecated_at", UNSET))
 
         description = d.pop("description", UNSET)
 
-        _json_schema = d.pop("json_schema", UNSET)
-        json_schema: ModelsEventTypeResponseJsonSchema | Unset
-        if isinstance(_json_schema, Unset):
-            json_schema = UNSET
-        else:
-            json_schema = ModelsEventTypeResponseJsonSchema.from_dict(_json_schema)
+        def _parse_json_schema(
+            data: object,
+        ) -> ModelsEventTypeResponseJsonSchemaType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                json_schema_type_0 = ModelsEventTypeResponseJsonSchemaType0.from_dict(
+                    data
+                )
+
+                return json_schema_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(ModelsEventTypeResponseJsonSchemaType0 | None | Unset, data)
+
+        json_schema = _parse_json_schema(d.pop("json_schema", UNSET))
 
         name = d.pop("name", UNSET)
 

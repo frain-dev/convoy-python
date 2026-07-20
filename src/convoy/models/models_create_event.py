@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -9,10 +9,10 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.models_create_event_custom_headers import (
-        ModelsCreateEventCustomHeaders,
+    from ..models.models_create_event_custom_headers_type_0 import (
+        ModelsCreateEventCustomHeadersType0,
     )
-    from ..models.models_create_event_data import ModelsCreateEventData
+    from ..models.models_create_event_data_type_0 import ModelsCreateEventDataType0
 
 
 T = TypeVar("T", bound="ModelsCreateEvent")
@@ -23,9 +23,10 @@ class ModelsCreateEvent:
     """
     Attributes:
         app_id (str | Unset): Deprecated but necessary for backward compatibility.
-        custom_headers (ModelsCreateEventCustomHeaders | Unset): Specifies custom headers you want convoy to add when
-            the event is dispatched to your endpoint
-        data (ModelsCreateEventData | Unset): Data is an arbitrary JSON value that gets sent as the body of the
+        custom_headers (ModelsCreateEventCustomHeadersType0 | None | Unset): Specifies custom headers you want convoy to
+            add when the event is dispatched to your endpoint
+        data (ModelsCreateEventDataType0 | None | Unset): Data is an arbitrary JSON value that gets sent as the body of
+            the
             webhook to the endpoints
         endpoint_id (str | Unset): Specifies the endpoint to send this event to.
         event_type (str | Unset): Event Type is used for filtering and debugging e.g invoice.paid
@@ -33,23 +34,36 @@ class ModelsCreateEvent:
     """
 
     app_id: str | Unset = UNSET
-    custom_headers: ModelsCreateEventCustomHeaders | Unset = UNSET
-    data: ModelsCreateEventData | Unset = UNSET
+    custom_headers: ModelsCreateEventCustomHeadersType0 | None | Unset = UNSET
+    data: ModelsCreateEventDataType0 | None | Unset = UNSET
     endpoint_id: str | Unset = UNSET
     event_type: str | Unset = UNSET
     idempotency_key: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.models_create_event_custom_headers_type_0 import (
+            ModelsCreateEventCustomHeadersType0,
+        )
+        from ..models.models_create_event_data_type_0 import ModelsCreateEventDataType0
+
         app_id = self.app_id
 
-        custom_headers: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.custom_headers, Unset):
+        custom_headers: dict[str, Any] | None | Unset
+        if isinstance(self.custom_headers, Unset):
+            custom_headers = UNSET
+        elif isinstance(self.custom_headers, ModelsCreateEventCustomHeadersType0):
             custom_headers = self.custom_headers.to_dict()
+        else:
+            custom_headers = self.custom_headers
 
-        data: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.data, Unset):
+        data: dict[str, Any] | None | Unset
+        if isinstance(self.data, Unset):
+            data = UNSET
+        elif isinstance(self.data, ModelsCreateEventDataType0):
             data = self.data.to_dict()
+        else:
+            data = self.data
 
         endpoint_id = self.endpoint_id
 
@@ -77,27 +91,51 @@ class ModelsCreateEvent:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.models_create_event_custom_headers import (
-            ModelsCreateEventCustomHeaders,
+        from ..models.models_create_event_custom_headers_type_0 import (
+            ModelsCreateEventCustomHeadersType0,
         )
-        from ..models.models_create_event_data import ModelsCreateEventData
+        from ..models.models_create_event_data_type_0 import ModelsCreateEventDataType0
 
         d = dict(src_dict)
         app_id = d.pop("app_id", UNSET)
 
-        _custom_headers = d.pop("custom_headers", UNSET)
-        custom_headers: ModelsCreateEventCustomHeaders | Unset
-        if isinstance(_custom_headers, Unset):
-            custom_headers = UNSET
-        else:
-            custom_headers = ModelsCreateEventCustomHeaders.from_dict(_custom_headers)
+        def _parse_custom_headers(
+            data: object,
+        ) -> ModelsCreateEventCustomHeadersType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                custom_headers_type_0 = ModelsCreateEventCustomHeadersType0.from_dict(
+                    data
+                )
 
-        _data = d.pop("data", UNSET)
-        data: ModelsCreateEventData | Unset
-        if isinstance(_data, Unset):
-            data = UNSET
-        else:
-            data = ModelsCreateEventData.from_dict(_data)
+                return custom_headers_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(ModelsCreateEventCustomHeadersType0 | None | Unset, data)
+
+        custom_headers = _parse_custom_headers(d.pop("custom_headers", UNSET))
+
+        def _parse_data(data: object) -> ModelsCreateEventDataType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                data_type_0 = ModelsCreateEventDataType0.from_dict(data)
+
+                return data_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(ModelsCreateEventDataType0 | None | Unset, data)
+
+        data = _parse_data(d.pop("data", UNSET))
 
         endpoint_id = d.pop("endpoint_id", UNSET)
 

@@ -2,10 +2,11 @@ from enum import Enum
 
 
 class DatastoreVerifierType(str, Enum):
-    API_KEY_VERIFIER = "api_key"
-    BASIC_AUTH_VERIFIER = "basic_auth"
-    H_MAC_VERIFIER = "hmac"
-    NOOP_VERIFIER = "noop"
+    API_KEY = "api_key"
+    BASIC_AUTH = "basic_auth"
+    HMAC = "hmac"
+    NOOP = "noop"
+    VALUE_4 = ""
 
     def __str__(self) -> str:
         return str(self.value)

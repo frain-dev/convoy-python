@@ -6,12 +6,15 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-T = TypeVar("T", bound="HandlersStub")
+T = TypeVar("T", bound="DatastoreEventDataType0")
 
 
 @_attrs_define
-class HandlersStub:
-    """ """
+class DatastoreEventDataType0:
+    """Data is an arbitrary JSON value that gets sent as the body of the
+    webhook to the endpoints
+
+    """
 
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -25,10 +28,10 @@ class HandlersStub:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        handlers_stub = cls()
+        datastore_event_data_type_0 = cls()
 
-        handlers_stub.additional_properties = d
-        return handlers_stub
+        datastore_event_data_type_0.additional_properties = d
+        return datastore_event_data_type_0
 
     @property
     def additional_keys(self) -> list[str]:

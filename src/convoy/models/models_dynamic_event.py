@@ -9,10 +9,10 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.models_dynamic_event_custom_headers import (
-        ModelsDynamicEventCustomHeaders,
+    from ..models.models_dynamic_event_custom_headers_type_0 import (
+        ModelsDynamicEventCustomHeadersType0,
     )
-    from ..models.models_dynamic_event_data import ModelsDynamicEventData
+    from ..models.models_dynamic_event_data_type_0 import ModelsDynamicEventDataType0
 
 
 T = TypeVar("T", bound="ModelsDynamicEvent")
@@ -22,9 +22,10 @@ T = TypeVar("T", bound="ModelsDynamicEvent")
 class ModelsDynamicEvent:
     """
     Attributes:
-        custom_headers (ModelsDynamicEventCustomHeaders | Unset): Specifies custom headers you want convoy to add when
-            the event is dispatched to your endpoint
-        data (ModelsDynamicEventData | Unset): Data is an arbitrary JSON value that gets sent as the body of the
+        custom_headers (ModelsDynamicEventCustomHeadersType0 | None | Unset): Specifies custom headers you want convoy
+            to add when the event is dispatched to your endpoint
+        data (ModelsDynamicEventDataType0 | None | Unset): Data is an arbitrary JSON value that gets sent as the body of
+            the
             webhook to the endpoints
         event_type (str | Unset): Event Type is used for filtering and debugging e.g invoice.paid
         event_types (list[str] | Unset): A list of event types for the subscription filter config
@@ -34,8 +35,8 @@ class ModelsDynamicEvent:
             not supported.
     """
 
-    custom_headers: ModelsDynamicEventCustomHeaders | Unset = UNSET
-    data: ModelsDynamicEventData | Unset = UNSET
+    custom_headers: ModelsDynamicEventCustomHeadersType0 | None | Unset = UNSET
+    data: ModelsDynamicEventDataType0 | None | Unset = UNSET
     event_type: str | Unset = UNSET
     event_types: list[str] | Unset = UNSET
     idempotency_key: str | Unset = UNSET
@@ -44,13 +45,28 @@ class ModelsDynamicEvent:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        custom_headers: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.custom_headers, Unset):
-            custom_headers = self.custom_headers.to_dict()
+        from ..models.models_dynamic_event_custom_headers_type_0 import (
+            ModelsDynamicEventCustomHeadersType0,
+        )
+        from ..models.models_dynamic_event_data_type_0 import (
+            ModelsDynamicEventDataType0,
+        )
 
-        data: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.data, Unset):
+        custom_headers: dict[str, Any] | None | Unset
+        if isinstance(self.custom_headers, Unset):
+            custom_headers = UNSET
+        elif isinstance(self.custom_headers, ModelsDynamicEventCustomHeadersType0):
+            custom_headers = self.custom_headers.to_dict()
+        else:
+            custom_headers = self.custom_headers
+
+        data: dict[str, Any] | None | Unset
+        if isinstance(self.data, Unset):
+            data = UNSET
+        elif isinstance(self.data, ModelsDynamicEventDataType0):
             data = self.data.to_dict()
+        else:
+            data = self.data
 
         event_type = self.event_type
 
@@ -86,25 +102,52 @@ class ModelsDynamicEvent:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.models_dynamic_event_custom_headers import (
-            ModelsDynamicEventCustomHeaders,
+        from ..models.models_dynamic_event_custom_headers_type_0 import (
+            ModelsDynamicEventCustomHeadersType0,
         )
-        from ..models.models_dynamic_event_data import ModelsDynamicEventData
+        from ..models.models_dynamic_event_data_type_0 import (
+            ModelsDynamicEventDataType0,
+        )
 
         d = dict(src_dict)
-        _custom_headers = d.pop("custom_headers", UNSET)
-        custom_headers: ModelsDynamicEventCustomHeaders | Unset
-        if isinstance(_custom_headers, Unset):
-            custom_headers = UNSET
-        else:
-            custom_headers = ModelsDynamicEventCustomHeaders.from_dict(_custom_headers)
 
-        _data = d.pop("data", UNSET)
-        data: ModelsDynamicEventData | Unset
-        if isinstance(_data, Unset):
-            data = UNSET
-        else:
-            data = ModelsDynamicEventData.from_dict(_data)
+        def _parse_custom_headers(
+            data: object,
+        ) -> ModelsDynamicEventCustomHeadersType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                custom_headers_type_0 = ModelsDynamicEventCustomHeadersType0.from_dict(
+                    data
+                )
+
+                return custom_headers_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(ModelsDynamicEventCustomHeadersType0 | None | Unset, data)
+
+        custom_headers = _parse_custom_headers(d.pop("custom_headers", UNSET))
+
+        def _parse_data(data: object) -> ModelsDynamicEventDataType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                data_type_0 = ModelsDynamicEventDataType0.from_dict(data)
+
+                return data_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(ModelsDynamicEventDataType0 | None | Unset, data)
+
+        data = _parse_data(d.pop("data", UNSET))
 
         event_type = d.pop("event_type", UNSET)
 

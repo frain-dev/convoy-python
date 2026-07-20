@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,16 +21,24 @@ T = TypeVar("T", bound="DatastoreProviderConfig")
 class DatastoreProviderConfig:
     """
     Attributes:
-        twitter (DatastoreTwitterProviderConfig | Unset):
+        twitter (DatastoreTwitterProviderConfig | None | Unset):
     """
 
-    twitter: DatastoreTwitterProviderConfig | Unset = UNSET
+    twitter: DatastoreTwitterProviderConfig | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        twitter: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.twitter, Unset):
+        from ..models.datastore_twitter_provider_config import (
+            DatastoreTwitterProviderConfig,
+        )
+
+        twitter: dict[str, Any] | None | Unset
+        if isinstance(self.twitter, Unset):
+            twitter = UNSET
+        elif isinstance(self.twitter, DatastoreTwitterProviderConfig):
             twitter = self.twitter.to_dict()
+        else:
+            twitter = self.twitter
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -47,12 +55,25 @@ class DatastoreProviderConfig:
         )
 
         d = dict(src_dict)
-        _twitter = d.pop("twitter", UNSET)
-        twitter: DatastoreTwitterProviderConfig | Unset
-        if isinstance(_twitter, Unset):
-            twitter = UNSET
-        else:
-            twitter = DatastoreTwitterProviderConfig.from_dict(_twitter)
+
+        def _parse_twitter(
+            data: object,
+        ) -> DatastoreTwitterProviderConfig | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                twitter_type_1 = DatastoreTwitterProviderConfig.from_dict(data)
+
+                return twitter_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreTwitterProviderConfig | None | Unset, data)
+
+        twitter = _parse_twitter(d.pop("twitter", UNSET))
 
         datastore_provider_config = cls(
             twitter=twitter,

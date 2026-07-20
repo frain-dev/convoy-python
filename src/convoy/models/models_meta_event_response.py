@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,22 +21,22 @@ T = TypeVar("T", bound="ModelsMetaEventResponse")
 class ModelsMetaEventResponse:
     """
     Attributes:
-        attempt (DatastoreMetaEventAttempt | Unset):
+        attempt (DatastoreMetaEventAttempt | None | Unset):
         created_at (str | Unset):
-        deleted_at (str | Unset):
+        deleted_at (None | str | Unset):
         event_type (str | Unset):
-        metadata (DatastoreMetadata | Unset):
+        metadata (DatastoreMetadata | None | Unset):
         project_id (str | Unset):
         status (DatastoreEventDeliveryStatus | Unset):
         uid (str | Unset):
         updated_at (str | Unset):
     """
 
-    attempt: DatastoreMetaEventAttempt | Unset = UNSET
+    attempt: DatastoreMetaEventAttempt | None | Unset = UNSET
     created_at: str | Unset = UNSET
-    deleted_at: str | Unset = UNSET
+    deleted_at: None | str | Unset = UNSET
     event_type: str | Unset = UNSET
-    metadata: DatastoreMetadata | Unset = UNSET
+    metadata: DatastoreMetadata | None | Unset = UNSET
     project_id: str | Unset = UNSET
     status: DatastoreEventDeliveryStatus | Unset = UNSET
     uid: str | Unset = UNSET
@@ -44,19 +44,34 @@ class ModelsMetaEventResponse:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        attempt: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.attempt, Unset):
+        from ..models.datastore_meta_event_attempt import DatastoreMetaEventAttempt
+        from ..models.datastore_metadata import DatastoreMetadata
+
+        attempt: dict[str, Any] | None | Unset
+        if isinstance(self.attempt, Unset):
+            attempt = UNSET
+        elif isinstance(self.attempt, DatastoreMetaEventAttempt):
             attempt = self.attempt.to_dict()
+        else:
+            attempt = self.attempt
 
         created_at = self.created_at
 
-        deleted_at = self.deleted_at
+        deleted_at: None | str | Unset
+        if isinstance(self.deleted_at, Unset):
+            deleted_at = UNSET
+        else:
+            deleted_at = self.deleted_at
 
         event_type = self.event_type
 
-        metadata: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.metadata, Unset):
+        metadata: dict[str, Any] | None | Unset
+        if isinstance(self.metadata, Unset):
+            metadata = UNSET
+        elif isinstance(self.metadata, DatastoreMetadata):
             metadata = self.metadata.to_dict()
+        else:
+            metadata = self.metadata
 
         project_id = self.project_id
 
@@ -98,25 +113,53 @@ class ModelsMetaEventResponse:
         from ..models.datastore_metadata import DatastoreMetadata
 
         d = dict(src_dict)
-        _attempt = d.pop("attempt", UNSET)
-        attempt: DatastoreMetaEventAttempt | Unset
-        if isinstance(_attempt, Unset):
-            attempt = UNSET
-        else:
-            attempt = DatastoreMetaEventAttempt.from_dict(_attempt)
+
+        def _parse_attempt(data: object) -> DatastoreMetaEventAttempt | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                attempt_type_1 = DatastoreMetaEventAttempt.from_dict(data)
+
+                return attempt_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreMetaEventAttempt | None | Unset, data)
+
+        attempt = _parse_attempt(d.pop("attempt", UNSET))
 
         created_at = d.pop("created_at", UNSET)
 
-        deleted_at = d.pop("deleted_at", UNSET)
+        def _parse_deleted_at(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        deleted_at = _parse_deleted_at(d.pop("deleted_at", UNSET))
 
         event_type = d.pop("event_type", UNSET)
 
-        _metadata = d.pop("metadata", UNSET)
-        metadata: DatastoreMetadata | Unset
-        if isinstance(_metadata, Unset):
-            metadata = UNSET
-        else:
-            metadata = DatastoreMetadata.from_dict(_metadata)
+        def _parse_metadata(data: object) -> DatastoreMetadata | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                metadata_type_1 = DatastoreMetadata.from_dict(data)
+
+                return metadata_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreMetadata | None | Unset, data)
+
+        metadata = _parse_metadata(d.pop("metadata", UNSET))
 
         project_id = d.pop("project_id", UNSET)
 

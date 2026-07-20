@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -29,12 +29,12 @@ class DatastoreOAuth2:
         client_id (str | Unset):
         client_secret (str | Unset): Encrypted at rest
         expiry_time_unit (DatastoreOAuth2ExpiryTimeUnit | Unset):
-        field_mapping (DatastoreOAuth2FieldMapping | Unset):
+        field_mapping (DatastoreOAuth2FieldMapping | None | Unset): Field mapping for flexible token response parsing
         grant_type (str | Unset):
         issuer (str | Unset):
         scope (str | Unset):
         signing_algorithm (str | Unset):
-        signing_key (DatastoreOAuth2SigningKey | Unset):
+        signing_key (DatastoreOAuth2SigningKey | None | Unset): Encrypted at rest
         subject (str | Unset):
         url (str | Unset):
     """
@@ -44,17 +44,22 @@ class DatastoreOAuth2:
     client_id: str | Unset = UNSET
     client_secret: str | Unset = UNSET
     expiry_time_unit: DatastoreOAuth2ExpiryTimeUnit | Unset = UNSET
-    field_mapping: DatastoreOAuth2FieldMapping | Unset = UNSET
+    field_mapping: DatastoreOAuth2FieldMapping | None | Unset = UNSET
     grant_type: str | Unset = UNSET
     issuer: str | Unset = UNSET
     scope: str | Unset = UNSET
     signing_algorithm: str | Unset = UNSET
-    signing_key: DatastoreOAuth2SigningKey | Unset = UNSET
+    signing_key: DatastoreOAuth2SigningKey | None | Unset = UNSET
     subject: str | Unset = UNSET
     url: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.datastore_o_auth_2_field_mapping import (
+            DatastoreOAuth2FieldMapping,
+        )
+        from ..models.datastore_o_auth_2_signing_key import DatastoreOAuth2SigningKey
+
         audience = self.audience
 
         authentication_type: str | Unset = UNSET
@@ -69,9 +74,13 @@ class DatastoreOAuth2:
         if not isinstance(self.expiry_time_unit, Unset):
             expiry_time_unit = self.expiry_time_unit.value
 
-        field_mapping: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.field_mapping, Unset):
+        field_mapping: dict[str, Any] | None | Unset
+        if isinstance(self.field_mapping, Unset):
+            field_mapping = UNSET
+        elif isinstance(self.field_mapping, DatastoreOAuth2FieldMapping):
             field_mapping = self.field_mapping.to_dict()
+        else:
+            field_mapping = self.field_mapping
 
         grant_type = self.grant_type
 
@@ -81,9 +90,13 @@ class DatastoreOAuth2:
 
         signing_algorithm = self.signing_algorithm
 
-        signing_key: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.signing_key, Unset):
+        signing_key: dict[str, Any] | None | Unset
+        if isinstance(self.signing_key, Unset):
+            signing_key = UNSET
+        elif isinstance(self.signing_key, DatastoreOAuth2SigningKey):
             signing_key = self.signing_key.to_dict()
+        else:
+            signing_key = self.signing_key
 
         subject = self.subject
 
@@ -151,12 +164,24 @@ class DatastoreOAuth2:
         else:
             expiry_time_unit = DatastoreOAuth2ExpiryTimeUnit(_expiry_time_unit)
 
-        _field_mapping = d.pop("field_mapping", UNSET)
-        field_mapping: DatastoreOAuth2FieldMapping | Unset
-        if isinstance(_field_mapping, Unset):
-            field_mapping = UNSET
-        else:
-            field_mapping = DatastoreOAuth2FieldMapping.from_dict(_field_mapping)
+        def _parse_field_mapping(
+            data: object,
+        ) -> DatastoreOAuth2FieldMapping | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                field_mapping_type_1 = DatastoreOAuth2FieldMapping.from_dict(data)
+
+                return field_mapping_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreOAuth2FieldMapping | None | Unset, data)
+
+        field_mapping = _parse_field_mapping(d.pop("field_mapping", UNSET))
 
         grant_type = d.pop("grant_type", UNSET)
 
@@ -166,12 +191,24 @@ class DatastoreOAuth2:
 
         signing_algorithm = d.pop("signing_algorithm", UNSET)
 
-        _signing_key = d.pop("signing_key", UNSET)
-        signing_key: DatastoreOAuth2SigningKey | Unset
-        if isinstance(_signing_key, Unset):
-            signing_key = UNSET
-        else:
-            signing_key = DatastoreOAuth2SigningKey.from_dict(_signing_key)
+        def _parse_signing_key(
+            data: object,
+        ) -> DatastoreOAuth2SigningKey | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                signing_key_type_1 = DatastoreOAuth2SigningKey.from_dict(data)
+
+                return signing_key_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreOAuth2SigningKey | None | Unset, data)
+
+        signing_key = _parse_signing_key(d.pop("signing_key", UNSET))
 
         subject = d.pop("subject", UNSET)
 

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -9,10 +9,10 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.models_fanout_event_custom_headers import (
-        ModelsFanoutEventCustomHeaders,
+    from ..models.models_fanout_event_custom_headers_type_0 import (
+        ModelsFanoutEventCustomHeadersType0,
     )
-    from ..models.models_fanout_event_data import ModelsFanoutEventData
+    from ..models.models_fanout_event_data_type_0 import ModelsFanoutEventDataType0
 
 
 T = TypeVar("T", bound="ModelsFanoutEvent")
@@ -22,30 +22,44 @@ T = TypeVar("T", bound="ModelsFanoutEvent")
 class ModelsFanoutEvent:
     """
     Attributes:
-        custom_headers (ModelsFanoutEventCustomHeaders | Unset): Specifies custom headers you want convoy to add when
-            the event is dispatched to your endpoint
-        data (ModelsFanoutEventData | Unset): Data is an arbitrary JSON value that gets sent as the body of the
+        custom_headers (ModelsFanoutEventCustomHeadersType0 | None | Unset): Specifies custom headers you want convoy to
+            add when the event is dispatched to your endpoint
+        data (ModelsFanoutEventDataType0 | None | Unset): Data is an arbitrary JSON value that gets sent as the body of
+            the
             webhook to the endpoints
         event_type (str | Unset): Event Type is used for filtering and debugging e.g invoice.paid
         idempotency_key (str | Unset): Specify a key for event deduplication
         owner_id (str | Unset): Used for fanout, sends this event to all endpoints with this OwnerID.
     """
 
-    custom_headers: ModelsFanoutEventCustomHeaders | Unset = UNSET
-    data: ModelsFanoutEventData | Unset = UNSET
+    custom_headers: ModelsFanoutEventCustomHeadersType0 | None | Unset = UNSET
+    data: ModelsFanoutEventDataType0 | None | Unset = UNSET
     event_type: str | Unset = UNSET
     idempotency_key: str | Unset = UNSET
     owner_id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        custom_headers: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.custom_headers, Unset):
-            custom_headers = self.custom_headers.to_dict()
+        from ..models.models_fanout_event_custom_headers_type_0 import (
+            ModelsFanoutEventCustomHeadersType0,
+        )
+        from ..models.models_fanout_event_data_type_0 import ModelsFanoutEventDataType0
 
-        data: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.data, Unset):
+        custom_headers: dict[str, Any] | None | Unset
+        if isinstance(self.custom_headers, Unset):
+            custom_headers = UNSET
+        elif isinstance(self.custom_headers, ModelsFanoutEventCustomHeadersType0):
+            custom_headers = self.custom_headers.to_dict()
+        else:
+            custom_headers = self.custom_headers
+
+        data: dict[str, Any] | None | Unset
+        if isinstance(self.data, Unset):
+            data = UNSET
+        elif isinstance(self.data, ModelsFanoutEventDataType0):
             data = self.data.to_dict()
+        else:
+            data = self.data
 
         event_type = self.event_type
 
@@ -71,25 +85,50 @@ class ModelsFanoutEvent:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.models_fanout_event_custom_headers import (
-            ModelsFanoutEventCustomHeaders,
+        from ..models.models_fanout_event_custom_headers_type_0 import (
+            ModelsFanoutEventCustomHeadersType0,
         )
-        from ..models.models_fanout_event_data import ModelsFanoutEventData
+        from ..models.models_fanout_event_data_type_0 import ModelsFanoutEventDataType0
 
         d = dict(src_dict)
-        _custom_headers = d.pop("custom_headers", UNSET)
-        custom_headers: ModelsFanoutEventCustomHeaders | Unset
-        if isinstance(_custom_headers, Unset):
-            custom_headers = UNSET
-        else:
-            custom_headers = ModelsFanoutEventCustomHeaders.from_dict(_custom_headers)
 
-        _data = d.pop("data", UNSET)
-        data: ModelsFanoutEventData | Unset
-        if isinstance(_data, Unset):
-            data = UNSET
-        else:
-            data = ModelsFanoutEventData.from_dict(_data)
+        def _parse_custom_headers(
+            data: object,
+        ) -> ModelsFanoutEventCustomHeadersType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                custom_headers_type_0 = ModelsFanoutEventCustomHeadersType0.from_dict(
+                    data
+                )
+
+                return custom_headers_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(ModelsFanoutEventCustomHeadersType0 | None | Unset, data)
+
+        custom_headers = _parse_custom_headers(d.pop("custom_headers", UNSET))
+
+        def _parse_data(data: object) -> ModelsFanoutEventDataType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                data_type_0 = ModelsFanoutEventDataType0.from_dict(data)
+
+                return data_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(ModelsFanoutEventDataType0 | None | Unset, data)
+
+        data = _parse_data(d.pop("data", UNSET))
 
         event_type = d.pop("event_type", UNSET)
 

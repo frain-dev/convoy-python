@@ -2,8 +2,9 @@ from enum import Enum
 
 
 class DatastoreEncodingType(str, Enum):
-    BASE_64_ENCODING = "base64"
-    HEX_ENCODING = "hex"
+    BASE64 = "base64"
+    HEX = "hex"
+    VALUE_2 = ""
 
     def __str__(self) -> str:
         return str(self.value)

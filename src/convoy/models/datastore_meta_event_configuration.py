@@ -22,7 +22,7 @@ class DatastoreMetaEventConfiguration:
     Attributes:
         event_type (list[str] | Unset):
         is_enabled (bool | Unset):
-        pub_sub (DatastorePubSubConfig | Unset):
+        pub_sub (DatastorePubSubConfig | None | Unset):
         secret (str | Unset):
         type_ (DatastoreMetaEventType | Unset):
         url (str | Unset):
@@ -30,22 +30,28 @@ class DatastoreMetaEventConfiguration:
 
     event_type: list[str] | Unset = UNSET
     is_enabled: bool | Unset = UNSET
-    pub_sub: DatastorePubSubConfig | Unset = UNSET
+    pub_sub: DatastorePubSubConfig | None | Unset = UNSET
     secret: str | Unset = UNSET
     type_: DatastoreMetaEventType | Unset = UNSET
     url: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.datastore_pub_sub_config import DatastorePubSubConfig
+
         event_type: list[str] | Unset = UNSET
         if not isinstance(self.event_type, Unset):
             event_type = self.event_type
 
         is_enabled = self.is_enabled
 
-        pub_sub: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.pub_sub, Unset):
+        pub_sub: dict[str, Any] | None | Unset
+        if isinstance(self.pub_sub, Unset):
+            pub_sub = UNSET
+        elif isinstance(self.pub_sub, DatastorePubSubConfig):
             pub_sub = self.pub_sub.to_dict()
+        else:
+            pub_sub = self.pub_sub
 
         secret = self.secret
 
@@ -82,12 +88,22 @@ class DatastoreMetaEventConfiguration:
 
         is_enabled = d.pop("is_enabled", UNSET)
 
-        _pub_sub = d.pop("pub_sub", UNSET)
-        pub_sub: DatastorePubSubConfig | Unset
-        if isinstance(_pub_sub, Unset):
-            pub_sub = UNSET
-        else:
-            pub_sub = DatastorePubSubConfig.from_dict(_pub_sub)
+        def _parse_pub_sub(data: object) -> DatastorePubSubConfig | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                pub_sub_type_1 = DatastorePubSubConfig.from_dict(data)
+
+                return pub_sub_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastorePubSubConfig | None | Unset, data)
+
+        pub_sub = _parse_pub_sub(d.pop("pub_sub", UNSET))
 
         secret = d.pop("secret", UNSET)
 

@@ -6,14 +6,17 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-T = TypeVar("T", bound="ModelsCreateEventCustomHeaders")
+T = TypeVar("T", bound="ModelsCreateEventDataType0")
 
 
 @_attrs_define
-class ModelsCreateEventCustomHeaders:
-    """Specifies custom headers you want convoy to add when the event is dispatched to your endpoint"""
+class ModelsCreateEventDataType0:
+    """Data is an arbitrary JSON value that gets sent as the body of the
+    webhook to the endpoints
 
-    additional_properties: dict[str, str] = _attrs_field(init=False, factory=dict)
+    """
+
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
 
@@ -25,19 +28,19 @@ class ModelsCreateEventCustomHeaders:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        models_create_event_custom_headers = cls()
+        models_create_event_data_type_0 = cls()
 
-        models_create_event_custom_headers.additional_properties = d
-        return models_create_event_custom_headers
+        models_create_event_data_type_0.additional_properties = d
+        return models_create_event_data_type_0
 
     @property
     def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
-    def __getitem__(self, key: str) -> str:
+    def __getitem__(self, key: str) -> Any:
         return self.additional_properties[key]
 
-    def __setitem__(self, key: str, value: str) -> None:
+    def __setitem__(self, key: str, value: Any) -> None:
         self.additional_properties[key] = value
 
     def __delitem__(self, key: str) -> None:

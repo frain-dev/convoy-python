@@ -24,52 +24,60 @@ T = TypeVar("T", bound="ModelsSourceResponse")
 class ModelsSourceResponse:
     """
     Attributes:
-        body_function (str | Unset):
+        body_function (None | str | Unset):
         created_at (str | Unset):
         custom_response (DatastoreCustomResponse | Unset):
-        deleted_at (str | Unset):
+        deleted_at (None | str | Unset):
         event_type_location (str | Unset):
         forward_headers (list[str] | Unset):
-        header_function (str | Unset):
+        header_function (None | str | Unset):
         idempotency_keys (list[str] | Unset):
         is_disabled (bool | Unset):
         mask_id (str | Unset):
         name (str | Unset):
         project_id (str | Unset):
         provider (DatastoreSourceProvider | Unset):
-        provider_config (DatastoreProviderConfig | Unset):
-        pub_sub (DatastorePubSubConfig | Unset):
+        provider_config (DatastoreProviderConfig | None | Unset):
+        pub_sub (DatastorePubSubConfig | None | Unset):
         type_ (DatastoreSourceType | Unset):
         uid (str | Unset):
         updated_at (str | Unset):
         url (str | Unset):
-        verifier (DatastoreVerifierConfig | Unset):
+        verifier (DatastoreVerifierConfig | None | Unset):
     """
 
-    body_function: str | Unset = UNSET
+    body_function: None | str | Unset = UNSET
     created_at: str | Unset = UNSET
     custom_response: DatastoreCustomResponse | Unset = UNSET
-    deleted_at: str | Unset = UNSET
+    deleted_at: None | str | Unset = UNSET
     event_type_location: str | Unset = UNSET
     forward_headers: list[str] | Unset = UNSET
-    header_function: str | Unset = UNSET
+    header_function: None | str | Unset = UNSET
     idempotency_keys: list[str] | Unset = UNSET
     is_disabled: bool | Unset = UNSET
     mask_id: str | Unset = UNSET
     name: str | Unset = UNSET
     project_id: str | Unset = UNSET
     provider: DatastoreSourceProvider | Unset = UNSET
-    provider_config: DatastoreProviderConfig | Unset = UNSET
-    pub_sub: DatastorePubSubConfig | Unset = UNSET
+    provider_config: DatastoreProviderConfig | None | Unset = UNSET
+    pub_sub: DatastorePubSubConfig | None | Unset = UNSET
     type_: DatastoreSourceType | Unset = UNSET
     uid: str | Unset = UNSET
     updated_at: str | Unset = UNSET
     url: str | Unset = UNSET
-    verifier: DatastoreVerifierConfig | Unset = UNSET
+    verifier: DatastoreVerifierConfig | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        body_function = self.body_function
+        from ..models.datastore_provider_config import DatastoreProviderConfig
+        from ..models.datastore_pub_sub_config import DatastorePubSubConfig
+        from ..models.datastore_verifier_config import DatastoreVerifierConfig
+
+        body_function: None | str | Unset
+        if isinstance(self.body_function, Unset):
+            body_function = UNSET
+        else:
+            body_function = self.body_function
 
         created_at = self.created_at
 
@@ -77,7 +85,11 @@ class ModelsSourceResponse:
         if not isinstance(self.custom_response, Unset):
             custom_response = self.custom_response.to_dict()
 
-        deleted_at = self.deleted_at
+        deleted_at: None | str | Unset
+        if isinstance(self.deleted_at, Unset):
+            deleted_at = UNSET
+        else:
+            deleted_at = self.deleted_at
 
         event_type_location = self.event_type_location
 
@@ -85,7 +97,11 @@ class ModelsSourceResponse:
         if not isinstance(self.forward_headers, Unset):
             forward_headers = self.forward_headers
 
-        header_function = self.header_function
+        header_function: None | str | Unset
+        if isinstance(self.header_function, Unset):
+            header_function = UNSET
+        else:
+            header_function = self.header_function
 
         idempotency_keys: list[str] | Unset = UNSET
         if not isinstance(self.idempotency_keys, Unset):
@@ -103,13 +119,21 @@ class ModelsSourceResponse:
         if not isinstance(self.provider, Unset):
             provider = self.provider.value
 
-        provider_config: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.provider_config, Unset):
+        provider_config: dict[str, Any] | None | Unset
+        if isinstance(self.provider_config, Unset):
+            provider_config = UNSET
+        elif isinstance(self.provider_config, DatastoreProviderConfig):
             provider_config = self.provider_config.to_dict()
+        else:
+            provider_config = self.provider_config
 
-        pub_sub: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.pub_sub, Unset):
+        pub_sub: dict[str, Any] | None | Unset
+        if isinstance(self.pub_sub, Unset):
+            pub_sub = UNSET
+        elif isinstance(self.pub_sub, DatastorePubSubConfig):
             pub_sub = self.pub_sub.to_dict()
+        else:
+            pub_sub = self.pub_sub
 
         type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
@@ -121,9 +145,13 @@ class ModelsSourceResponse:
 
         url = self.url
 
-        verifier: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.verifier, Unset):
+        verifier: dict[str, Any] | None | Unset
+        if isinstance(self.verifier, Unset):
+            verifier = UNSET
+        elif isinstance(self.verifier, DatastoreVerifierConfig):
             verifier = self.verifier.to_dict()
+        else:
+            verifier = self.verifier
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -179,7 +207,15 @@ class ModelsSourceResponse:
         from ..models.datastore_verifier_config import DatastoreVerifierConfig
 
         d = dict(src_dict)
-        body_function = d.pop("body_function", UNSET)
+
+        def _parse_body_function(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        body_function = _parse_body_function(d.pop("body_function", UNSET))
 
         created_at = d.pop("created_at", UNSET)
 
@@ -190,13 +226,27 @@ class ModelsSourceResponse:
         else:
             custom_response = DatastoreCustomResponse.from_dict(_custom_response)
 
-        deleted_at = d.pop("deleted_at", UNSET)
+        def _parse_deleted_at(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        deleted_at = _parse_deleted_at(d.pop("deleted_at", UNSET))
 
         event_type_location = d.pop("event_type_location", UNSET)
 
         forward_headers = cast(list[str], d.pop("forward_headers", UNSET))
 
-        header_function = d.pop("header_function", UNSET)
+        def _parse_header_function(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        header_function = _parse_header_function(d.pop("header_function", UNSET))
 
         idempotency_keys = cast(list[str], d.pop("idempotency_keys", UNSET))
 
@@ -215,19 +265,41 @@ class ModelsSourceResponse:
         else:
             provider = DatastoreSourceProvider(_provider)
 
-        _provider_config = d.pop("provider_config", UNSET)
-        provider_config: DatastoreProviderConfig | Unset
-        if isinstance(_provider_config, Unset):
-            provider_config = UNSET
-        else:
-            provider_config = DatastoreProviderConfig.from_dict(_provider_config)
+        def _parse_provider_config(
+            data: object,
+        ) -> DatastoreProviderConfig | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                provider_config_type_1 = DatastoreProviderConfig.from_dict(data)
 
-        _pub_sub = d.pop("pub_sub", UNSET)
-        pub_sub: DatastorePubSubConfig | Unset
-        if isinstance(_pub_sub, Unset):
-            pub_sub = UNSET
-        else:
-            pub_sub = DatastorePubSubConfig.from_dict(_pub_sub)
+                return provider_config_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreProviderConfig | None | Unset, data)
+
+        provider_config = _parse_provider_config(d.pop("provider_config", UNSET))
+
+        def _parse_pub_sub(data: object) -> DatastorePubSubConfig | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                pub_sub_type_1 = DatastorePubSubConfig.from_dict(data)
+
+                return pub_sub_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastorePubSubConfig | None | Unset, data)
+
+        pub_sub = _parse_pub_sub(d.pop("pub_sub", UNSET))
 
         _type_ = d.pop("type", UNSET)
         type_: DatastoreSourceType | Unset
@@ -242,12 +314,22 @@ class ModelsSourceResponse:
 
         url = d.pop("url", UNSET)
 
-        _verifier = d.pop("verifier", UNSET)
-        verifier: DatastoreVerifierConfig | Unset
-        if isinstance(_verifier, Unset):
-            verifier = UNSET
-        else:
-            verifier = DatastoreVerifierConfig.from_dict(_verifier)
+        def _parse_verifier(data: object) -> DatastoreVerifierConfig | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                verifier_type_1 = DatastoreVerifierConfig.from_dict(data)
+
+                return verifier_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreVerifierConfig | None | Unset, data)
+
+        verifier = _parse_verifier(d.pop("verifier", UNSET))
 
         models_source_response = cls(
             body_function=body_function,

@@ -6,12 +6,12 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-T = TypeVar("T", bound="ModelsFunctionRequestPayload")
+T = TypeVar("T", bound="ModelsUpdateEventTypeJsonSchemaType0")
 
 
 @_attrs_define
-class ModelsFunctionRequestPayload:
-    """ """
+class ModelsUpdateEventTypeJsonSchemaType0:
+    """JSONSchema is the JSON structure of the event type"""
 
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -25,10 +25,10 @@ class ModelsFunctionRequestPayload:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        models_function_request_payload = cls()
+        models_update_event_type_json_schema_type_0 = cls()
 
-        models_function_request_payload.additional_properties = d
-        return models_function_request_payload
+        models_update_event_type_json_schema_type_0.additional_properties = d
+        return models_update_event_type_json_schema_type_0
 
     @property
     def additional_keys(self) -> list[str]:

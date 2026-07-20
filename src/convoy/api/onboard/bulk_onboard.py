@@ -11,13 +11,14 @@ from ...models.bulk_onboard_response_202 import BulkOnboardResponse202
 from ...models.bulk_onboard_response_400 import BulkOnboardResponse400
 from ...models.bulk_onboard_response_401 import BulkOnboardResponse401
 from ...models.bulk_onboard_response_404 import BulkOnboardResponse404
-from ...types import UNSET, File, Response, Unset
+from ...models.models_bulk_onboard_request import ModelsBulkOnboardRequest
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     project_id: str,
     *,
-    body: File | Unset = UNSET,
+    body: ModelsBulkOnboardRequest | Unset = UNSET,
     dry_run: bool | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -37,8 +38,9 @@ def _get_kwargs(
     }
 
     if not isinstance(body, Unset):
-        _kwargs["content"] = body.payload
-    headers["Content-Type"] = "application/octet-stream"
+        _kwargs["json"] = body.to_dict()
+
+    headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
@@ -106,7 +108,7 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: File | Unset = UNSET,
+    body: ModelsBulkOnboardRequest | Unset = UNSET,
     dry_run: bool | Unset = UNSET,
 ) -> Response[
     BulkOnboardResponse200
@@ -122,7 +124,7 @@ def sync_detailed(
     Args:
         project_id (str):
         dry_run (bool | Unset):
-        body (File | Unset):
+        body (ModelsBulkOnboardRequest | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -149,7 +151,7 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: File | Unset = UNSET,
+    body: ModelsBulkOnboardRequest | Unset = UNSET,
     dry_run: bool | Unset = UNSET,
 ) -> (
     BulkOnboardResponse200
@@ -166,7 +168,7 @@ def sync(
     Args:
         project_id (str):
         dry_run (bool | Unset):
-        body (File | Unset):
+        body (ModelsBulkOnboardRequest | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -188,7 +190,7 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: File | Unset = UNSET,
+    body: ModelsBulkOnboardRequest | Unset = UNSET,
     dry_run: bool | Unset = UNSET,
 ) -> Response[
     BulkOnboardResponse200
@@ -204,7 +206,7 @@ async def asyncio_detailed(
     Args:
         project_id (str):
         dry_run (bool | Unset):
-        body (File | Unset):
+        body (ModelsBulkOnboardRequest | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -229,7 +231,7 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: File | Unset = UNSET,
+    body: ModelsBulkOnboardRequest | Unset = UNSET,
     dry_run: bool | Unset = UNSET,
 ) -> (
     BulkOnboardResponse200
@@ -246,7 +248,7 @@ async def asyncio(
     Args:
         project_id (str):
         dry_run (bool | Unset):
-        body (File | Unset):
+        body (ModelsBulkOnboardRequest | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

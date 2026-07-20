@@ -6,14 +6,14 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-T = TypeVar("T", bound="ModelsEventTypeResponseJsonSchema")
+T = TypeVar("T", bound="ModelsBroadcastEventCustomHeadersType0")
 
 
 @_attrs_define
-class ModelsEventTypeResponseJsonSchema:
-    """ """
+class ModelsBroadcastEventCustomHeadersType0:
+    """Specifies custom headers you want convoy to add when the event is dispatched to your endpoint"""
 
-    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, str] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
 
@@ -25,19 +25,19 @@ class ModelsEventTypeResponseJsonSchema:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        models_event_type_response_json_schema = cls()
+        models_broadcast_event_custom_headers_type_0 = cls()
 
-        models_event_type_response_json_schema.additional_properties = d
-        return models_event_type_response_json_schema
+        models_broadcast_event_custom_headers_type_0.additional_properties = d
+        return models_broadcast_event_custom_headers_type_0
 
     @property
     def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
-    def __getitem__(self, key: str) -> Any:
+    def __getitem__(self, key: str) -> str:
         return self.additional_properties[key]
 
-    def __setitem__(self, key: str, value: Any) -> None:
+    def __setitem__(self, key: str, value: str) -> None:
         self.additional_properties[key] = value
 
     def __delitem__(self, key: str) -> None:

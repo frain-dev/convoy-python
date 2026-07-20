@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -9,7 +9,9 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.models_function_request_payload import ModelsFunctionRequestPayload
+    from ..models.models_function_request_payload_type_0 import (
+        ModelsFunctionRequestPayloadType0,
+    )
 
 
 T = TypeVar("T", bound="ModelsFunctionRequest")
@@ -20,21 +22,29 @@ class ModelsFunctionRequest:
     """
     Attributes:
         function (str | Unset):
-        payload (ModelsFunctionRequestPayload | Unset):
+        payload (ModelsFunctionRequestPayloadType0 | None | Unset):
         type_ (str | Unset):
     """
 
     function: str | Unset = UNSET
-    payload: ModelsFunctionRequestPayload | Unset = UNSET
+    payload: ModelsFunctionRequestPayloadType0 | None | Unset = UNSET
     type_: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.models_function_request_payload_type_0 import (
+            ModelsFunctionRequestPayloadType0,
+        )
+
         function = self.function
 
-        payload: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.payload, Unset):
+        payload: dict[str, Any] | None | Unset
+        if isinstance(self.payload, Unset):
+            payload = UNSET
+        elif isinstance(self.payload, ModelsFunctionRequestPayloadType0):
             payload = self.payload.to_dict()
+        else:
+            payload = self.payload
 
         type_ = self.type_
 
@@ -52,19 +62,31 @@ class ModelsFunctionRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.models_function_request_payload import (
-            ModelsFunctionRequestPayload,
+        from ..models.models_function_request_payload_type_0 import (
+            ModelsFunctionRequestPayloadType0,
         )
 
         d = dict(src_dict)
         function = d.pop("function", UNSET)
 
-        _payload = d.pop("payload", UNSET)
-        payload: ModelsFunctionRequestPayload | Unset
-        if isinstance(_payload, Unset):
-            payload = UNSET
-        else:
-            payload = ModelsFunctionRequestPayload.from_dict(_payload)
+        def _parse_payload(
+            data: object,
+        ) -> ModelsFunctionRequestPayloadType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                payload_type_0 = ModelsFunctionRequestPayloadType0.from_dict(data)
+
+                return payload_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(ModelsFunctionRequestPayloadType0 | None | Unset, data)
+
+        payload = _parse_payload(d.pop("payload", UNSET))
 
         type_ = d.pop("type", UNSET)
 

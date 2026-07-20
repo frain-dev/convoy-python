@@ -2,9 +2,10 @@ from enum import Enum
 
 
 class DatastoreEndpointAuthenticationType(str, Enum):
-    API_KEY_AUTHENTICATION = "api_key"
-    BASIC_AUTHENTICATION = "basic_auth"
-    O_AUTH_2_AUTHENTICATION = "oauth2"
+    API_KEY = "api_key"
+    BASIC_AUTH = "basic_auth"
+    OAUTH2 = "oauth2"
+    VALUE_3 = ""
 
     def __str__(self) -> str:
         return str(self.value)

@@ -111,22 +111,22 @@ from .datastore_endpoint_authentication import DatastoreEndpointAuthentication
 from .datastore_endpoint_authentication_type import DatastoreEndpointAuthenticationType
 from .datastore_endpoint_status import DatastoreEndpointStatus
 from .datastore_event import DatastoreEvent
-from .datastore_event_data import DatastoreEventData
+from .datastore_event_data_type_0 import DatastoreEventDataType0
 from .datastore_event_delivery_status import DatastoreEventDeliveryStatus
 from .datastore_event_status import DatastoreEventStatus
 from .datastore_filter_configuration import DatastoreFilterConfiguration
 from .datastore_filter_schema import DatastoreFilterSchema
 from .datastore_google_pub_sub_config import DatastoreGooglePubSubConfig
 from .datastore_h_mac import DatastoreHMac
-from .datastore_http_header import DatastoreHttpHeader
+from .datastore_http_header_type_0 import DatastoreHttpHeaderType0
 from .datastore_kafka_auth import DatastoreKafkaAuth
 from .datastore_kafka_pub_sub_config import DatastoreKafkaPubSubConfig
-from .datastore_m import DatastoreM
+from .datastore_m_type_0 import DatastoreMType0
 from .datastore_meta_event_attempt import DatastoreMetaEventAttempt
 from .datastore_meta_event_configuration import DatastoreMetaEventConfiguration
 from .datastore_meta_event_type import DatastoreMetaEventType
 from .datastore_metadata import DatastoreMetadata
-from .datastore_metadata_data import DatastoreMetadataData
+from .datastore_metadata_data_type_0 import DatastoreMetadataDataType0
 from .datastore_mtls_client_cert import DatastoreMtlsClientCert
 from .datastore_o_auth_2 import DatastoreOAuth2
 from .datastore_o_auth_2_authentication_type import DatastoreOAuth2AuthenticationType
@@ -290,8 +290,8 @@ from .get_subscriptions_response_200_data import GetSubscriptionsResponse200Data
 from .get_subscriptions_response_400 import GetSubscriptionsResponse400
 from .get_subscriptions_response_401 import GetSubscriptionsResponse401
 from .get_subscriptions_response_404 import GetSubscriptionsResponse404
-from .handlers_stub import HandlersStub
-from .httpheader_http_header import HttpheaderHTTPHeader
+from .handlers_stub_type_0 import HandlersStubType0
+from .httpheader_http_header_type_0 import HttpheaderHTTPHeaderType0
 from .import_open_api_spec_response_200 import ImportOpenApiSpecResponse200
 from .import_open_api_spec_response_400 import ImportOpenApiSpecResponse400
 from .import_open_api_spec_response_401 import ImportOpenApiSpecResponse401
@@ -317,25 +317,37 @@ from .models_amqp_pub_subconfig import ModelsAmqpPubSubconfig
 from .models_api_key import ModelsApiKey
 from .models_basic_auth import ModelsBasicAuth
 from .models_broadcast_event import ModelsBroadcastEvent
-from .models_broadcast_event_custom_headers import ModelsBroadcastEventCustomHeaders
-from .models_broadcast_event_data import ModelsBroadcastEventData
+from .models_broadcast_event_custom_headers_type_0 import (
+    ModelsBroadcastEventCustomHeadersType0,
+)
+from .models_broadcast_event_data_type_0 import ModelsBroadcastEventDataType0
 from .models_bulk_onboard_accepted_response import ModelsBulkOnboardAcceptedResponse
 from .models_bulk_onboard_dry_run_response import ModelsBulkOnboardDryRunResponse
 from .models_bulk_onboard_request import ModelsBulkOnboardRequest
 from .models_bulk_update_filter_request import ModelsBulkUpdateFilterRequest
-from .models_bulk_update_filter_request_body import ModelsBulkUpdateFilterRequestBody
-from .models_bulk_update_filter_request_headers import (
-    ModelsBulkUpdateFilterRequestHeaders,
+from .models_bulk_update_filter_request_body_type_0 import (
+    ModelsBulkUpdateFilterRequestBodyType0,
 )
-from .models_bulk_update_filter_request_path import ModelsBulkUpdateFilterRequestPath
-from .models_bulk_update_filter_request_query import ModelsBulkUpdateFilterRequestQuery
+from .models_bulk_update_filter_request_headers_type_0 import (
+    ModelsBulkUpdateFilterRequestHeadersType0,
+)
+from .models_bulk_update_filter_request_path_type_0 import (
+    ModelsBulkUpdateFilterRequestPathType0,
+)
+from .models_bulk_update_filter_request_query_type_0 import (
+    ModelsBulkUpdateFilterRequestQueryType0,
+)
 from .models_count_response import ModelsCountResponse
 from .models_create_endpoint import ModelsCreateEndpoint
 from .models_create_event import ModelsCreateEvent
-from .models_create_event_custom_headers import ModelsCreateEventCustomHeaders
-from .models_create_event_data import ModelsCreateEventData
+from .models_create_event_custom_headers_type_0 import (
+    ModelsCreateEventCustomHeadersType0,
+)
+from .models_create_event_data_type_0 import ModelsCreateEventDataType0
 from .models_create_event_type import ModelsCreateEventType
-from .models_create_event_type_json_schema import ModelsCreateEventTypeJsonSchema
+from .models_create_event_type_json_schema_type_0 import (
+    ModelsCreateEventTypeJsonSchemaType0,
+)
 from .models_create_filter_request import ModelsCreateFilterRequest
 from .models_create_project import ModelsCreateProject
 from .models_create_project_response import ModelsCreateProjectResponse
@@ -343,25 +355,31 @@ from .models_create_source import ModelsCreateSource
 from .models_create_subscription import ModelsCreateSubscription
 from .models_custom_response import ModelsCustomResponse
 from .models_dynamic_event import ModelsDynamicEvent
-from .models_dynamic_event_custom_headers import ModelsDynamicEventCustomHeaders
-from .models_dynamic_event_data import ModelsDynamicEventData
+from .models_dynamic_event_custom_headers_type_0 import (
+    ModelsDynamicEventCustomHeadersType0,
+)
+from .models_dynamic_event_data_type_0 import ModelsDynamicEventDataType0
 from .models_endpoint_authentication import ModelsEndpointAuthentication
 from .models_endpoint_response import ModelsEndpointResponse
 from .models_event_delivery_response import ModelsEventDeliveryResponse
 from .models_event_response import ModelsEventResponse
-from .models_event_response_data import ModelsEventResponseData
+from .models_event_response_data_type_0 import ModelsEventResponseDataType0
 from .models_event_type_response import ModelsEventTypeResponse
-from .models_event_type_response_json_schema import ModelsEventTypeResponseJsonSchema
+from .models_event_type_response_json_schema_type_0 import (
+    ModelsEventTypeResponseJsonSchemaType0,
+)
 from .models_expire_secret import ModelsExpireSecret
 from .models_fanout_event import ModelsFanoutEvent
-from .models_fanout_event_custom_headers import ModelsFanoutEventCustomHeaders
-from .models_fanout_event_data import ModelsFanoutEventData
+from .models_fanout_event_custom_headers_type_0 import (
+    ModelsFanoutEventCustomHeadersType0,
+)
+from .models_fanout_event_data_type_0 import ModelsFanoutEventDataType0
 from .models_filter_configuration import ModelsFilterConfiguration
 from .models_filter_response import ModelsFilterResponse
 from .models_filter_schema import ModelsFilterSchema
 from .models_fs import ModelsFS
 from .models_function_request import ModelsFunctionRequest
-from .models_function_request_payload import ModelsFunctionRequestPayload
+from .models_function_request_payload_type_0 import ModelsFunctionRequestPayloadType0
 from .models_function_response import ModelsFunctionResponse
 from .models_google_pub_sub_config import ModelsGooglePubSubConfig
 from .models_h_mac import ModelsHMac
@@ -400,7 +418,9 @@ from .models_test_o_auth_2_response import ModelsTestOAuth2Response
 from .models_update_custom_response import ModelsUpdateCustomResponse
 from .models_update_endpoint import ModelsUpdateEndpoint
 from .models_update_event_type import ModelsUpdateEventType
-from .models_update_event_type_json_schema import ModelsUpdateEventTypeJsonSchema
+from .models_update_event_type_json_schema_type_0 import (
+    ModelsUpdateEventTypeJsonSchemaType0,
+)
 from .models_update_filter_request import ModelsUpdateFilterRequest
 from .models_update_project import ModelsUpdateProject
 from .models_update_source import ModelsUpdateSource
@@ -603,23 +623,23 @@ __all__ = (
     "DatastoreEndpointAuthenticationType",
     "DatastoreEndpointStatus",
     "DatastoreEvent",
-    "DatastoreEventData",
+    "DatastoreEventDataType0",
     "DatastoreEventDeliveryStatus",
     "DatastoreEventStatus",
     "DatastoreFilterConfiguration",
     "DatastoreFilterSchema",
     "DatastoreGooglePubSubConfig",
     "DatastoreHMac",
-    "DatastoreHttpHeader",
+    "DatastoreHttpHeaderType0",
     "DatastoreKafkaAuth",
     "DatastoreKafkaPubSubConfig",
-    "DatastoreM",
     "DatastoreMetadata",
-    "DatastoreMetadataData",
+    "DatastoreMetadataDataType0",
     "DatastoreMetaEventAttempt",
     "DatastoreMetaEventConfiguration",
     "DatastoreMetaEventType",
     "DatastoreMtlsClientCert",
+    "DatastoreMType0",
     "DatastoreOAuth2",
     "DatastoreOAuth2AuthenticationType",
     "DatastoreOAuth2ExpiryTimeUnit",
@@ -772,8 +792,8 @@ __all__ = (
     "GetSubscriptionsResponse400",
     "GetSubscriptionsResponse401",
     "GetSubscriptionsResponse404",
-    "HandlersStub",
-    "HttpheaderHTTPHeader",
+    "HandlersStubType0",
+    "HttpheaderHTTPHeaderType0",
     "ImportOpenApiSpecResponse200",
     "ImportOpenApiSpecResponse400",
     "ImportOpenApiSpecResponse401",
@@ -797,23 +817,23 @@ __all__ = (
     "ModelsApiKey",
     "ModelsBasicAuth",
     "ModelsBroadcastEvent",
-    "ModelsBroadcastEventCustomHeaders",
-    "ModelsBroadcastEventData",
+    "ModelsBroadcastEventCustomHeadersType0",
+    "ModelsBroadcastEventDataType0",
     "ModelsBulkOnboardAcceptedResponse",
     "ModelsBulkOnboardDryRunResponse",
     "ModelsBulkOnboardRequest",
     "ModelsBulkUpdateFilterRequest",
-    "ModelsBulkUpdateFilterRequestBody",
-    "ModelsBulkUpdateFilterRequestHeaders",
-    "ModelsBulkUpdateFilterRequestPath",
-    "ModelsBulkUpdateFilterRequestQuery",
+    "ModelsBulkUpdateFilterRequestBodyType0",
+    "ModelsBulkUpdateFilterRequestHeadersType0",
+    "ModelsBulkUpdateFilterRequestPathType0",
+    "ModelsBulkUpdateFilterRequestQueryType0",
     "ModelsCountResponse",
     "ModelsCreateEndpoint",
     "ModelsCreateEvent",
-    "ModelsCreateEventCustomHeaders",
-    "ModelsCreateEventData",
+    "ModelsCreateEventCustomHeadersType0",
+    "ModelsCreateEventDataType0",
     "ModelsCreateEventType",
-    "ModelsCreateEventTypeJsonSchema",
+    "ModelsCreateEventTypeJsonSchemaType0",
     "ModelsCreateFilterRequest",
     "ModelsCreateProject",
     "ModelsCreateProjectResponse",
@@ -821,25 +841,25 @@ __all__ = (
     "ModelsCreateSubscription",
     "ModelsCustomResponse",
     "ModelsDynamicEvent",
-    "ModelsDynamicEventCustomHeaders",
-    "ModelsDynamicEventData",
+    "ModelsDynamicEventCustomHeadersType0",
+    "ModelsDynamicEventDataType0",
     "ModelsEndpointAuthentication",
     "ModelsEndpointResponse",
     "ModelsEventDeliveryResponse",
     "ModelsEventResponse",
-    "ModelsEventResponseData",
+    "ModelsEventResponseDataType0",
     "ModelsEventTypeResponse",
-    "ModelsEventTypeResponseJsonSchema",
+    "ModelsEventTypeResponseJsonSchemaType0",
     "ModelsExpireSecret",
     "ModelsFanoutEvent",
-    "ModelsFanoutEventCustomHeaders",
-    "ModelsFanoutEventData",
+    "ModelsFanoutEventCustomHeadersType0",
+    "ModelsFanoutEventDataType0",
     "ModelsFilterConfiguration",
     "ModelsFilterResponse",
     "ModelsFilterSchema",
     "ModelsFS",
     "ModelsFunctionRequest",
-    "ModelsFunctionRequestPayload",
+    "ModelsFunctionRequestPayloadType0",
     "ModelsFunctionResponse",
     "ModelsGooglePubSubConfig",
     "ModelsHMac",
@@ -878,7 +898,7 @@ __all__ = (
     "ModelsUpdateCustomResponse",
     "ModelsUpdateEndpoint",
     "ModelsUpdateEventType",
-    "ModelsUpdateEventTypeJsonSchema",
+    "ModelsUpdateEventTypeJsonSchemaType0",
     "ModelsUpdateFilterRequest",
     "ModelsUpdateProject",
     "ModelsUpdateSource",

@@ -11,9 +11,9 @@ from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.datastore_endpoint import DatastoreEndpoint
-    from ..models.datastore_event_data import DatastoreEventData
+    from ..models.datastore_event_data_type_0 import DatastoreEventDataType0
     from ..models.datastore_source import DatastoreSource
-    from ..models.httpheader_http_header import HttpheaderHTTPHeader
+    from ..models.httpheader_http_header_type_0 import HttpheaderHTTPHeaderType0
 
 
 T = TypeVar("T", bound="DatastoreEvent")
@@ -23,23 +23,23 @@ T = TypeVar("T", bound="DatastoreEvent")
 class DatastoreEvent:
     """
     Attributes:
-        acknowledged_at (str | Unset):
+        acknowledged_at (None | str | Unset):
         app_id (str | Unset): Deprecated
         created_at (str | Unset):
-        data (DatastoreEventData | Unset): Data is an arbitrary JSON value that gets sent as the body of the
+        data (DatastoreEventDataType0 | None | Unset): Data is an arbitrary JSON value that gets sent as the body of the
             webhook to the endpoints
-        deleted_at (str | Unset):
+        deleted_at (None | str | Unset):
         endpoint_metadata (list[DatastoreEndpoint] | Unset):
         endpoints (list[str] | Unset):
         event_type (str | Unset):
-        headers (HttpheaderHTTPHeader | Unset):
+        headers (HttpheaderHTTPHeaderType0 | None | Unset):
         idempotency_key (str | Unset):
         is_duplicate_event (bool | Unset):
         metadata (str | Unset):
         project_id (str | Unset):
         raw (str | Unset):
         source_id (str | Unset):
-        source_metadata (DatastoreSource | Unset):
+        source_metadata (DatastoreSource | None | Unset):
         status (DatastoreEventStatus | Unset):
         uid (str | Unset):
         updated_at (str | Unset):
@@ -47,22 +47,22 @@ class DatastoreEvent:
         url_query_params (str | Unset):
     """
 
-    acknowledged_at: str | Unset = UNSET
+    acknowledged_at: None | str | Unset = UNSET
     app_id: str | Unset = UNSET
     created_at: str | Unset = UNSET
-    data: DatastoreEventData | Unset = UNSET
-    deleted_at: str | Unset = UNSET
+    data: DatastoreEventDataType0 | None | Unset = UNSET
+    deleted_at: None | str | Unset = UNSET
     endpoint_metadata: list[DatastoreEndpoint] | Unset = UNSET
     endpoints: list[str] | Unset = UNSET
     event_type: str | Unset = UNSET
-    headers: HttpheaderHTTPHeader | Unset = UNSET
+    headers: HttpheaderHTTPHeaderType0 | None | Unset = UNSET
     idempotency_key: str | Unset = UNSET
     is_duplicate_event: bool | Unset = UNSET
     metadata: str | Unset = UNSET
     project_id: str | Unset = UNSET
     raw: str | Unset = UNSET
     source_id: str | Unset = UNSET
-    source_metadata: DatastoreSource | Unset = UNSET
+    source_metadata: DatastoreSource | None | Unset = UNSET
     status: DatastoreEventStatus | Unset = UNSET
     uid: str | Unset = UNSET
     updated_at: str | Unset = UNSET
@@ -71,17 +71,33 @@ class DatastoreEvent:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        acknowledged_at = self.acknowledged_at
+        from ..models.datastore_event_data_type_0 import DatastoreEventDataType0
+        from ..models.datastore_source import DatastoreSource
+        from ..models.httpheader_http_header_type_0 import HttpheaderHTTPHeaderType0
+
+        acknowledged_at: None | str | Unset
+        if isinstance(self.acknowledged_at, Unset):
+            acknowledged_at = UNSET
+        else:
+            acknowledged_at = self.acknowledged_at
 
         app_id = self.app_id
 
         created_at = self.created_at
 
-        data: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.data, Unset):
+        data: dict[str, Any] | None | Unset
+        if isinstance(self.data, Unset):
+            data = UNSET
+        elif isinstance(self.data, DatastoreEventDataType0):
             data = self.data.to_dict()
+        else:
+            data = self.data
 
-        deleted_at = self.deleted_at
+        deleted_at: None | str | Unset
+        if isinstance(self.deleted_at, Unset):
+            deleted_at = UNSET
+        else:
+            deleted_at = self.deleted_at
 
         endpoint_metadata: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.endpoint_metadata, Unset):
@@ -96,9 +112,13 @@ class DatastoreEvent:
 
         event_type = self.event_type
 
-        headers: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.headers, Unset):
+        headers: dict[str, Any] | None | Unset
+        if isinstance(self.headers, Unset):
+            headers = UNSET
+        elif isinstance(self.headers, HttpheaderHTTPHeaderType0):
             headers = self.headers.to_dict()
+        else:
+            headers = self.headers
 
         idempotency_key = self.idempotency_key
 
@@ -112,9 +132,13 @@ class DatastoreEvent:
 
         source_id = self.source_id
 
-        source_metadata: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.source_metadata, Unset):
+        source_metadata: dict[str, Any] | None | Unset
+        if isinstance(self.source_metadata, Unset):
+            source_metadata = UNSET
+        elif isinstance(self.source_metadata, DatastoreSource):
             source_metadata = self.source_metadata.to_dict()
+        else:
+            source_metadata = self.source_metadata
 
         status: str | Unset = UNSET
         if not isinstance(self.status, Unset):
@@ -179,25 +203,50 @@ class DatastoreEvent:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.datastore_endpoint import DatastoreEndpoint
-        from ..models.datastore_event_data import DatastoreEventData
+        from ..models.datastore_event_data_type_0 import DatastoreEventDataType0
         from ..models.datastore_source import DatastoreSource
-        from ..models.httpheader_http_header import HttpheaderHTTPHeader
+        from ..models.httpheader_http_header_type_0 import HttpheaderHTTPHeaderType0
 
         d = dict(src_dict)
-        acknowledged_at = d.pop("acknowledged_at", UNSET)
+
+        def _parse_acknowledged_at(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        acknowledged_at = _parse_acknowledged_at(d.pop("acknowledged_at", UNSET))
 
         app_id = d.pop("app_id", UNSET)
 
         created_at = d.pop("created_at", UNSET)
 
-        _data = d.pop("data", UNSET)
-        data: DatastoreEventData | Unset
-        if isinstance(_data, Unset):
-            data = UNSET
-        else:
-            data = DatastoreEventData.from_dict(_data)
+        def _parse_data(data: object) -> DatastoreEventDataType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                data_type_0 = DatastoreEventDataType0.from_dict(data)
 
-        deleted_at = d.pop("deleted_at", UNSET)
+                return data_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreEventDataType0 | None | Unset, data)
+
+        data = _parse_data(d.pop("data", UNSET))
+
+        def _parse_deleted_at(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        deleted_at = _parse_deleted_at(d.pop("deleted_at", UNSET))
 
         _endpoint_metadata = d.pop("endpoint_metadata", UNSET)
         endpoint_metadata: list[DatastoreEndpoint] | Unset = UNSET
@@ -214,12 +263,24 @@ class DatastoreEvent:
 
         event_type = d.pop("event_type", UNSET)
 
-        _headers = d.pop("headers", UNSET)
-        headers: HttpheaderHTTPHeader | Unset
-        if isinstance(_headers, Unset):
-            headers = UNSET
-        else:
-            headers = HttpheaderHTTPHeader.from_dict(_headers)
+        def _parse_headers(data: object) -> HttpheaderHTTPHeaderType0 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                componentsschemashttpheader_http_header_type_0 = (
+                    HttpheaderHTTPHeaderType0.from_dict(data)
+                )
+
+                return componentsschemashttpheader_http_header_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(HttpheaderHTTPHeaderType0 | None | Unset, data)
+
+        headers = _parse_headers(d.pop("headers", UNSET))
 
         idempotency_key = d.pop("idempotency_key", UNSET)
 
@@ -233,12 +294,22 @@ class DatastoreEvent:
 
         source_id = d.pop("source_id", UNSET)
 
-        _source_metadata = d.pop("source_metadata", UNSET)
-        source_metadata: DatastoreSource | Unset
-        if isinstance(_source_metadata, Unset):
-            source_metadata = UNSET
-        else:
-            source_metadata = DatastoreSource.from_dict(_source_metadata)
+        def _parse_source_metadata(data: object) -> DatastoreSource | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                source_metadata_type_1 = DatastoreSource.from_dict(data)
+
+                return source_metadata_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreSource | None | Unset, data)
+
+        source_metadata = _parse_source_metadata(d.pop("source_metadata", UNSET))
 
         _status = d.pop("status", UNSET)
         status: DatastoreEventStatus | Unset

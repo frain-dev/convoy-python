@@ -6,12 +6,12 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-T = TypeVar("T", bound="ModelsBulkUpdateFilterRequestHeaders")
+T = TypeVar("T", bound="DatastoreMetadataDataType0")
 
 
 @_attrs_define
-class ModelsBulkUpdateFilterRequestHeaders:
-    """ """
+class DatastoreMetadataDataType0:
+    """Data to be sent to endpoint."""
 
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -25,10 +25,10 @@ class ModelsBulkUpdateFilterRequestHeaders:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        models_bulk_update_filter_request_headers = cls()
+        datastore_metadata_data_type_0 = cls()
 
-        models_bulk_update_filter_request_headers.additional_properties = d
-        return models_bulk_update_filter_request_headers
+        datastore_metadata_data_type_0.additional_properties = d
+        return datastore_metadata_data_type_0
 
     @property
     def additional_keys(self) -> list[str]:

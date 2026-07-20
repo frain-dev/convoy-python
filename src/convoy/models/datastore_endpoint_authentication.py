@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -24,30 +24,46 @@ T = TypeVar("T", bound="DatastoreEndpointAuthentication")
 class DatastoreEndpointAuthentication:
     """
     Attributes:
-        api_key (DatastoreApiKey | Unset):
-        basic_auth (DatastoreBasicAuth | Unset):
-        oauth2 (DatastoreOAuth2 | Unset):
+        api_key (DatastoreApiKey | None | Unset):
+        basic_auth (DatastoreBasicAuth | None | Unset):
+        oauth2 (DatastoreOAuth2 | None | Unset):
         type_ (DatastoreEndpointAuthenticationType | Unset):
     """
 
-    api_key: DatastoreApiKey | Unset = UNSET
-    basic_auth: DatastoreBasicAuth | Unset = UNSET
-    oauth2: DatastoreOAuth2 | Unset = UNSET
+    api_key: DatastoreApiKey | None | Unset = UNSET
+    basic_auth: DatastoreBasicAuth | None | Unset = UNSET
+    oauth2: DatastoreOAuth2 | None | Unset = UNSET
     type_: DatastoreEndpointAuthenticationType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        api_key: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.api_key, Unset):
+        from ..models.datastore_api_key import DatastoreApiKey
+        from ..models.datastore_basic_auth import DatastoreBasicAuth
+        from ..models.datastore_o_auth_2 import DatastoreOAuth2
+
+        api_key: dict[str, Any] | None | Unset
+        if isinstance(self.api_key, Unset):
+            api_key = UNSET
+        elif isinstance(self.api_key, DatastoreApiKey):
             api_key = self.api_key.to_dict()
+        else:
+            api_key = self.api_key
 
-        basic_auth: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.basic_auth, Unset):
+        basic_auth: dict[str, Any] | None | Unset
+        if isinstance(self.basic_auth, Unset):
+            basic_auth = UNSET
+        elif isinstance(self.basic_auth, DatastoreBasicAuth):
             basic_auth = self.basic_auth.to_dict()
+        else:
+            basic_auth = self.basic_auth
 
-        oauth2: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.oauth2, Unset):
+        oauth2: dict[str, Any] | None | Unset
+        if isinstance(self.oauth2, Unset):
+            oauth2 = UNSET
+        elif isinstance(self.oauth2, DatastoreOAuth2):
             oauth2 = self.oauth2.to_dict()
+        else:
+            oauth2 = self.oauth2
 
         type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
@@ -74,26 +90,57 @@ class DatastoreEndpointAuthentication:
         from ..models.datastore_o_auth_2 import DatastoreOAuth2
 
         d = dict(src_dict)
-        _api_key = d.pop("api_key", UNSET)
-        api_key: DatastoreApiKey | Unset
-        if isinstance(_api_key, Unset):
-            api_key = UNSET
-        else:
-            api_key = DatastoreApiKey.from_dict(_api_key)
 
-        _basic_auth = d.pop("basic_auth", UNSET)
-        basic_auth: DatastoreBasicAuth | Unset
-        if isinstance(_basic_auth, Unset):
-            basic_auth = UNSET
-        else:
-            basic_auth = DatastoreBasicAuth.from_dict(_basic_auth)
+        def _parse_api_key(data: object) -> DatastoreApiKey | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                api_key_type_1 = DatastoreApiKey.from_dict(data)
 
-        _oauth2 = d.pop("oauth2", UNSET)
-        oauth2: DatastoreOAuth2 | Unset
-        if isinstance(_oauth2, Unset):
-            oauth2 = UNSET
-        else:
-            oauth2 = DatastoreOAuth2.from_dict(_oauth2)
+                return api_key_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreApiKey | None | Unset, data)
+
+        api_key = _parse_api_key(d.pop("api_key", UNSET))
+
+        def _parse_basic_auth(data: object) -> DatastoreBasicAuth | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                basic_auth_type_1 = DatastoreBasicAuth.from_dict(data)
+
+                return basic_auth_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreBasicAuth | None | Unset, data)
+
+        basic_auth = _parse_basic_auth(d.pop("basic_auth", UNSET))
+
+        def _parse_oauth2(data: object) -> DatastoreOAuth2 | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                oauth2_type_1 = DatastoreOAuth2.from_dict(data)
+
+                return oauth2_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(DatastoreOAuth2 | None | Unset, data)
+
+        oauth2 = _parse_oauth2(d.pop("oauth2", UNSET))
 
         _type_ = d.pop("type", UNSET)
         type_: DatastoreEndpointAuthenticationType | Unset

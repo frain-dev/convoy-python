@@ -6,15 +6,12 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-T = TypeVar("T", bound="ModelsFanoutEventData")
+T = TypeVar("T", bound="ModelsCreateEventTypeJsonSchemaType0")
 
 
 @_attrs_define
-class ModelsFanoutEventData:
-    """Data is an arbitrary JSON value that gets sent as the body of the
-    webhook to the endpoints
-
-    """
+class ModelsCreateEventTypeJsonSchemaType0:
+    """JSONSchema is the JSON structure of the event type"""
 
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -28,10 +25,10 @@ class ModelsFanoutEventData:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        models_fanout_event_data = cls()
+        models_create_event_type_json_schema_type_0 = cls()
 
-        models_fanout_event_data.additional_properties = d
-        return models_fanout_event_data
+        models_create_event_type_json_schema_type_0.additional_properties = d
+        return models_create_event_type_json_schema_type_0
 
     @property
     def additional_keys(self) -> list[str]:
