@@ -1,95 +1,83 @@
 # convoy-python
 
-This is the official Convoy Python SDK. It contains methods for easily interacting with Convoy's API. Below are examples to get you started. See our [API Reference](https://getconvoy.io/docs/api-reference/welcome) for more.
+Official Convoy Python SDK: an OpenAPI-generated API client plus hand-written webhook signature verification. See the [API Reference](https://getconvoy.io/docs/api-reference/welcome) for endpoint details.
+
+Requires **Python 3.11+**.
 
 ## Installation
 
-Install convoy-python with
+`1.0.0a1` is a pre-release. Plain `pip install convoy-python` still resolves to `0.2.0` until a final `1.0.0` is published.
 
 ```bash
-pip install convoy-python
+pip install --pre convoy-python
+# or pin explicitly:
+pip install convoy-python==1.0.0a1
 ```
+
+If you are upgrading from `0.2.0`, see [MIGRATION.md](./MIGRATION.md) and the release notes for the breaking changes.
 
 ## Setup Client
 
-Import the `convoy` module and set it up with your instance URL, API key, and project ID. Both the API key and project ID are available from your **Project Settings** page.
+Construct an `AuthenticatedClient` with your instance API root and API key. The project ID is passed per call (it is not embedded in the client).
 
 ```python
-from convoy import Convoy
+from convoy import AuthenticatedClient
 
-convoy = Convoy({
-    "api_key": "your_api_key",
-    "uri": "https://us.getconvoy.cloud/api/v1",
-    "project_id": "your_project_id",
-})
+client = AuthenticatedClient(
+    base_url="https://us.getconvoy.cloud/api",  # no /v1, no project id
+    token="your_api_key",
+)
+project_id = "your_project_id"
 ```
 
-Your instance URL depends on where your project lives:
+Your base URL depends on where your project lives:
 
-- Convoy Cloud (US): `https://us.getconvoy.cloud/api/v1`
-- Convoy Cloud (EU): `https://eu.getconvoy.cloud/api/v1`
-- Self-hosted: `https://your-instance/api/v1`
+- Convoy Cloud (US): `https://us.getconvoy.cloud/api`
+- Convoy Cloud (EU): `https://eu.getconvoy.cloud/api`
+- Self-hosted: `https://your-instance/api`
 
 ## Usage
 
-Each method takes a query dict and returns a `(response, status)` tuple.
+Each operation lives under `convoy.api.*` and exposes `sync`, `sync_detailed`, `asyncio`, and `asyncio_detailed`. Request bodies use typed models from `convoy.models`.
 
 ### Create an Endpoint
 
-An endpoint represents a target URL to receive events.
-
 ```python
-endpoint_data = {
-    "name": "default-endpoint",
-    "url": "https://example.com/webhooks/convoy",
-    "description": "Default Endpoint",
-    "secret": "endpoint-secret",
-}
+from convoy.api.endpoints import create_endpoint
+from convoy.models import ModelsCreateEndpoint
 
-(response, status) = convoy.endpoint.create({}, endpoint_data)
-endpoint_id = response["data"]["uid"]
-```
-
-### Create a Subscription
-
-Subscriptions route events from a source to an endpoint.
-
-```python
-subscription_data = {
-    "name": "event-sub",
-    "endpoint_id": endpoint_id,
-}
-
-(response, status) = convoy.subscription.create({}, subscription_data)
+result = create_endpoint.sync(
+    project_id,
+    client=client,
+    body=ModelsCreateEndpoint(
+        name="default-endpoint",
+        url="https://example.com/webhooks/convoy",
+        secret="endpoint-secret",
+    ),
+)
+endpoint_id = result.data.uid
 ```
 
 ### Send an Event
 
-To send an event, you'll need the `uid` of the endpoint we created earlier.
-
 ```python
-event_data = {
-    "endpoint_id": endpoint_id,
-    "event_type": "payment.success",
-    "data": {
-        "status": "Completed",
-        "description": "Transaction Successful",
-    },
-}
+from convoy.api.events import create_endpoint_event
+from convoy.models import ModelsCreateEvent, ModelsCreateEventDataType0
 
-(response, status) = convoy.event.create({}, event_data)
-```
+body = ModelsCreateEvent(
+    endpoint_id=endpoint_id,
+    event_type="payment.success",
+    data=ModelsCreateEventDataType0.from_dict({"status": "Completed"}),
+)
 
-To fan an event out to all endpoints with the same `owner_id`, or broadcast to every endpoint in the project:
-
-```python
-(response, status) = convoy.event.fanout({}, {"owner_id": "owner-1", "event_type": "payment.success", "data": {}})
-(response, status) = convoy.event.broadcast({}, {"event_type": "payment.success", "data": {}})
+result = create_endpoint_event.sync(project_id, client=client, body=body)
+# async:
+# result = await create_endpoint_event.asyncio(project_id, client=client, body=body)
 ```
 
 ### Verify Webhook Signatures
 
-Verify with the raw request body, before parsing it. `verify_signature` returns `True` for a valid signature and `False` otherwise (it fails closed), so a plain boolean check is safe.
+Verify with the raw request body, before parsing it. `verify_signature` returns a strict `True` / `False` (never a truthy error string).
 
 ```python
 from convoy.utils.webhook import Webhook
@@ -107,8 +95,14 @@ if not webhook.verify_signature(payload, signature):
 ## Testing
 
 ```bash
-pytest test/test.py
+pytest test/
 ```
+
+## Generated API client
+
+The HTTP API client under `src/convoy/api/` and `src/convoy/models/` is generated from Convoy's OpenAPI spec via [openapi-python-client](https://github.com/openapi-generators/openapi-python-client). **Do not edit generated files by hand**; regenerate with `./scripts/generate.sh` (CI on `frain-dev/convoy` dispatches this when the spec changes).
+
+Webhook signature verification remains hand-written (`src/convoy/utils/webhook.py`) and is covered by shared `test/signature-vectors.json`.
 
 ## Contributing
 
@@ -121,7 +115,3 @@ Please see [CONTRIBUTING](CONTRIBUTING.MD) for details.
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE) for more information.
-
-## Generated API client
-
-The HTTP API client is generated from Convoy's OpenAPI spec via [openapi-python-client](https://github.com/openapi-generators/openapi-python-client). **Webhook signature verification remains hand-written** (`convoy/utils/webhook.py`) and is covered by shared `test/signature-vectors.json`. See [MIGRATION.md](./MIGRATION.md).
