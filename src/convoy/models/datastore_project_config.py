@@ -46,6 +46,8 @@ class DatastoreProjectConfig:
         signature (DatastoreSignatureConfiguration | None | Unset):
         ssl (DatastoreSSLConfiguration | None | Unset):
         strategy (DatastoreStrategyConfiguration | None | Unset):
+        sync_dynamic_event_ack (bool | Unset): SyncDynamicEventAck waits for endpoint/subscription resolve before
+            returning 2xx from POST /events/dynamic. Default false keeps 201-on-queue.
     """
 
     add_event_id_trace_headers: bool | Unset = UNSET
@@ -61,6 +63,7 @@ class DatastoreProjectConfig:
     signature: DatastoreSignatureConfiguration | None | Unset = UNSET
     ssl: DatastoreSSLConfiguration | None | Unset = UNSET
     strategy: DatastoreStrategyConfiguration | None | Unset = UNSET
+    sync_dynamic_event_ack: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -145,6 +148,8 @@ class DatastoreProjectConfig:
         else:
             strategy = self.strategy
 
+        sync_dynamic_event_ack = self.sync_dynamic_event_ack
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -178,6 +183,8 @@ class DatastoreProjectConfig:
             field_dict["ssl"] = ssl
         if strategy is not UNSET:
             field_dict["strategy"] = strategy
+        if sync_dynamic_event_ack is not UNSET:
+            field_dict["sync_dynamic_event_ack"] = sync_dynamic_event_ack
 
         return field_dict
 
@@ -338,6 +345,8 @@ class DatastoreProjectConfig:
 
         strategy = _parse_strategy(d.pop("strategy", UNSET))
 
+        sync_dynamic_event_ack = d.pop("sync_dynamic_event_ack", UNSET)
+
         datastore_project_config = cls(
             add_event_id_trace_headers=add_event_id_trace_headers,
             circuit_breaker=circuit_breaker,
@@ -352,6 +361,7 @@ class DatastoreProjectConfig:
             signature=signature,
             ssl=ssl,
             strategy=strategy,
+            sync_dynamic_event_ack=sync_dynamic_event_ack,
         )
 
         datastore_project_config.additional_properties = d

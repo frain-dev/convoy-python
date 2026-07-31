@@ -48,6 +48,9 @@ class ModelsProjectConfig:
         signature (ModelsSignatureConfiguration | Unset):
         ssl (ModelsSSLConfiguration | Unset):
         strategy (ModelsStrategyConfiguration | Unset):
+        sync_dynamic_event_ack (bool | Unset): SyncDynamicEventAck waits for dynamic endpoint/subscription resolve
+            before
+            acknowledging POST /events/dynamic. When false, the handler returns 201 after enqueue.
     """
 
     add_event_id_trace_headers: bool | Unset = UNSET
@@ -63,6 +66,7 @@ class ModelsProjectConfig:
     signature: ModelsSignatureConfiguration | Unset = UNSET
     ssl: ModelsSSLConfiguration | Unset = UNSET
     strategy: ModelsStrategyConfiguration | Unset = UNSET
+    sync_dynamic_event_ack: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -106,6 +110,8 @@ class ModelsProjectConfig:
         if not isinstance(self.strategy, Unset):
             strategy = self.strategy.to_dict()
 
+        sync_dynamic_event_ack = self.sync_dynamic_event_ack
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -139,6 +145,8 @@ class ModelsProjectConfig:
             field_dict["ssl"] = ssl
         if strategy is not UNSET:
             field_dict["strategy"] = strategy
+        if sync_dynamic_event_ack is not UNSET:
+            field_dict["sync_dynamic_event_ack"] = sync_dynamic_event_ack
 
         return field_dict
 
@@ -225,6 +233,8 @@ class ModelsProjectConfig:
         else:
             strategy = ModelsStrategyConfiguration.from_dict(_strategy)
 
+        sync_dynamic_event_ack = d.pop("sync_dynamic_event_ack", UNSET)
+
         models_project_config = cls(
             add_event_id_trace_headers=add_event_id_trace_headers,
             circuit_breaker=circuit_breaker,
@@ -239,6 +249,7 @@ class ModelsProjectConfig:
             signature=signature,
             ssl=ssl,
             strategy=strategy,
+            sync_dynamic_event_ack=sync_dynamic_event_ack,
         )
 
         models_project_config.additional_properties = d
