@@ -32,10 +32,12 @@ class DatastoreEvent:
         endpoint_metadata (list[DatastoreEndpoint] | Unset):
         endpoints (list[str] | Unset):
         event_type (str | Unset):
+        failure_reason (str | Unset): FailureReason explains a Failure status to whoever is looking at the
+            dashboard. It carries operator facing text only, never endpoint
+            credentials, headers, or payload content.
         headers (HttpheaderHTTPHeaderType0 | None | Unset):
         idempotency_key (str | Unset):
         is_duplicate_event (bool | Unset):
-        metadata (str | Unset):
         project_id (str | Unset):
         raw (str | Unset):
         source_id (str | Unset):
@@ -55,10 +57,10 @@ class DatastoreEvent:
     endpoint_metadata: list[DatastoreEndpoint] | Unset = UNSET
     endpoints: list[str] | Unset = UNSET
     event_type: str | Unset = UNSET
+    failure_reason: str | Unset = UNSET
     headers: HttpheaderHTTPHeaderType0 | None | Unset = UNSET
     idempotency_key: str | Unset = UNSET
     is_duplicate_event: bool | Unset = UNSET
-    metadata: str | Unset = UNSET
     project_id: str | Unset = UNSET
     raw: str | Unset = UNSET
     source_id: str | Unset = UNSET
@@ -112,6 +114,8 @@ class DatastoreEvent:
 
         event_type = self.event_type
 
+        failure_reason = self.failure_reason
+
         headers: dict[str, Any] | None | Unset
         if isinstance(self.headers, Unset):
             headers = UNSET
@@ -123,8 +127,6 @@ class DatastoreEvent:
         idempotency_key = self.idempotency_key
 
         is_duplicate_event = self.is_duplicate_event
-
-        metadata = self.metadata
 
         project_id = self.project_id
 
@@ -171,14 +173,14 @@ class DatastoreEvent:
             field_dict["endpoints"] = endpoints
         if event_type is not UNSET:
             field_dict["event_type"] = event_type
+        if failure_reason is not UNSET:
+            field_dict["failure_reason"] = failure_reason
         if headers is not UNSET:
             field_dict["headers"] = headers
         if idempotency_key is not UNSET:
             field_dict["idempotency_key"] = idempotency_key
         if is_duplicate_event is not UNSET:
             field_dict["is_duplicate_event"] = is_duplicate_event
-        if metadata is not UNSET:
-            field_dict["metadata"] = metadata
         if project_id is not UNSET:
             field_dict["project_id"] = project_id
         if raw is not UNSET:
@@ -263,6 +265,8 @@ class DatastoreEvent:
 
         event_type = d.pop("event_type", UNSET)
 
+        failure_reason = d.pop("failure_reason", UNSET)
+
         def _parse_headers(data: object) -> HttpheaderHTTPHeaderType0 | None | Unset:
             if data is None:
                 return data
@@ -285,8 +289,6 @@ class DatastoreEvent:
         idempotency_key = d.pop("idempotency_key", UNSET)
 
         is_duplicate_event = d.pop("is_duplicate_event", UNSET)
-
-        metadata = d.pop("metadata", UNSET)
 
         project_id = d.pop("project_id", UNSET)
 
@@ -335,10 +337,10 @@ class DatastoreEvent:
             endpoint_metadata=endpoint_metadata,
             endpoints=endpoints,
             event_type=event_type,
+            failure_reason=failure_reason,
             headers=headers,
             idempotency_key=idempotency_key,
             is_duplicate_event=is_duplicate_event,
-            metadata=metadata,
             project_id=project_id,
             raw=raw,
             source_id=source_id,
