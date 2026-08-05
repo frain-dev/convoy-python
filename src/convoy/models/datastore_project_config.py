@@ -34,6 +34,10 @@ class DatastoreProjectConfig:
     """
     Attributes:
         add_event_id_trace_headers (bool | Unset):
+        allow_unmatched_dynamic_urls (bool | Unset): AllowUnmatchedDynamicURLs lets a dynamic event URL that matches
+            none of the
+            project's endpoint URL templates auto-create an endpoint. Default false
+            rejects unmatched URLs.
         circuit_breaker (DatastoreCircuitBreakerConfiguration | None | Unset):
         disable_endpoint (bool | Unset):
         max_payload_read_size (int | Unset):
@@ -46,11 +50,12 @@ class DatastoreProjectConfig:
         signature (DatastoreSignatureConfiguration | None | Unset):
         ssl (DatastoreSSLConfiguration | None | Unset):
         strategy (DatastoreStrategyConfiguration | None | Unset):
-        sync_dynamic_event_ack (bool | Unset): SyncDynamicEventAck waits for endpoint/subscription resolve before
+        verify_dynamic_events (bool | Unset): VerifyDynamicEvents waits for endpoint/subscription resolve before
             returning 2xx from POST /events/dynamic. Default false keeps 201-on-queue.
     """
 
     add_event_id_trace_headers: bool | Unset = UNSET
+    allow_unmatched_dynamic_urls: bool | Unset = UNSET
     circuit_breaker: DatastoreCircuitBreakerConfiguration | None | Unset = UNSET
     disable_endpoint: bool | Unset = UNSET
     max_payload_read_size: int | Unset = UNSET
@@ -63,7 +68,7 @@ class DatastoreProjectConfig:
     signature: DatastoreSignatureConfiguration | None | Unset = UNSET
     ssl: DatastoreSSLConfiguration | None | Unset = UNSET
     strategy: DatastoreStrategyConfiguration | None | Unset = UNSET
-    sync_dynamic_event_ack: bool | Unset = UNSET
+    verify_dynamic_events: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -85,6 +90,8 @@ class DatastoreProjectConfig:
         )
 
         add_event_id_trace_headers = self.add_event_id_trace_headers
+
+        allow_unmatched_dynamic_urls = self.allow_unmatched_dynamic_urls
 
         circuit_breaker: dict[str, Any] | None | Unset
         if isinstance(self.circuit_breaker, Unset):
@@ -148,13 +155,15 @@ class DatastoreProjectConfig:
         else:
             strategy = self.strategy
 
-        sync_dynamic_event_ack = self.sync_dynamic_event_ack
+        verify_dynamic_events = self.verify_dynamic_events
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if add_event_id_trace_headers is not UNSET:
             field_dict["add_event_id_trace_headers"] = add_event_id_trace_headers
+        if allow_unmatched_dynamic_urls is not UNSET:
+            field_dict["allow_unmatched_dynamic_urls"] = allow_unmatched_dynamic_urls
         if circuit_breaker is not UNSET:
             field_dict["circuit_breaker"] = circuit_breaker
         if disable_endpoint is not UNSET:
@@ -183,8 +192,8 @@ class DatastoreProjectConfig:
             field_dict["ssl"] = ssl
         if strategy is not UNSET:
             field_dict["strategy"] = strategy
-        if sync_dynamic_event_ack is not UNSET:
-            field_dict["sync_dynamic_event_ack"] = sync_dynamic_event_ack
+        if verify_dynamic_events is not UNSET:
+            field_dict["verify_dynamic_events"] = verify_dynamic_events
 
         return field_dict
 
@@ -209,6 +218,8 @@ class DatastoreProjectConfig:
 
         d = dict(src_dict)
         add_event_id_trace_headers = d.pop("add_event_id_trace_headers", UNSET)
+
+        allow_unmatched_dynamic_urls = d.pop("allow_unmatched_dynamic_urls", UNSET)
 
         def _parse_circuit_breaker(
             data: object,
@@ -345,10 +356,11 @@ class DatastoreProjectConfig:
 
         strategy = _parse_strategy(d.pop("strategy", UNSET))
 
-        sync_dynamic_event_ack = d.pop("sync_dynamic_event_ack", UNSET)
+        verify_dynamic_events = d.pop("verify_dynamic_events", UNSET)
 
         datastore_project_config = cls(
             add_event_id_trace_headers=add_event_id_trace_headers,
+            allow_unmatched_dynamic_urls=allow_unmatched_dynamic_urls,
             circuit_breaker=circuit_breaker,
             disable_endpoint=disable_endpoint,
             max_payload_read_size=max_payload_read_size,
@@ -361,7 +373,7 @@ class DatastoreProjectConfig:
             signature=signature,
             ssl=ssl,
             strategy=strategy,
-            sync_dynamic_event_ack=sync_dynamic_event_ack,
+            verify_dynamic_events=verify_dynamic_events,
         )
 
         datastore_project_config.additional_properties = d
