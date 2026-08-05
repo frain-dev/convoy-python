@@ -29,6 +29,10 @@ class ModelsProjectConfig:
     Attributes:
         add_event_id_trace_headers (bool | Unset): Controls of the Event ID and Event Delivery ID Headers are added to
             the request when events are dispatched to endpoints
+        allow_unmatched_dynamic_urls (bool | Unset): AllowUnmatchedDynamicURLs lets a dynamic event URL that matches
+            none of the project's
+            endpoint URL templates auto-create an endpoint instead of failing. When false (the
+            default), a project with templates configured rejects unmatched URLs.
         circuit_breaker (DatastoreCircuitBreakerConfiguration | Unset):
         disable_endpoint (bool | Unset): Controls if the project will disable and endpoint after the retry threshold for
             an event is reached
@@ -48,12 +52,12 @@ class ModelsProjectConfig:
         signature (ModelsSignatureConfiguration | Unset):
         ssl (ModelsSSLConfiguration | Unset):
         strategy (ModelsStrategyConfiguration | Unset):
-        sync_dynamic_event_ack (bool | Unset): SyncDynamicEventAck waits for dynamic endpoint/subscription resolve
-            before
+        verify_dynamic_events (bool | Unset): VerifyDynamicEvents waits for dynamic endpoint/subscription resolve before
             acknowledging POST /events/dynamic. When false, the handler returns 201 after enqueue.
     """
 
     add_event_id_trace_headers: bool | Unset = UNSET
+    allow_unmatched_dynamic_urls: bool | Unset = UNSET
     circuit_breaker: DatastoreCircuitBreakerConfiguration | Unset = UNSET
     disable_endpoint: bool | Unset = UNSET
     max_payload_read_size: int | Unset = UNSET
@@ -66,11 +70,13 @@ class ModelsProjectConfig:
     signature: ModelsSignatureConfiguration | Unset = UNSET
     ssl: ModelsSSLConfiguration | Unset = UNSET
     strategy: ModelsStrategyConfiguration | Unset = UNSET
-    sync_dynamic_event_ack: bool | Unset = UNSET
+    verify_dynamic_events: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         add_event_id_trace_headers = self.add_event_id_trace_headers
+
+        allow_unmatched_dynamic_urls = self.allow_unmatched_dynamic_urls
 
         circuit_breaker: dict[str, Any] | Unset = UNSET
         if not isinstance(self.circuit_breaker, Unset):
@@ -110,13 +116,15 @@ class ModelsProjectConfig:
         if not isinstance(self.strategy, Unset):
             strategy = self.strategy.to_dict()
 
-        sync_dynamic_event_ack = self.sync_dynamic_event_ack
+        verify_dynamic_events = self.verify_dynamic_events
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if add_event_id_trace_headers is not UNSET:
             field_dict["add_event_id_trace_headers"] = add_event_id_trace_headers
+        if allow_unmatched_dynamic_urls is not UNSET:
+            field_dict["allow_unmatched_dynamic_urls"] = allow_unmatched_dynamic_urls
         if circuit_breaker is not UNSET:
             field_dict["circuit_breaker"] = circuit_breaker
         if disable_endpoint is not UNSET:
@@ -145,8 +153,8 @@ class ModelsProjectConfig:
             field_dict["ssl"] = ssl
         if strategy is not UNSET:
             field_dict["strategy"] = strategy
-        if sync_dynamic_event_ack is not UNSET:
-            field_dict["sync_dynamic_event_ack"] = sync_dynamic_event_ack
+        if verify_dynamic_events is not UNSET:
+            field_dict["verify_dynamic_events"] = verify_dynamic_events
 
         return field_dict
 
@@ -167,6 +175,8 @@ class ModelsProjectConfig:
 
         d = dict(src_dict)
         add_event_id_trace_headers = d.pop("add_event_id_trace_headers", UNSET)
+
+        allow_unmatched_dynamic_urls = d.pop("allow_unmatched_dynamic_urls", UNSET)
 
         _circuit_breaker = d.pop("circuit_breaker", UNSET)
         circuit_breaker: DatastoreCircuitBreakerConfiguration | Unset
@@ -233,10 +243,11 @@ class ModelsProjectConfig:
         else:
             strategy = ModelsStrategyConfiguration.from_dict(_strategy)
 
-        sync_dynamic_event_ack = d.pop("sync_dynamic_event_ack", UNSET)
+        verify_dynamic_events = d.pop("verify_dynamic_events", UNSET)
 
         models_project_config = cls(
             add_event_id_trace_headers=add_event_id_trace_headers,
+            allow_unmatched_dynamic_urls=allow_unmatched_dynamic_urls,
             circuit_breaker=circuit_breaker,
             disable_endpoint=disable_endpoint,
             max_payload_read_size=max_payload_read_size,
@@ -249,7 +260,7 @@ class ModelsProjectConfig:
             signature=signature,
             ssl=ssl,
             strategy=strategy,
-            sync_dynamic_event_ack=sync_dynamic_event_ack,
+            verify_dynamic_events=verify_dynamic_events,
         )
 
         models_project_config.additional_properties = d
