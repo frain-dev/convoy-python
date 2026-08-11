@@ -22,7 +22,8 @@ class ModelsCreateEndpoint:
     Attributes:
         advanced_signatures (bool | Unset): Convoy supports two [signature formats](https://getconvoy.io/docs/product-
             manual/signatures)
-            -- simple or advanced. If left unspecified, we default to false.
+            -- simple or advanced. Only applies to outgoing projects, where it defaults to true when omitted. Incoming
+            projects always use advanced signatures.
         app_id (str | Unset): Deprecated but necessary for backward compatibility
         authentication (ModelsEndpointAuthentication | Unset):
         content_type (str | Unset): Content type for the endpoint. Defaults to application/json if not specified.
