@@ -214,6 +214,18 @@ from .get_endpoint_event_response_200 import GetEndpointEventResponse200
 from .get_endpoint_event_response_400 import GetEndpointEventResponse400
 from .get_endpoint_event_response_401 import GetEndpointEventResponse401
 from .get_endpoint_event_response_404 import GetEndpointEventResponse404
+from .get_endpoint_period_failure_rates_response_200 import (
+    GetEndpointPeriodFailureRatesResponse200,
+)
+from .get_endpoint_period_failure_rates_response_400 import (
+    GetEndpointPeriodFailureRatesResponse400,
+)
+from .get_endpoint_period_failure_rates_response_401 import (
+    GetEndpointPeriodFailureRatesResponse401,
+)
+from .get_endpoint_period_failure_rates_response_404 import (
+    GetEndpointPeriodFailureRatesResponse404,
+)
 from .get_endpoint_response_200 import GetEndpointResponse200
 from .get_endpoint_response_400 import GetEndpointResponse400
 from .get_endpoint_response_401 import GetEndpointResponse401
@@ -360,6 +372,7 @@ from .models_dynamic_event_custom_headers_type_0 import (
 )
 from .models_dynamic_event_data_type_0 import ModelsDynamicEventDataType0
 from .models_endpoint_authentication import ModelsEndpointAuthentication
+from .models_endpoint_period_failure_rate import ModelsEndpointPeriodFailureRate
 from .models_endpoint_response import ModelsEndpointResponse
 from .models_event_delivery_response import ModelsEventDeliveryResponse
 from .models_event_response import ModelsEventResponse
@@ -718,6 +731,10 @@ __all__ = (
     "GetEndpointEventResponse400",
     "GetEndpointEventResponse401",
     "GetEndpointEventResponse404",
+    "GetEndpointPeriodFailureRatesResponse200",
+    "GetEndpointPeriodFailureRatesResponse400",
+    "GetEndpointPeriodFailureRatesResponse401",
+    "GetEndpointPeriodFailureRatesResponse404",
     "GetEndpointResponse200",
     "GetEndpointResponse400",
     "GetEndpointResponse401",
@@ -844,6 +861,7 @@ __all__ = (
     "ModelsDynamicEventCustomHeadersType0",
     "ModelsDynamicEventDataType0",
     "ModelsEndpointAuthentication",
+    "ModelsEndpointPeriodFailureRate",
     "ModelsEndpointResponse",
     "ModelsEventDeliveryResponse",
     "ModelsEventResponse",
