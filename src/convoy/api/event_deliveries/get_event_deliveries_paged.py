@@ -21,6 +21,9 @@ from ...models.get_event_deliveries_paged_response_401 import (
 from ...models.get_event_deliveries_paged_response_404 import (
     GetEventDeliveriesPagedResponse404,
 )
+from ...models.get_event_deliveries_paged_response_504 import (
+    GetEventDeliveriesPagedResponse504,
+)
 from ...types import UNSET, Response, Unset
 
 
@@ -102,6 +105,7 @@ def _parse_response(
     | GetEventDeliveriesPagedResponse400
     | GetEventDeliveriesPagedResponse401
     | GetEventDeliveriesPagedResponse404
+    | GetEventDeliveriesPagedResponse504
     | None
 ):
     if response.status_code == 200:
@@ -124,6 +128,11 @@ def _parse_response(
 
         return response_404
 
+    if response.status_code == 504:
+        response_504 = GetEventDeliveriesPagedResponse504.from_dict(response.json())
+
+        return response_504
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -137,6 +146,7 @@ def _build_response(
     | GetEventDeliveriesPagedResponse400
     | GetEventDeliveriesPagedResponse401
     | GetEventDeliveriesPagedResponse404
+    | GetEventDeliveriesPagedResponse504
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -168,6 +178,7 @@ def sync_detailed(
     | GetEventDeliveriesPagedResponse400
     | GetEventDeliveriesPagedResponse401
     | GetEventDeliveriesPagedResponse404
+    | GetEventDeliveriesPagedResponse504
 ]:
     """List all event deliveries
 
@@ -194,7 +205,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[GetEventDeliveriesPagedResponse200 | GetEventDeliveriesPagedResponse400 | GetEventDeliveriesPagedResponse401 | GetEventDeliveriesPagedResponse404]
+        Response[GetEventDeliveriesPagedResponse200 | GetEventDeliveriesPagedResponse400 | GetEventDeliveriesPagedResponse401 | GetEventDeliveriesPagedResponse404 | GetEventDeliveriesPagedResponse504]
     """
 
     kwargs = _get_kwargs(
@@ -243,6 +254,7 @@ def sync(
     | GetEventDeliveriesPagedResponse400
     | GetEventDeliveriesPagedResponse401
     | GetEventDeliveriesPagedResponse404
+    | GetEventDeliveriesPagedResponse504
     | None
 ):
     """List all event deliveries
@@ -270,7 +282,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        GetEventDeliveriesPagedResponse200 | GetEventDeliveriesPagedResponse400 | GetEventDeliveriesPagedResponse401 | GetEventDeliveriesPagedResponse404
+        GetEventDeliveriesPagedResponse200 | GetEventDeliveriesPagedResponse400 | GetEventDeliveriesPagedResponse401 | GetEventDeliveriesPagedResponse404 | GetEventDeliveriesPagedResponse504
     """
 
     return sync_detailed(
@@ -314,6 +326,7 @@ async def asyncio_detailed(
     | GetEventDeliveriesPagedResponse400
     | GetEventDeliveriesPagedResponse401
     | GetEventDeliveriesPagedResponse404
+    | GetEventDeliveriesPagedResponse504
 ]:
     """List all event deliveries
 
@@ -340,7 +353,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[GetEventDeliveriesPagedResponse200 | GetEventDeliveriesPagedResponse400 | GetEventDeliveriesPagedResponse401 | GetEventDeliveriesPagedResponse404]
+        Response[GetEventDeliveriesPagedResponse200 | GetEventDeliveriesPagedResponse400 | GetEventDeliveriesPagedResponse401 | GetEventDeliveriesPagedResponse404 | GetEventDeliveriesPagedResponse504]
     """
 
     kwargs = _get_kwargs(
@@ -387,6 +400,7 @@ async def asyncio(
     | GetEventDeliveriesPagedResponse400
     | GetEventDeliveriesPagedResponse401
     | GetEventDeliveriesPagedResponse404
+    | GetEventDeliveriesPagedResponse504
     | None
 ):
     """List all event deliveries
@@ -414,7 +428,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        GetEventDeliveriesPagedResponse200 | GetEventDeliveriesPagedResponse400 | GetEventDeliveriesPagedResponse401 | GetEventDeliveriesPagedResponse404
+        GetEventDeliveriesPagedResponse200 | GetEventDeliveriesPagedResponse400 | GetEventDeliveriesPagedResponse401 | GetEventDeliveriesPagedResponse404 | GetEventDeliveriesPagedResponse504
     """
 
     return (
