@@ -244,6 +244,7 @@ from .get_event_deliveries_paged_response_200_data import (
 from .get_event_deliveries_paged_response_400 import GetEventDeliveriesPagedResponse400
 from .get_event_deliveries_paged_response_401 import GetEventDeliveriesPagedResponse401
 from .get_event_deliveries_paged_response_404 import GetEventDeliveriesPagedResponse404
+from .get_event_deliveries_paged_response_504 import GetEventDeliveriesPagedResponse504
 from .get_event_delivery_response_200 import GetEventDeliveryResponse200
 from .get_event_delivery_response_400 import GetEventDeliveryResponse400
 from .get_event_delivery_response_401 import GetEventDeliveryResponse401
@@ -753,6 +754,7 @@ __all__ = (
     "GetEventDeliveriesPagedResponse400",
     "GetEventDeliveriesPagedResponse401",
     "GetEventDeliveriesPagedResponse404",
+    "GetEventDeliveriesPagedResponse504",
     "GetEventDeliveryResponse200",
     "GetEventDeliveryResponse400",
     "GetEventDeliveryResponse401",
