@@ -55,6 +55,7 @@ class DatastoreEndpoint:
         status (DatastoreEndpointStatus | Unset):
         success_count (int | None | Unset):
         support_email (str | Unset):
+        teams_webhook_url (str | Unset):
         uid (str | Unset):
         updated_at (str | Unset):
         url (str | Unset):
@@ -84,6 +85,7 @@ class DatastoreEndpoint:
     status: DatastoreEndpointStatus | Unset = UNSET
     success_count: int | None | Unset = UNSET
     support_email: str | Unset = UNSET
+    teams_webhook_url: str | Unset = UNSET
     uid: str | Unset = UNSET
     updated_at: str | Unset = UNSET
     url: str | Unset = UNSET
@@ -190,6 +192,8 @@ class DatastoreEndpoint:
 
         support_email = self.support_email
 
+        teams_webhook_url = self.teams_webhook_url
+
         uid = self.uid
 
         updated_at = self.updated_at
@@ -247,6 +251,8 @@ class DatastoreEndpoint:
             field_dict["success_count"] = success_count
         if support_email is not UNSET:
             field_dict["support_email"] = support_email
+        if teams_webhook_url is not UNSET:
+            field_dict["teams_webhook_url"] = teams_webhook_url
         if uid is not UNSET:
             field_dict["uid"] = uid
         if updated_at is not UNSET:
@@ -410,6 +416,8 @@ class DatastoreEndpoint:
 
         support_email = d.pop("support_email", UNSET)
 
+        teams_webhook_url = d.pop("teams_webhook_url", UNSET)
+
         uid = d.pop("uid", UNSET)
 
         updated_at = d.pop("updated_at", UNSET)
@@ -441,6 +449,7 @@ class DatastoreEndpoint:
             status=status,
             success_count=success_count,
             support_email=support_email,
+            teams_webhook_url=teams_webhook_url,
             uid=uid,
             updated_at=updated_at,
             url=url,

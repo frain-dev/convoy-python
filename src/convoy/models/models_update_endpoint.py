@@ -43,6 +43,10 @@ class ModelsUpdateEndpoint:
             can receive failure notifications on a slack channel.
         support_email (str | Unset): Endpoint developers support email. This is used for communicating endpoint state
             changes. You should always turn this on when disabling endpoints are enabled.
+        teams_webhook_url (str | Unset): Microsoft Teams webhook URL is an alternative method to support email where
+            endpoint
+            developers can receive failure notifications in a Teams channel. Use a Workflows
+            (Power Automate) webhook URL; retired Office 365 connector URLs no longer deliver.
         url (str | Unset): URL is the endpoint's URL prefixed with https. non-https urls are currently
             not supported.
     """
@@ -61,6 +65,7 @@ class ModelsUpdateEndpoint:
     secret: str | Unset = UNSET
     slack_webhook_url: str | Unset = UNSET
     support_email: str | Unset = UNSET
+    teams_webhook_url: str | Unset = UNSET
     url: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -97,6 +102,8 @@ class ModelsUpdateEndpoint:
 
         support_email = self.support_email
 
+        teams_webhook_url = self.teams_webhook_url
+
         url = self.url
 
         field_dict: dict[str, Any] = {}
@@ -130,6 +137,8 @@ class ModelsUpdateEndpoint:
             field_dict["slack_webhook_url"] = slack_webhook_url
         if support_email is not UNSET:
             field_dict["support_email"] = support_email
+        if teams_webhook_url is not UNSET:
+            field_dict["teams_webhook_url"] = teams_webhook_url
         if url is not UNSET:
             field_dict["url"] = url
 
@@ -179,6 +188,8 @@ class ModelsUpdateEndpoint:
 
         support_email = d.pop("support_email", UNSET)
 
+        teams_webhook_url = d.pop("teams_webhook_url", UNSET)
+
         url = d.pop("url", UNSET)
 
         models_update_endpoint = cls(
@@ -196,6 +207,7 @@ class ModelsUpdateEndpoint:
             secret=secret,
             slack_webhook_url=slack_webhook_url,
             support_email=support_email,
+            teams_webhook_url=teams_webhook_url,
             url=url,
         )
 
