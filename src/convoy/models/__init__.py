@@ -257,7 +257,9 @@ from .get_events_paged_response_200 import GetEventsPagedResponse200
 from .get_events_paged_response_200_data import GetEventsPagedResponse200Data
 from .get_events_paged_response_400 import GetEventsPagedResponse400
 from .get_events_paged_response_401 import GetEventsPagedResponse401
+from .get_events_paged_response_403 import GetEventsPagedResponse403
 from .get_events_paged_response_404 import GetEventsPagedResponse404
+from .get_events_paged_response_504 import GetEventsPagedResponse504
 from .get_filter_response_200 import GetFilterResponse200
 from .get_filter_response_400 import GetFilterResponse400
 from .get_filter_response_401 import GetFilterResponse401
@@ -760,7 +762,9 @@ __all__ = (
     "GetEventsPagedResponse200Data",
     "GetEventsPagedResponse400",
     "GetEventsPagedResponse401",
+    "GetEventsPagedResponse403",
     "GetEventsPagedResponse404",
+    "GetEventsPagedResponse504",
     "GetEventTypesResponse200",
     "GetEventTypesResponse400",
     "GetEventTypesResponse401",

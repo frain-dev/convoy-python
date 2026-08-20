@@ -17,6 +17,7 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     project_id: str,
     *,
+    body: str | Unset = UNSET,
     direction: BatchReplayEventsDirection | Unset = UNSET,
     end_date: str | Unset = UNSET,
     endpoint_id: list[str] | Unset = UNSET,
@@ -31,6 +32,8 @@ def _get_kwargs(
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
+
+    params["body"] = body
 
     json_direction: str | Unset = UNSET
     if not isinstance(direction, Unset):
@@ -134,6 +137,7 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
+    body: str | Unset = UNSET,
     direction: BatchReplayEventsDirection | Unset = UNSET,
     end_date: str | Unset = UNSET,
     endpoint_id: list[str] | Unset = UNSET,
@@ -157,6 +161,7 @@ def sync_detailed(
 
     Args:
         project_id (str):
+        body (str | Unset):
         direction (BatchReplayEventsDirection | Unset):
         end_date (str | Unset):
         endpoint_id (list[str] | Unset):
@@ -179,6 +184,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
+        body=body,
         direction=direction,
         end_date=end_date,
         endpoint_id=endpoint_id,
@@ -203,6 +209,7 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
+    body: str | Unset = UNSET,
     direction: BatchReplayEventsDirection | Unset = UNSET,
     end_date: str | Unset = UNSET,
     endpoint_id: list[str] | Unset = UNSET,
@@ -227,6 +234,7 @@ def sync(
 
     Args:
         project_id (str):
+        body (str | Unset):
         direction (BatchReplayEventsDirection | Unset):
         end_date (str | Unset):
         endpoint_id (list[str] | Unset):
@@ -250,6 +258,7 @@ def sync(
     return sync_detailed(
         project_id=project_id,
         client=client,
+        body=body,
         direction=direction,
         end_date=end_date,
         endpoint_id=endpoint_id,
@@ -268,6 +277,7 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
+    body: str | Unset = UNSET,
     direction: BatchReplayEventsDirection | Unset = UNSET,
     end_date: str | Unset = UNSET,
     endpoint_id: list[str] | Unset = UNSET,
@@ -291,6 +301,7 @@ async def asyncio_detailed(
 
     Args:
         project_id (str):
+        body (str | Unset):
         direction (BatchReplayEventsDirection | Unset):
         end_date (str | Unset):
         endpoint_id (list[str] | Unset):
@@ -313,6 +324,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
+        body=body,
         direction=direction,
         end_date=end_date,
         endpoint_id=endpoint_id,
@@ -335,6 +347,7 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
+    body: str | Unset = UNSET,
     direction: BatchReplayEventsDirection | Unset = UNSET,
     end_date: str | Unset = UNSET,
     endpoint_id: list[str] | Unset = UNSET,
@@ -359,6 +372,7 @@ async def asyncio(
 
     Args:
         project_id (str):
+        body (str | Unset):
         direction (BatchReplayEventsDirection | Unset):
         end_date (str | Unset):
         endpoint_id (list[str] | Unset):
@@ -383,6 +397,7 @@ async def asyncio(
         await asyncio_detailed(
             project_id=project_id,
             client=client,
+            body=body,
             direction=direction,
             end_date=end_date,
             endpoint_id=endpoint_id,

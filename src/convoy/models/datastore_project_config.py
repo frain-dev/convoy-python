@@ -46,7 +46,9 @@ class DatastoreProjectConfig:
         ratelimit (DatastoreRateLimitConfiguration | None | Unset):
         replay_attacks_prevention_enabled (bool | Unset):
         request_id_header (ConfigRequestIDHeaderProvider | Unset):
-        search_policy (str | Unset):
+        search_policy (str | Unset): SearchPolicy is an optional Go duration (e.g. "24h") shown in project settings.
+            When set, the dashboard explains that payload/JSON search is additionally clamped
+            to this lookback intersected with the Events log date picker. Empty means opt-out.
         signature (DatastoreSignatureConfiguration | None | Unset):
         ssl (DatastoreSSLConfiguration | None | Unset):
         strategy (DatastoreStrategyConfiguration | None | Unset):

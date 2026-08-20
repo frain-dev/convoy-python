@@ -10,13 +10,16 @@ from ...models.get_events_paged_direction import GetEventsPagedDirection
 from ...models.get_events_paged_response_200 import GetEventsPagedResponse200
 from ...models.get_events_paged_response_400 import GetEventsPagedResponse400
 from ...models.get_events_paged_response_401 import GetEventsPagedResponse401
+from ...models.get_events_paged_response_403 import GetEventsPagedResponse403
 from ...models.get_events_paged_response_404 import GetEventsPagedResponse404
+from ...models.get_events_paged_response_504 import GetEventsPagedResponse504
 from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     project_id: str,
     *,
+    body: str | Unset = UNSET,
     direction: GetEventsPagedDirection | Unset = UNSET,
     end_date: str | Unset = UNSET,
     endpoint_id: list[str] | Unset = UNSET,
@@ -31,6 +34,8 @@ def _get_kwargs(
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
+
+    params["body"] = body
 
     json_direction: str | Unset = UNSET
     if not isinstance(direction, Unset):
@@ -85,7 +90,9 @@ def _parse_response(
     GetEventsPagedResponse200
     | GetEventsPagedResponse400
     | GetEventsPagedResponse401
+    | GetEventsPagedResponse403
     | GetEventsPagedResponse404
+    | GetEventsPagedResponse504
     | None
 ):
     if response.status_code == 200:
@@ -103,10 +110,20 @@ def _parse_response(
 
         return response_401
 
+    if response.status_code == 403:
+        response_403 = GetEventsPagedResponse403.from_dict(response.json())
+
+        return response_403
+
     if response.status_code == 404:
         response_404 = GetEventsPagedResponse404.from_dict(response.json())
 
         return response_404
+
+    if response.status_code == 504:
+        response_504 = GetEventsPagedResponse504.from_dict(response.json())
+
+        return response_504
 
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -120,7 +137,9 @@ def _build_response(
     GetEventsPagedResponse200
     | GetEventsPagedResponse400
     | GetEventsPagedResponse401
+    | GetEventsPagedResponse403
     | GetEventsPagedResponse404
+    | GetEventsPagedResponse504
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -134,6 +153,7 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
+    body: str | Unset = UNSET,
     direction: GetEventsPagedDirection | Unset = UNSET,
     end_date: str | Unset = UNSET,
     endpoint_id: list[str] | Unset = UNSET,
@@ -149,7 +169,9 @@ def sync_detailed(
     GetEventsPagedResponse200
     | GetEventsPagedResponse400
     | GetEventsPagedResponse401
+    | GetEventsPagedResponse403
     | GetEventsPagedResponse404
+    | GetEventsPagedResponse504
 ]:
     """List all events
 
@@ -157,6 +179,7 @@ def sync_detailed(
 
     Args:
         project_id (str):
+        body (str | Unset):
         direction (GetEventsPagedDirection | Unset):
         end_date (str | Unset):
         endpoint_id (list[str] | Unset):
@@ -174,11 +197,12 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[GetEventsPagedResponse200 | GetEventsPagedResponse400 | GetEventsPagedResponse401 | GetEventsPagedResponse404]
+        Response[GetEventsPagedResponse200 | GetEventsPagedResponse400 | GetEventsPagedResponse401 | GetEventsPagedResponse403 | GetEventsPagedResponse404 | GetEventsPagedResponse504]
     """
 
     kwargs = _get_kwargs(
         project_id=project_id,
+        body=body,
         direction=direction,
         end_date=end_date,
         endpoint_id=endpoint_id,
@@ -203,6 +227,7 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
+    body: str | Unset = UNSET,
     direction: GetEventsPagedDirection | Unset = UNSET,
     end_date: str | Unset = UNSET,
     endpoint_id: list[str] | Unset = UNSET,
@@ -218,7 +243,9 @@ def sync(
     GetEventsPagedResponse200
     | GetEventsPagedResponse400
     | GetEventsPagedResponse401
+    | GetEventsPagedResponse403
     | GetEventsPagedResponse404
+    | GetEventsPagedResponse504
     | None
 ):
     """List all events
@@ -227,6 +254,7 @@ def sync(
 
     Args:
         project_id (str):
+        body (str | Unset):
         direction (GetEventsPagedDirection | Unset):
         end_date (str | Unset):
         endpoint_id (list[str] | Unset):
@@ -244,12 +272,13 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        GetEventsPagedResponse200 | GetEventsPagedResponse400 | GetEventsPagedResponse401 | GetEventsPagedResponse404
+        GetEventsPagedResponse200 | GetEventsPagedResponse400 | GetEventsPagedResponse401 | GetEventsPagedResponse403 | GetEventsPagedResponse404 | GetEventsPagedResponse504
     """
 
     return sync_detailed(
         project_id=project_id,
         client=client,
+        body=body,
         direction=direction,
         end_date=end_date,
         endpoint_id=endpoint_id,
@@ -268,6 +297,7 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
+    body: str | Unset = UNSET,
     direction: GetEventsPagedDirection | Unset = UNSET,
     end_date: str | Unset = UNSET,
     endpoint_id: list[str] | Unset = UNSET,
@@ -283,7 +313,9 @@ async def asyncio_detailed(
     GetEventsPagedResponse200
     | GetEventsPagedResponse400
     | GetEventsPagedResponse401
+    | GetEventsPagedResponse403
     | GetEventsPagedResponse404
+    | GetEventsPagedResponse504
 ]:
     """List all events
 
@@ -291,6 +323,7 @@ async def asyncio_detailed(
 
     Args:
         project_id (str):
+        body (str | Unset):
         direction (GetEventsPagedDirection | Unset):
         end_date (str | Unset):
         endpoint_id (list[str] | Unset):
@@ -308,11 +341,12 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[GetEventsPagedResponse200 | GetEventsPagedResponse400 | GetEventsPagedResponse401 | GetEventsPagedResponse404]
+        Response[GetEventsPagedResponse200 | GetEventsPagedResponse400 | GetEventsPagedResponse401 | GetEventsPagedResponse403 | GetEventsPagedResponse404 | GetEventsPagedResponse504]
     """
 
     kwargs = _get_kwargs(
         project_id=project_id,
+        body=body,
         direction=direction,
         end_date=end_date,
         endpoint_id=endpoint_id,
@@ -335,6 +369,7 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
+    body: str | Unset = UNSET,
     direction: GetEventsPagedDirection | Unset = UNSET,
     end_date: str | Unset = UNSET,
     endpoint_id: list[str] | Unset = UNSET,
@@ -350,7 +385,9 @@ async def asyncio(
     GetEventsPagedResponse200
     | GetEventsPagedResponse400
     | GetEventsPagedResponse401
+    | GetEventsPagedResponse403
     | GetEventsPagedResponse404
+    | GetEventsPagedResponse504
     | None
 ):
     """List all events
@@ -359,6 +396,7 @@ async def asyncio(
 
     Args:
         project_id (str):
+        body (str | Unset):
         direction (GetEventsPagedDirection | Unset):
         end_date (str | Unset):
         endpoint_id (list[str] | Unset):
@@ -376,13 +414,14 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        GetEventsPagedResponse200 | GetEventsPagedResponse400 | GetEventsPagedResponse401 | GetEventsPagedResponse404
+        GetEventsPagedResponse200 | GetEventsPagedResponse400 | GetEventsPagedResponse401 | GetEventsPagedResponse403 | GetEventsPagedResponse404 | GetEventsPagedResponse504
     """
 
     return (
         await asyncio_detailed(
             project_id=project_id,
             client=client,
+            body=body,
             direction=direction,
             end_date=end_date,
             endpoint_id=endpoint_id,
