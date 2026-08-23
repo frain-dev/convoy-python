@@ -39,6 +39,7 @@ def _get_kwargs(
     next_page_cursor: str | Unset = UNSET,
     per_page: int | Unset = UNSET,
     prev_page_cursor: str | Unset = UNSET,
+    query: str | Unset = UNSET,
     sort: str | Unset = UNSET,
     start_date: str | Unset = UNSET,
     status: list[str] | Unset = UNSET,
@@ -72,6 +73,8 @@ def _get_kwargs(
     params["perPage"] = per_page
 
     params["prev_page_cursor"] = prev_page_cursor
+
+    params["query"] = query
 
     params["sort"] = sort
 
@@ -169,6 +172,7 @@ def sync_detailed(
     next_page_cursor: str | Unset = UNSET,
     per_page: int | Unset = UNSET,
     prev_page_cursor: str | Unset = UNSET,
+    query: str | Unset = UNSET,
     sort: str | Unset = UNSET,
     start_date: str | Unset = UNSET,
     status: list[str] | Unset = UNSET,
@@ -195,6 +199,7 @@ def sync_detailed(
         next_page_cursor (str | Unset):
         per_page (int | Unset):
         prev_page_cursor (str | Unset):
+        query (str | Unset):
         sort (str | Unset):
         start_date (str | Unset):
         status (list[str] | Unset):
@@ -219,6 +224,7 @@ def sync_detailed(
         next_page_cursor=next_page_cursor,
         per_page=per_page,
         prev_page_cursor=prev_page_cursor,
+        query=query,
         sort=sort,
         start_date=start_date,
         status=status,
@@ -245,6 +251,7 @@ def sync(
     next_page_cursor: str | Unset = UNSET,
     per_page: int | Unset = UNSET,
     prev_page_cursor: str | Unset = UNSET,
+    query: str | Unset = UNSET,
     sort: str | Unset = UNSET,
     start_date: str | Unset = UNSET,
     status: list[str] | Unset = UNSET,
@@ -272,6 +279,7 @@ def sync(
         next_page_cursor (str | Unset):
         per_page (int | Unset):
         prev_page_cursor (str | Unset):
+        query (str | Unset):
         sort (str | Unset):
         start_date (str | Unset):
         status (list[str] | Unset):
@@ -297,6 +305,7 @@ def sync(
         next_page_cursor=next_page_cursor,
         per_page=per_page,
         prev_page_cursor=prev_page_cursor,
+        query=query,
         sort=sort,
         start_date=start_date,
         status=status,
@@ -317,6 +326,7 @@ async def asyncio_detailed(
     next_page_cursor: str | Unset = UNSET,
     per_page: int | Unset = UNSET,
     prev_page_cursor: str | Unset = UNSET,
+    query: str | Unset = UNSET,
     sort: str | Unset = UNSET,
     start_date: str | Unset = UNSET,
     status: list[str] | Unset = UNSET,
@@ -343,6 +353,7 @@ async def asyncio_detailed(
         next_page_cursor (str | Unset):
         per_page (int | Unset):
         prev_page_cursor (str | Unset):
+        query (str | Unset):
         sort (str | Unset):
         start_date (str | Unset):
         status (list[str] | Unset):
@@ -367,6 +378,7 @@ async def asyncio_detailed(
         next_page_cursor=next_page_cursor,
         per_page=per_page,
         prev_page_cursor=prev_page_cursor,
+        query=query,
         sort=sort,
         start_date=start_date,
         status=status,
@@ -391,6 +403,7 @@ async def asyncio(
     next_page_cursor: str | Unset = UNSET,
     per_page: int | Unset = UNSET,
     prev_page_cursor: str | Unset = UNSET,
+    query: str | Unset = UNSET,
     sort: str | Unset = UNSET,
     start_date: str | Unset = UNSET,
     status: list[str] | Unset = UNSET,
@@ -418,6 +431,7 @@ async def asyncio(
         next_page_cursor (str | Unset):
         per_page (int | Unset):
         prev_page_cursor (str | Unset):
+        query (str | Unset):
         sort (str | Unset):
         start_date (str | Unset):
         status (list[str] | Unset):
@@ -444,6 +458,7 @@ async def asyncio(
             next_page_cursor=next_page_cursor,
             per_page=per_page,
             prev_page_cursor=prev_page_cursor,
+            query=query,
             sort=sort,
             start_date=start_date,
             status=status,
