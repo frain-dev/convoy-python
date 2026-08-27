@@ -110,6 +110,8 @@ def sync_detailed(
 
      This endpoint creates a event that is broadcast to every endpoint whose subscription matches the
     given event type.
+    The 201 body includes uid (the event id). Use GET /events/{eventID} or GET /eventdeliveries?eventId=
+    to follow the send.
 
     Args:
         project_id (str):
@@ -151,6 +153,8 @@ def sync(
 
      This endpoint creates a event that is broadcast to every endpoint whose subscription matches the
     given event type.
+    The 201 body includes uid (the event id). Use GET /events/{eventID} or GET /eventdeliveries?eventId=
+    to follow the send.
 
     Args:
         project_id (str):
@@ -186,6 +190,8 @@ async def asyncio_detailed(
 
      This endpoint creates a event that is broadcast to every endpoint whose subscription matches the
     given event type.
+    The 201 body includes uid (the event id). Use GET /events/{eventID} or GET /eventdeliveries?eventId=
+    to follow the send.
 
     Args:
         project_id (str):
@@ -225,6 +231,8 @@ async def asyncio(
 
      This endpoint creates a event that is broadcast to every endpoint whose subscription matches the
     given event type.
+    The 201 body includes uid (the event id). Use GET /events/{eventID} or GET /eventdeliveries?eventId=
+    to follow the send.
 
     Args:
         project_id (str):

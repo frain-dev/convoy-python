@@ -101,6 +101,8 @@ def sync_detailed(
     """Create an event
 
      This endpoint creates an endpoint event
+    The 201 body includes uid (the event id). Use GET /events/{eventID} or GET /eventdeliveries?eventId=
+    to follow the send.
 
     Args:
         project_id (str):
@@ -141,6 +143,8 @@ def sync(
     """Create an event
 
      This endpoint creates an endpoint event
+    The 201 body includes uid (the event id). Use GET /events/{eventID} or GET /eventdeliveries?eventId=
+    to follow the send.
 
     Args:
         project_id (str):
@@ -175,6 +179,8 @@ async def asyncio_detailed(
     """Create an event
 
      This endpoint creates an endpoint event
+    The 201 body includes uid (the event id). Use GET /events/{eventID} or GET /eventdeliveries?eventId=
+    to follow the send.
 
     Args:
         project_id (str):
@@ -213,6 +219,8 @@ async def asyncio(
     """Create an event
 
      This endpoint creates an endpoint event
+    The 201 body includes uid (the event id). Use GET /events/{eventID} or GET /eventdeliveries?eventId=
+    to follow the send.
 
     Args:
         project_id (str):

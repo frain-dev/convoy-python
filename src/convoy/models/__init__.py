@@ -378,6 +378,7 @@ from .models_endpoint_authentication import ModelsEndpointAuthentication
 from .models_endpoint_period_failure_rate import ModelsEndpointPeriodFailureRate
 from .models_endpoint_response import ModelsEndpointResponse
 from .models_event_delivery_response import ModelsEventDeliveryResponse
+from .models_event_queued_response import ModelsEventQueuedResponse
 from .models_event_response import ModelsEventResponse
 from .models_event_response_data_type_0 import ModelsEventResponseDataType0
 from .models_event_type_response import ModelsEventTypeResponse
@@ -870,6 +871,7 @@ __all__ = (
     "ModelsEndpointPeriodFailureRate",
     "ModelsEndpointResponse",
     "ModelsEventDeliveryResponse",
+    "ModelsEventQueuedResponse",
     "ModelsEventResponse",
     "ModelsEventResponseDataType0",
     "ModelsEventTypeResponse",

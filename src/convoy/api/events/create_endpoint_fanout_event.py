@@ -109,6 +109,8 @@ def sync_detailed(
     """Fan out an event
 
      This endpoint uses the owner_id to fan out an event to multiple endpoints.
+    The 201 body includes uid (the event id). Use GET /events/{eventID} or GET /eventdeliveries?eventId=
+    to follow the send.
 
     Args:
         project_id (str):
@@ -149,6 +151,8 @@ def sync(
     """Fan out an event
 
      This endpoint uses the owner_id to fan out an event to multiple endpoints.
+    The 201 body includes uid (the event id). Use GET /events/{eventID} or GET /eventdeliveries?eventId=
+    to follow the send.
 
     Args:
         project_id (str):
@@ -183,6 +187,8 @@ async def asyncio_detailed(
     """Fan out an event
 
      This endpoint uses the owner_id to fan out an event to multiple endpoints.
+    The 201 body includes uid (the event id). Use GET /events/{eventID} or GET /eventdeliveries?eventId=
+    to follow the send.
 
     Args:
         project_id (str):
@@ -221,6 +227,8 @@ async def asyncio(
     """Fan out an event
 
      This endpoint uses the owner_id to fan out an event to multiple endpoints.
+    The 201 body includes uid (the event id). Use GET /events/{eventID} or GET /eventdeliveries?eventId=
+    to follow the send.
 
     Args:
         project_id (str):
