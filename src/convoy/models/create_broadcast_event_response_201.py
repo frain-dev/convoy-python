@@ -9,7 +9,7 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.models_event_response import ModelsEventResponse
+    from ..models.models_event_queued_response import ModelsEventQueuedResponse
 
 
 T = TypeVar("T", bound="CreateBroadcastEventResponse201")
@@ -21,12 +21,12 @@ class CreateBroadcastEventResponse201:
     Attributes:
         message (str | Unset):
         status (bool | Unset):
-        data (ModelsEventResponse | Unset):
+        data (ModelsEventQueuedResponse | Unset):
     """
 
     message: str | Unset = UNSET
     status: bool | Unset = UNSET
-    data: ModelsEventResponse | Unset = UNSET
+    data: ModelsEventQueuedResponse | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -52,7 +52,7 @@ class CreateBroadcastEventResponse201:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.models_event_response import ModelsEventResponse
+        from ..models.models_event_queued_response import ModelsEventQueuedResponse
 
         d = dict(src_dict)
         message = d.pop("message", UNSET)
@@ -60,11 +60,11 @@ class CreateBroadcastEventResponse201:
         status = d.pop("status", UNSET)
 
         _data = d.pop("data", UNSET)
-        data: ModelsEventResponse | Unset
+        data: ModelsEventQueuedResponse | Unset
         if isinstance(_data, Unset):
             data = UNSET
         else:
-            data = ModelsEventResponse.from_dict(_data)
+            data = ModelsEventQueuedResponse.from_dict(_data)
 
         create_broadcast_event_response_201 = cls(
             message=message,

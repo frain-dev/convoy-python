@@ -100,8 +100,9 @@ def sync_detailed(
 ]:
     """Dynamic Events
 
-     This endpoint does not require creating endpoint and subscriptions ahead of time. Instead, you
-    supply the endpoint and the payload, and Convoy delivers the events
+     This endpoint creates a dynamic event without creating the endpoint and subscription ahead of time.
+    The 201 body includes uid (the event id). Use GET /events/{eventID} or GET /eventdeliveries?eventId=
+    to follow the send.
 
     Args:
         project_id (str):
@@ -141,8 +142,9 @@ def sync(
 ):
     """Dynamic Events
 
-     This endpoint does not require creating endpoint and subscriptions ahead of time. Instead, you
-    supply the endpoint and the payload, and Convoy delivers the events
+     This endpoint creates a dynamic event without creating the endpoint and subscription ahead of time.
+    The 201 body includes uid (the event id). Use GET /events/{eventID} or GET /eventdeliveries?eventId=
+    to follow the send.
 
     Args:
         project_id (str):
@@ -176,8 +178,9 @@ async def asyncio_detailed(
 ]:
     """Dynamic Events
 
-     This endpoint does not require creating endpoint and subscriptions ahead of time. Instead, you
-    supply the endpoint and the payload, and Convoy delivers the events
+     This endpoint creates a dynamic event without creating the endpoint and subscription ahead of time.
+    The 201 body includes uid (the event id). Use GET /events/{eventID} or GET /eventdeliveries?eventId=
+    to follow the send.
 
     Args:
         project_id (str):
@@ -215,8 +218,9 @@ async def asyncio(
 ):
     """Dynamic Events
 
-     This endpoint does not require creating endpoint and subscriptions ahead of time. Instead, you
-    supply the endpoint and the payload, and Convoy delivers the events
+     This endpoint creates a dynamic event without creating the endpoint and subscription ahead of time.
+    The 201 body includes uid (the event id). Use GET /events/{eventID} or GET /eventdeliveries?eventId=
+    to follow the send.
 
     Args:
         project_id (str):
