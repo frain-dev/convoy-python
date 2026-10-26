@@ -24,10 +24,12 @@ def _get_kwargs(
     end_date: str | Unset = UNSET,
     endpoint_id: list[str] | Unset = UNSET,
     idempotency_key: str | Unset = UNSET,
+    idempotency_value: str | Unset = UNSET,
     next_page_cursor: str | Unset = UNSET,
     per_page: int | Unset = UNSET,
     prev_page_cursor: str | Unset = UNSET,
     query: str | Unset = UNSET,
+    query_mode: str | Unset = UNSET,
     sort: str | Unset = UNSET,
     source_id: list[str] | Unset = UNSET,
     start_date: str | Unset = UNSET,
@@ -53,6 +55,8 @@ def _get_kwargs(
 
     params["idempotencyKey"] = idempotency_key
 
+    params["idempotencyValue"] = idempotency_value
+
     params["next_page_cursor"] = next_page_cursor
 
     params["perPage"] = per_page
@@ -60,6 +64,8 @@ def _get_kwargs(
     params["prev_page_cursor"] = prev_page_cursor
 
     params["query"] = query
+
+    params["queryMode"] = query_mode
 
     params["sort"] = sort
 
@@ -158,10 +164,12 @@ def sync_detailed(
     end_date: str | Unset = UNSET,
     endpoint_id: list[str] | Unset = UNSET,
     idempotency_key: str | Unset = UNSET,
+    idempotency_value: str | Unset = UNSET,
     next_page_cursor: str | Unset = UNSET,
     per_page: int | Unset = UNSET,
     prev_page_cursor: str | Unset = UNSET,
     query: str | Unset = UNSET,
+    query_mode: str | Unset = UNSET,
     sort: str | Unset = UNSET,
     source_id: list[str] | Unset = UNSET,
     start_date: str | Unset = UNSET,
@@ -184,10 +192,12 @@ def sync_detailed(
         end_date (str | Unset):
         endpoint_id (list[str] | Unset):
         idempotency_key (str | Unset):
+        idempotency_value (str | Unset):
         next_page_cursor (str | Unset):
         per_page (int | Unset):
         prev_page_cursor (str | Unset):
         query (str | Unset):
+        query_mode (str | Unset):
         sort (str | Unset):
         source_id (list[str] | Unset):
         start_date (str | Unset):
@@ -207,10 +217,12 @@ def sync_detailed(
         end_date=end_date,
         endpoint_id=endpoint_id,
         idempotency_key=idempotency_key,
+        idempotency_value=idempotency_value,
         next_page_cursor=next_page_cursor,
         per_page=per_page,
         prev_page_cursor=prev_page_cursor,
         query=query,
+        query_mode=query_mode,
         sort=sort,
         source_id=source_id,
         start_date=start_date,
@@ -232,10 +244,12 @@ def sync(
     end_date: str | Unset = UNSET,
     endpoint_id: list[str] | Unset = UNSET,
     idempotency_key: str | Unset = UNSET,
+    idempotency_value: str | Unset = UNSET,
     next_page_cursor: str | Unset = UNSET,
     per_page: int | Unset = UNSET,
     prev_page_cursor: str | Unset = UNSET,
     query: str | Unset = UNSET,
+    query_mode: str | Unset = UNSET,
     sort: str | Unset = UNSET,
     source_id: list[str] | Unset = UNSET,
     start_date: str | Unset = UNSET,
@@ -259,10 +273,12 @@ def sync(
         end_date (str | Unset):
         endpoint_id (list[str] | Unset):
         idempotency_key (str | Unset):
+        idempotency_value (str | Unset):
         next_page_cursor (str | Unset):
         per_page (int | Unset):
         prev_page_cursor (str | Unset):
         query (str | Unset):
+        query_mode (str | Unset):
         sort (str | Unset):
         source_id (list[str] | Unset):
         start_date (str | Unset):
@@ -283,10 +299,12 @@ def sync(
         end_date=end_date,
         endpoint_id=endpoint_id,
         idempotency_key=idempotency_key,
+        idempotency_value=idempotency_value,
         next_page_cursor=next_page_cursor,
         per_page=per_page,
         prev_page_cursor=prev_page_cursor,
         query=query,
+        query_mode=query_mode,
         sort=sort,
         source_id=source_id,
         start_date=start_date,
@@ -302,10 +320,12 @@ async def asyncio_detailed(
     end_date: str | Unset = UNSET,
     endpoint_id: list[str] | Unset = UNSET,
     idempotency_key: str | Unset = UNSET,
+    idempotency_value: str | Unset = UNSET,
     next_page_cursor: str | Unset = UNSET,
     per_page: int | Unset = UNSET,
     prev_page_cursor: str | Unset = UNSET,
     query: str | Unset = UNSET,
+    query_mode: str | Unset = UNSET,
     sort: str | Unset = UNSET,
     source_id: list[str] | Unset = UNSET,
     start_date: str | Unset = UNSET,
@@ -328,10 +348,12 @@ async def asyncio_detailed(
         end_date (str | Unset):
         endpoint_id (list[str] | Unset):
         idempotency_key (str | Unset):
+        idempotency_value (str | Unset):
         next_page_cursor (str | Unset):
         per_page (int | Unset):
         prev_page_cursor (str | Unset):
         query (str | Unset):
+        query_mode (str | Unset):
         sort (str | Unset):
         source_id (list[str] | Unset):
         start_date (str | Unset):
@@ -351,10 +373,12 @@ async def asyncio_detailed(
         end_date=end_date,
         endpoint_id=endpoint_id,
         idempotency_key=idempotency_key,
+        idempotency_value=idempotency_value,
         next_page_cursor=next_page_cursor,
         per_page=per_page,
         prev_page_cursor=prev_page_cursor,
         query=query,
+        query_mode=query_mode,
         sort=sort,
         source_id=source_id,
         start_date=start_date,
@@ -374,10 +398,12 @@ async def asyncio(
     end_date: str | Unset = UNSET,
     endpoint_id: list[str] | Unset = UNSET,
     idempotency_key: str | Unset = UNSET,
+    idempotency_value: str | Unset = UNSET,
     next_page_cursor: str | Unset = UNSET,
     per_page: int | Unset = UNSET,
     prev_page_cursor: str | Unset = UNSET,
     query: str | Unset = UNSET,
+    query_mode: str | Unset = UNSET,
     sort: str | Unset = UNSET,
     source_id: list[str] | Unset = UNSET,
     start_date: str | Unset = UNSET,
@@ -401,10 +427,12 @@ async def asyncio(
         end_date (str | Unset):
         endpoint_id (list[str] | Unset):
         idempotency_key (str | Unset):
+        idempotency_value (str | Unset):
         next_page_cursor (str | Unset):
         per_page (int | Unset):
         prev_page_cursor (str | Unset):
         query (str | Unset):
+        query_mode (str | Unset):
         sort (str | Unset):
         source_id (list[str] | Unset):
         start_date (str | Unset):
@@ -426,10 +454,12 @@ async def asyncio(
             end_date=end_date,
             endpoint_id=endpoint_id,
             idempotency_key=idempotency_key,
+            idempotency_value=idempotency_value,
             next_page_cursor=next_page_cursor,
             per_page=per_page,
             prev_page_cursor=prev_page_cursor,
             query=query,
+            query_mode=query_mode,
             sort=sort,
             source_id=source_id,
             start_date=start_date,
