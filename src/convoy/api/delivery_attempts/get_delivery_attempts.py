@@ -10,13 +10,24 @@ from ...models.get_delivery_attempts_response_200 import GetDeliveryAttemptsResp
 from ...models.get_delivery_attempts_response_400 import GetDeliveryAttemptsResponse400
 from ...models.get_delivery_attempts_response_401 import GetDeliveryAttemptsResponse401
 from ...models.get_delivery_attempts_response_404 import GetDeliveryAttemptsResponse404
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     project_id: str,
     event_delivery_id: str,
+    *,
+    paginated: bool | Unset = UNSET,
+    before: str | Unset = UNSET,
 ) -> dict[str, Any]:
+
+    params: dict[str, Any] = {}
+
+    params["paginated"] = paginated
+
+    params["before"] = before
+
+    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -24,6 +35,7 @@ def _get_kwargs(
             project_id=quote(str(project_id), safe=""),
             event_delivery_id=quote(str(event_delivery_id), safe=""),
         ),
+        "params": params,
     }
 
     return _kwargs
@@ -85,6 +97,8 @@ def sync_detailed(
     event_delivery_id: str,
     *,
     client: AuthenticatedClient,
+    paginated: bool | Unset = UNSET,
+    before: str | Unset = UNSET,
 ) -> Response[
     GetDeliveryAttemptsResponse200
     | GetDeliveryAttemptsResponse400
@@ -94,10 +108,14 @@ def sync_detailed(
     """List delivery attempts
 
      This endpoint fetches an app message's delivery attempts
+    Default: latest ten attempts as an array. With paginated=true: content and next_cursor. Pass
+    next_cursor as before for older history; empty means last page. Pages are oldest first.
 
     Args:
         project_id (str):
         event_delivery_id (str):
+        paginated (bool | Unset):
+        before (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -110,6 +128,8 @@ def sync_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         event_delivery_id=event_delivery_id,
+        paginated=paginated,
+        before=before,
     )
 
     response = client.get_httpx_client().request(
@@ -124,6 +144,8 @@ def sync(
     event_delivery_id: str,
     *,
     client: AuthenticatedClient,
+    paginated: bool | Unset = UNSET,
+    before: str | Unset = UNSET,
 ) -> (
     GetDeliveryAttemptsResponse200
     | GetDeliveryAttemptsResponse400
@@ -134,10 +156,14 @@ def sync(
     """List delivery attempts
 
      This endpoint fetches an app message's delivery attempts
+    Default: latest ten attempts as an array. With paginated=true: content and next_cursor. Pass
+    next_cursor as before for older history; empty means last page. Pages are oldest first.
 
     Args:
         project_id (str):
         event_delivery_id (str):
+        paginated (bool | Unset):
+        before (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -151,6 +177,8 @@ def sync(
         project_id=project_id,
         event_delivery_id=event_delivery_id,
         client=client,
+        paginated=paginated,
+        before=before,
     ).parsed
 
 
@@ -159,6 +187,8 @@ async def asyncio_detailed(
     event_delivery_id: str,
     *,
     client: AuthenticatedClient,
+    paginated: bool | Unset = UNSET,
+    before: str | Unset = UNSET,
 ) -> Response[
     GetDeliveryAttemptsResponse200
     | GetDeliveryAttemptsResponse400
@@ -168,10 +198,14 @@ async def asyncio_detailed(
     """List delivery attempts
 
      This endpoint fetches an app message's delivery attempts
+    Default: latest ten attempts as an array. With paginated=true: content and next_cursor. Pass
+    next_cursor as before for older history; empty means last page. Pages are oldest first.
 
     Args:
         project_id (str):
         event_delivery_id (str):
+        paginated (bool | Unset):
+        before (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -184,6 +218,8 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         event_delivery_id=event_delivery_id,
+        paginated=paginated,
+        before=before,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -196,6 +232,8 @@ async def asyncio(
     event_delivery_id: str,
     *,
     client: AuthenticatedClient,
+    paginated: bool | Unset = UNSET,
+    before: str | Unset = UNSET,
 ) -> (
     GetDeliveryAttemptsResponse200
     | GetDeliveryAttemptsResponse400
@@ -206,10 +244,14 @@ async def asyncio(
     """List delivery attempts
 
      This endpoint fetches an app message's delivery attempts
+    Default: latest ten attempts as an array. With paginated=true: content and next_cursor. Pass
+    next_cursor as before for older history; empty means last page. Pages are oldest first.
 
     Args:
         project_id (str):
         event_delivery_id (str):
+        paginated (bool | Unset):
+        before (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -224,5 +266,7 @@ async def asyncio(
             project_id=project_id,
             event_delivery_id=event_delivery_id,
             client=client,
+            paginated=paginated,
+            before=before,
         )
     ).parsed
