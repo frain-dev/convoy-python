@@ -10,6 +10,7 @@ from .batch_replay_events_response_200 import BatchReplayEventsResponse200
 from .batch_replay_events_response_400 import BatchReplayEventsResponse400
 from .batch_replay_events_response_401 import BatchReplayEventsResponse401
 from .batch_replay_events_response_404 import BatchReplayEventsResponse404
+from .batch_replay_events_response_409 import BatchReplayEventsResponse409
 from .batch_retry_event_delivery_direction import BatchRetryEventDeliveryDirection
 from .batch_retry_event_delivery_response_200 import BatchRetryEventDeliveryResponse200
 from .batch_retry_event_delivery_response_400 import BatchRetryEventDeliveryResponse400
@@ -549,6 +550,7 @@ __all__ = (
     "BatchReplayEventsResponse400",
     "BatchReplayEventsResponse401",
     "BatchReplayEventsResponse404",
+    "BatchReplayEventsResponse409",
     "BatchRetryEventDeliveryDirection",
     "BatchRetryEventDeliveryResponse200",
     "BatchRetryEventDeliveryResponse400",
