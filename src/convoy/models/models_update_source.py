@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Any, TypeVar, cast
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..models.datastore_source_provider import DatastoreSourceProvider
 from ..models.datastore_source_type import DatastoreSourceType
 from ..types import UNSET, Unset
 
@@ -35,6 +36,7 @@ class ModelsUpdateSource:
             identify the event in an incoming webhooks project.
         is_disabled (bool | Unset): This is used to manually enable/disable the source.
         name (str | Unset): Source name.
+        provider (DatastoreSourceProvider | Unset):
         pub_sub (ModelsPubSubConfig | Unset):
         type_ (DatastoreSourceType | Unset):
         verifier (ModelsVerifierConfig | Unset):
@@ -48,6 +50,7 @@ class ModelsUpdateSource:
     idempotency_keys: list[str] | Unset = UNSET
     is_disabled: bool | Unset = UNSET
     name: str | Unset = UNSET
+    provider: DatastoreSourceProvider | Unset = UNSET
     pub_sub: ModelsPubSubConfig | Unset = UNSET
     type_: DatastoreSourceType | Unset = UNSET
     verifier: ModelsVerifierConfig | Unset = UNSET
@@ -75,6 +78,10 @@ class ModelsUpdateSource:
         is_disabled = self.is_disabled
 
         name = self.name
+
+        provider: str | Unset = UNSET
+        if not isinstance(self.provider, Unset):
+            provider = self.provider.value
 
         pub_sub: dict[str, Any] | Unset = UNSET
         if not isinstance(self.pub_sub, Unset):
@@ -107,6 +114,8 @@ class ModelsUpdateSource:
             field_dict["is_disabled"] = is_disabled
         if name is not UNSET:
             field_dict["name"] = name
+        if provider is not UNSET:
+            field_dict["provider"] = provider
         if pub_sub is not UNSET:
             field_dict["pub_sub"] = pub_sub
         if type_ is not UNSET:
@@ -144,6 +153,13 @@ class ModelsUpdateSource:
 
         name = d.pop("name", UNSET)
 
+        _provider = d.pop("provider", UNSET)
+        provider: DatastoreSourceProvider | Unset
+        if isinstance(_provider, Unset):
+            provider = UNSET
+        else:
+            provider = DatastoreSourceProvider(_provider)
+
         _pub_sub = d.pop("pub_sub", UNSET)
         pub_sub: ModelsPubSubConfig | Unset
         if isinstance(_pub_sub, Unset):
@@ -174,6 +190,7 @@ class ModelsUpdateSource:
             idempotency_keys=idempotency_keys,
             is_disabled=is_disabled,
             name=name,
+            provider=provider,
             pub_sub=pub_sub,
             type_=type_,
             verifier=verifier,
