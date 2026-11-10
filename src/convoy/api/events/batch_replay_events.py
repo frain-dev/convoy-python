@@ -11,6 +11,7 @@ from ...models.batch_replay_events_response_200 import BatchReplayEventsResponse
 from ...models.batch_replay_events_response_400 import BatchReplayEventsResponse400
 from ...models.batch_replay_events_response_401 import BatchReplayEventsResponse401
 from ...models.batch_replay_events_response_404 import BatchReplayEventsResponse404
+from ...models.batch_replay_events_response_409 import BatchReplayEventsResponse409
 from ...types import UNSET, Response, Unset
 
 
@@ -22,10 +23,12 @@ def _get_kwargs(
     end_date: str | Unset = UNSET,
     endpoint_id: list[str] | Unset = UNSET,
     idempotency_key: str | Unset = UNSET,
+    idempotency_value: str | Unset = UNSET,
     next_page_cursor: str | Unset = UNSET,
     per_page: int | Unset = UNSET,
     prev_page_cursor: str | Unset = UNSET,
     query: str | Unset = UNSET,
+    query_mode: str | Unset = UNSET,
     sort: str | Unset = UNSET,
     source_id: list[str] | Unset = UNSET,
     start_date: str | Unset = UNSET,
@@ -51,6 +54,8 @@ def _get_kwargs(
 
     params["idempotencyKey"] = idempotency_key
 
+    params["idempotencyValue"] = idempotency_value
+
     params["next_page_cursor"] = next_page_cursor
 
     params["perPage"] = per_page
@@ -58,6 +63,8 @@ def _get_kwargs(
     params["prev_page_cursor"] = prev_page_cursor
 
     params["query"] = query
+
+    params["queryMode"] = query_mode
 
     params["sort"] = sort
 
@@ -89,6 +96,7 @@ def _parse_response(
     | BatchReplayEventsResponse400
     | BatchReplayEventsResponse401
     | BatchReplayEventsResponse404
+    | BatchReplayEventsResponse409
     | None
 ):
     if response.status_code == 200:
@@ -111,6 +119,11 @@ def _parse_response(
 
         return response_404
 
+    if response.status_code == 409:
+        response_409 = BatchReplayEventsResponse409.from_dict(response.json())
+
+        return response_409
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -124,6 +137,7 @@ def _build_response(
     | BatchReplayEventsResponse400
     | BatchReplayEventsResponse401
     | BatchReplayEventsResponse404
+    | BatchReplayEventsResponse409
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -142,10 +156,12 @@ def sync_detailed(
     end_date: str | Unset = UNSET,
     endpoint_id: list[str] | Unset = UNSET,
     idempotency_key: str | Unset = UNSET,
+    idempotency_value: str | Unset = UNSET,
     next_page_cursor: str | Unset = UNSET,
     per_page: int | Unset = UNSET,
     prev_page_cursor: str | Unset = UNSET,
     query: str | Unset = UNSET,
+    query_mode: str | Unset = UNSET,
     sort: str | Unset = UNSET,
     source_id: list[str] | Unset = UNSET,
     start_date: str | Unset = UNSET,
@@ -154,6 +170,7 @@ def sync_detailed(
     | BatchReplayEventsResponse400
     | BatchReplayEventsResponse401
     | BatchReplayEventsResponse404
+    | BatchReplayEventsResponse409
 ]:
     """Batch replay events
 
@@ -166,10 +183,12 @@ def sync_detailed(
         end_date (str | Unset):
         endpoint_id (list[str] | Unset):
         idempotency_key (str | Unset):
+        idempotency_value (str | Unset):
         next_page_cursor (str | Unset):
         per_page (int | Unset):
         prev_page_cursor (str | Unset):
         query (str | Unset):
+        query_mode (str | Unset):
         sort (str | Unset):
         source_id (list[str] | Unset):
         start_date (str | Unset):
@@ -179,7 +198,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[BatchReplayEventsResponse200 | BatchReplayEventsResponse400 | BatchReplayEventsResponse401 | BatchReplayEventsResponse404]
+        Response[BatchReplayEventsResponse200 | BatchReplayEventsResponse400 | BatchReplayEventsResponse401 | BatchReplayEventsResponse404 | BatchReplayEventsResponse409]
     """
 
     kwargs = _get_kwargs(
@@ -189,10 +208,12 @@ def sync_detailed(
         end_date=end_date,
         endpoint_id=endpoint_id,
         idempotency_key=idempotency_key,
+        idempotency_value=idempotency_value,
         next_page_cursor=next_page_cursor,
         per_page=per_page,
         prev_page_cursor=prev_page_cursor,
         query=query,
+        query_mode=query_mode,
         sort=sort,
         source_id=source_id,
         start_date=start_date,
@@ -214,10 +235,12 @@ def sync(
     end_date: str | Unset = UNSET,
     endpoint_id: list[str] | Unset = UNSET,
     idempotency_key: str | Unset = UNSET,
+    idempotency_value: str | Unset = UNSET,
     next_page_cursor: str | Unset = UNSET,
     per_page: int | Unset = UNSET,
     prev_page_cursor: str | Unset = UNSET,
     query: str | Unset = UNSET,
+    query_mode: str | Unset = UNSET,
     sort: str | Unset = UNSET,
     source_id: list[str] | Unset = UNSET,
     start_date: str | Unset = UNSET,
@@ -226,6 +249,7 @@ def sync(
     | BatchReplayEventsResponse400
     | BatchReplayEventsResponse401
     | BatchReplayEventsResponse404
+    | BatchReplayEventsResponse409
     | None
 ):
     """Batch replay events
@@ -239,10 +263,12 @@ def sync(
         end_date (str | Unset):
         endpoint_id (list[str] | Unset):
         idempotency_key (str | Unset):
+        idempotency_value (str | Unset):
         next_page_cursor (str | Unset):
         per_page (int | Unset):
         prev_page_cursor (str | Unset):
         query (str | Unset):
+        query_mode (str | Unset):
         sort (str | Unset):
         source_id (list[str] | Unset):
         start_date (str | Unset):
@@ -252,7 +278,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        BatchReplayEventsResponse200 | BatchReplayEventsResponse400 | BatchReplayEventsResponse401 | BatchReplayEventsResponse404
+        BatchReplayEventsResponse200 | BatchReplayEventsResponse400 | BatchReplayEventsResponse401 | BatchReplayEventsResponse404 | BatchReplayEventsResponse409
     """
 
     return sync_detailed(
@@ -263,10 +289,12 @@ def sync(
         end_date=end_date,
         endpoint_id=endpoint_id,
         idempotency_key=idempotency_key,
+        idempotency_value=idempotency_value,
         next_page_cursor=next_page_cursor,
         per_page=per_page,
         prev_page_cursor=prev_page_cursor,
         query=query,
+        query_mode=query_mode,
         sort=sort,
         source_id=source_id,
         start_date=start_date,
@@ -282,10 +310,12 @@ async def asyncio_detailed(
     end_date: str | Unset = UNSET,
     endpoint_id: list[str] | Unset = UNSET,
     idempotency_key: str | Unset = UNSET,
+    idempotency_value: str | Unset = UNSET,
     next_page_cursor: str | Unset = UNSET,
     per_page: int | Unset = UNSET,
     prev_page_cursor: str | Unset = UNSET,
     query: str | Unset = UNSET,
+    query_mode: str | Unset = UNSET,
     sort: str | Unset = UNSET,
     source_id: list[str] | Unset = UNSET,
     start_date: str | Unset = UNSET,
@@ -294,6 +324,7 @@ async def asyncio_detailed(
     | BatchReplayEventsResponse400
     | BatchReplayEventsResponse401
     | BatchReplayEventsResponse404
+    | BatchReplayEventsResponse409
 ]:
     """Batch replay events
 
@@ -306,10 +337,12 @@ async def asyncio_detailed(
         end_date (str | Unset):
         endpoint_id (list[str] | Unset):
         idempotency_key (str | Unset):
+        idempotency_value (str | Unset):
         next_page_cursor (str | Unset):
         per_page (int | Unset):
         prev_page_cursor (str | Unset):
         query (str | Unset):
+        query_mode (str | Unset):
         sort (str | Unset):
         source_id (list[str] | Unset):
         start_date (str | Unset):
@@ -319,7 +352,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[BatchReplayEventsResponse200 | BatchReplayEventsResponse400 | BatchReplayEventsResponse401 | BatchReplayEventsResponse404]
+        Response[BatchReplayEventsResponse200 | BatchReplayEventsResponse400 | BatchReplayEventsResponse401 | BatchReplayEventsResponse404 | BatchReplayEventsResponse409]
     """
 
     kwargs = _get_kwargs(
@@ -329,10 +362,12 @@ async def asyncio_detailed(
         end_date=end_date,
         endpoint_id=endpoint_id,
         idempotency_key=idempotency_key,
+        idempotency_value=idempotency_value,
         next_page_cursor=next_page_cursor,
         per_page=per_page,
         prev_page_cursor=prev_page_cursor,
         query=query,
+        query_mode=query_mode,
         sort=sort,
         source_id=source_id,
         start_date=start_date,
@@ -352,10 +387,12 @@ async def asyncio(
     end_date: str | Unset = UNSET,
     endpoint_id: list[str] | Unset = UNSET,
     idempotency_key: str | Unset = UNSET,
+    idempotency_value: str | Unset = UNSET,
     next_page_cursor: str | Unset = UNSET,
     per_page: int | Unset = UNSET,
     prev_page_cursor: str | Unset = UNSET,
     query: str | Unset = UNSET,
+    query_mode: str | Unset = UNSET,
     sort: str | Unset = UNSET,
     source_id: list[str] | Unset = UNSET,
     start_date: str | Unset = UNSET,
@@ -364,6 +401,7 @@ async def asyncio(
     | BatchReplayEventsResponse400
     | BatchReplayEventsResponse401
     | BatchReplayEventsResponse404
+    | BatchReplayEventsResponse409
     | None
 ):
     """Batch replay events
@@ -377,10 +415,12 @@ async def asyncio(
         end_date (str | Unset):
         endpoint_id (list[str] | Unset):
         idempotency_key (str | Unset):
+        idempotency_value (str | Unset):
         next_page_cursor (str | Unset):
         per_page (int | Unset):
         prev_page_cursor (str | Unset):
         query (str | Unset):
+        query_mode (str | Unset):
         sort (str | Unset):
         source_id (list[str] | Unset):
         start_date (str | Unset):
@@ -390,7 +430,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        BatchReplayEventsResponse200 | BatchReplayEventsResponse400 | BatchReplayEventsResponse401 | BatchReplayEventsResponse404
+        BatchReplayEventsResponse200 | BatchReplayEventsResponse400 | BatchReplayEventsResponse401 | BatchReplayEventsResponse404 | BatchReplayEventsResponse409
     """
 
     return (
@@ -402,10 +442,12 @@ async def asyncio(
             end_date=end_date,
             endpoint_id=endpoint_id,
             idempotency_key=idempotency_key,
+            idempotency_value=idempotency_value,
             next_page_cursor=next_page_cursor,
             per_page=per_page,
             prev_page_cursor=prev_page_cursor,
             query=query,
+            query_mode=query_mode,
             sort=sort,
             source_id=source_id,
             start_date=start_date,
