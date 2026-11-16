@@ -33,11 +33,14 @@ def _get_kwargs(
     event_id: str | Unset = UNSET,
     event_type: str | Unset = UNSET,
     idempotency_key: str | Unset = UNSET,
+    idempotency_value: str | Unset = UNSET,
+    min_trials: int | Unset = UNSET,
     next_page_cursor: str | Unset = UNSET,
     per_page: int | Unset = UNSET,
     prev_page_cursor: str | Unset = UNSET,
     query: str | Unset = UNSET,
     sort: str | Unset = UNSET,
+    source_id: list[str] | Unset = UNSET,
     start_date: str | Unset = UNSET,
     status: list[str] | Unset = UNSET,
     subscription_id: str | Unset = UNSET,
@@ -61,9 +64,13 @@ def _get_kwargs(
 
     params["eventId"] = event_id
 
-    params["event_type"] = event_type
+    params["eventType"] = event_type
 
     params["idempotencyKey"] = idempotency_key
+
+    params["idempotencyValue"] = idempotency_value
+
+    params["minTrials"] = min_trials
 
     params["next_page_cursor"] = next_page_cursor
 
@@ -74,6 +81,12 @@ def _get_kwargs(
     params["query"] = query
 
     params["sort"] = sort
+
+    json_source_id: list[str] | Unset = UNSET
+    if not isinstance(source_id, Unset):
+        json_source_id = source_id
+
+    params["sourceId"] = json_source_id
 
     params["startDate"] = start_date
 
@@ -159,11 +172,14 @@ def sync_detailed(
     event_id: str | Unset = UNSET,
     event_type: str | Unset = UNSET,
     idempotency_key: str | Unset = UNSET,
+    idempotency_value: str | Unset = UNSET,
+    min_trials: int | Unset = UNSET,
     next_page_cursor: str | Unset = UNSET,
     per_page: int | Unset = UNSET,
     prev_page_cursor: str | Unset = UNSET,
     query: str | Unset = UNSET,
     sort: str | Unset = UNSET,
+    source_id: list[str] | Unset = UNSET,
     start_date: str | Unset = UNSET,
     status: list[str] | Unset = UNSET,
     subscription_id: str | Unset = UNSET,
@@ -185,11 +201,14 @@ def sync_detailed(
         event_id (str | Unset):
         event_type (str | Unset):
         idempotency_key (str | Unset):
+        idempotency_value (str | Unset):
+        min_trials (int | Unset):
         next_page_cursor (str | Unset):
         per_page (int | Unset):
         prev_page_cursor (str | Unset):
         query (str | Unset):
         sort (str | Unset):
+        source_id (list[str] | Unset):
         start_date (str | Unset):
         status (list[str] | Unset):
         subscription_id (str | Unset):
@@ -210,11 +229,14 @@ def sync_detailed(
         event_id=event_id,
         event_type=event_type,
         idempotency_key=idempotency_key,
+        idempotency_value=idempotency_value,
+        min_trials=min_trials,
         next_page_cursor=next_page_cursor,
         per_page=per_page,
         prev_page_cursor=prev_page_cursor,
         query=query,
         sort=sort,
+        source_id=source_id,
         start_date=start_date,
         status=status,
         subscription_id=subscription_id,
@@ -237,11 +259,14 @@ def sync(
     event_id: str | Unset = UNSET,
     event_type: str | Unset = UNSET,
     idempotency_key: str | Unset = UNSET,
+    idempotency_value: str | Unset = UNSET,
+    min_trials: int | Unset = UNSET,
     next_page_cursor: str | Unset = UNSET,
     per_page: int | Unset = UNSET,
     prev_page_cursor: str | Unset = UNSET,
     query: str | Unset = UNSET,
     sort: str | Unset = UNSET,
+    source_id: list[str] | Unset = UNSET,
     start_date: str | Unset = UNSET,
     status: list[str] | Unset = UNSET,
     subscription_id: str | Unset = UNSET,
@@ -264,11 +289,14 @@ def sync(
         event_id (str | Unset):
         event_type (str | Unset):
         idempotency_key (str | Unset):
+        idempotency_value (str | Unset):
+        min_trials (int | Unset):
         next_page_cursor (str | Unset):
         per_page (int | Unset):
         prev_page_cursor (str | Unset):
         query (str | Unset):
         sort (str | Unset):
+        source_id (list[str] | Unset):
         start_date (str | Unset):
         status (list[str] | Unset):
         subscription_id (str | Unset):
@@ -290,11 +318,14 @@ def sync(
         event_id=event_id,
         event_type=event_type,
         idempotency_key=idempotency_key,
+        idempotency_value=idempotency_value,
+        min_trials=min_trials,
         next_page_cursor=next_page_cursor,
         per_page=per_page,
         prev_page_cursor=prev_page_cursor,
         query=query,
         sort=sort,
+        source_id=source_id,
         start_date=start_date,
         status=status,
         subscription_id=subscription_id,
@@ -311,11 +342,14 @@ async def asyncio_detailed(
     event_id: str | Unset = UNSET,
     event_type: str | Unset = UNSET,
     idempotency_key: str | Unset = UNSET,
+    idempotency_value: str | Unset = UNSET,
+    min_trials: int | Unset = UNSET,
     next_page_cursor: str | Unset = UNSET,
     per_page: int | Unset = UNSET,
     prev_page_cursor: str | Unset = UNSET,
     query: str | Unset = UNSET,
     sort: str | Unset = UNSET,
+    source_id: list[str] | Unset = UNSET,
     start_date: str | Unset = UNSET,
     status: list[str] | Unset = UNSET,
     subscription_id: str | Unset = UNSET,
@@ -337,11 +371,14 @@ async def asyncio_detailed(
         event_id (str | Unset):
         event_type (str | Unset):
         idempotency_key (str | Unset):
+        idempotency_value (str | Unset):
+        min_trials (int | Unset):
         next_page_cursor (str | Unset):
         per_page (int | Unset):
         prev_page_cursor (str | Unset):
         query (str | Unset):
         sort (str | Unset):
+        source_id (list[str] | Unset):
         start_date (str | Unset):
         status (list[str] | Unset):
         subscription_id (str | Unset):
@@ -362,11 +399,14 @@ async def asyncio_detailed(
         event_id=event_id,
         event_type=event_type,
         idempotency_key=idempotency_key,
+        idempotency_value=idempotency_value,
+        min_trials=min_trials,
         next_page_cursor=next_page_cursor,
         per_page=per_page,
         prev_page_cursor=prev_page_cursor,
         query=query,
         sort=sort,
+        source_id=source_id,
         start_date=start_date,
         status=status,
         subscription_id=subscription_id,
@@ -387,11 +427,14 @@ async def asyncio(
     event_id: str | Unset = UNSET,
     event_type: str | Unset = UNSET,
     idempotency_key: str | Unset = UNSET,
+    idempotency_value: str | Unset = UNSET,
+    min_trials: int | Unset = UNSET,
     next_page_cursor: str | Unset = UNSET,
     per_page: int | Unset = UNSET,
     prev_page_cursor: str | Unset = UNSET,
     query: str | Unset = UNSET,
     sort: str | Unset = UNSET,
+    source_id: list[str] | Unset = UNSET,
     start_date: str | Unset = UNSET,
     status: list[str] | Unset = UNSET,
     subscription_id: str | Unset = UNSET,
@@ -414,11 +457,14 @@ async def asyncio(
         event_id (str | Unset):
         event_type (str | Unset):
         idempotency_key (str | Unset):
+        idempotency_value (str | Unset):
+        min_trials (int | Unset):
         next_page_cursor (str | Unset):
         per_page (int | Unset):
         prev_page_cursor (str | Unset):
         query (str | Unset):
         sort (str | Unset):
+        source_id (list[str] | Unset):
         start_date (str | Unset):
         status (list[str] | Unset):
         subscription_id (str | Unset):
@@ -441,11 +487,14 @@ async def asyncio(
             event_id=event_id,
             event_type=event_type,
             idempotency_key=idempotency_key,
+            idempotency_value=idempotency_value,
+            min_trials=min_trials,
             next_page_cursor=next_page_cursor,
             per_page=per_page,
             prev_page_cursor=prev_page_cursor,
             query=query,
             sort=sort,
+            source_id=source_id,
             start_date=start_date,
             status=status,
             subscription_id=subscription_id,

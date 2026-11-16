@@ -10,6 +10,9 @@ from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.datastore_delivery_attempt import DatastoreDeliveryAttempt
+    from ..models.get_delivery_attempts_response_200_data_type_1 import (
+        GetDeliveryAttemptsResponse200DataType1,
+    )
 
 
 T = TypeVar("T", bound="GetDeliveryAttemptsResponse200")
@@ -21,12 +24,14 @@ class GetDeliveryAttemptsResponse200:
     Attributes:
         message (str | Unset):
         status (bool | Unset):
-        data (list[DatastoreDeliveryAttempt] | Unset):
+        data (GetDeliveryAttemptsResponse200DataType1 | list[DatastoreDeliveryAttempt] | Unset):
     """
 
     message: str | Unset = UNSET
     status: bool | Unset = UNSET
-    data: list[DatastoreDeliveryAttempt] | Unset = UNSET
+    data: (
+        GetDeliveryAttemptsResponse200DataType1 | list[DatastoreDeliveryAttempt] | Unset
+    ) = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -34,12 +39,17 @@ class GetDeliveryAttemptsResponse200:
 
         status = self.status
 
-        data: list[dict[str, Any]] | Unset = UNSET
-        if not isinstance(self.data, Unset):
+        data: dict[str, Any] | list[dict[str, Any]] | Unset
+        if isinstance(self.data, Unset):
+            data = UNSET
+        elif isinstance(self.data, list):
             data = []
-            for data_item_data in self.data:
-                data_item = data_item_data.to_dict()
-                data.append(data_item)
+            for data_type_0_item_data in self.data:
+                data_type_0_item = data_type_0_item_data.to_dict()
+                data.append(data_type_0_item)
+
+        else:
+            data = self.data.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -56,20 +66,46 @@ class GetDeliveryAttemptsResponse200:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.datastore_delivery_attempt import DatastoreDeliveryAttempt
+        from ..models.get_delivery_attempts_response_200_data_type_1 import (
+            GetDeliveryAttemptsResponse200DataType1,
+        )
 
         d = dict(src_dict)
         message = d.pop("message", UNSET)
 
         status = d.pop("status", UNSET)
 
-        _data = d.pop("data", UNSET)
-        data: list[DatastoreDeliveryAttempt] | Unset = UNSET
-        if _data is not UNSET:
-            data = []
-            for data_item_data in _data:
-                data_item = DatastoreDeliveryAttempt.from_dict(data_item_data)
+        def _parse_data(
+            data: object,
+        ) -> (
+            GetDeliveryAttemptsResponse200DataType1
+            | list[DatastoreDeliveryAttempt]
+            | Unset
+        ):
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, list):
+                    raise TypeError()
+                data_type_0 = []
+                _data_type_0 = data
+                for data_type_0_item_data in _data_type_0:
+                    data_type_0_item = DatastoreDeliveryAttempt.from_dict(
+                        data_type_0_item_data
+                    )
 
-                data.append(data_item)
+                    data_type_0.append(data_type_0_item)
+
+                return data_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            if not isinstance(data, dict):
+                raise TypeError()
+            data_type_1 = GetDeliveryAttemptsResponse200DataType1.from_dict(data)
+
+            return data_type_1
+
+        data = _parse_data(d.pop("data", UNSET))
 
         get_delivery_attempts_response_200 = cls(
             message=message,
